@@ -34,12 +34,9 @@ public class sms_httpPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-    }
-
-    public void text(View view) {
         new SendRequest().execute();
     }
-
+    
     public class SendRequest extends AsyncTask<String, Void, String> {
 
         protected void onPreExecute() {
