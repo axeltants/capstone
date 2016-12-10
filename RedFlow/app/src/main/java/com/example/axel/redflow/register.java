@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Map;
 
+import static com.example.axel.redflow.R.layout.login;
 import static java.lang.Boolean.FALSE;
 
 public class register extends AppCompatActivity {
@@ -175,5 +176,10 @@ public class register extends AppCompatActivity {
 
         }
 
+    }
+
+    public void login(View view) {
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
     }
 }

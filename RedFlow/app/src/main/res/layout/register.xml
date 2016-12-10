@@ -44,7 +44,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textAlignment="center"
-                android:theme="@style/EditTextHint"/>
+                android:theme="@style/EditTextHint" />
 
             <EditText
                 android:id="@+id/edittext_password"
@@ -57,7 +57,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textAlignment="center"
-                android:theme="@style/EditTextHint"/>
+                android:theme="@style/EditTextHint" />
 
             <EditText
                 android:id="@+id/edittext_fname"
@@ -70,7 +70,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textAlignment="center"
-                android:theme="@style/EditTextHint"/>
+                android:theme="@style/EditTextHint" />
 
             <EditText
                 android:id="@+id/edittext_lname"
@@ -83,7 +83,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textAlignment="center"
-                android:theme="@style/EditTextHint"/>
+                android:theme="@style/EditTextHint" />
 
             <EditText
                 android:id="@+id/edittext_mname"
@@ -96,7 +96,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textAlignment="center"
-                android:theme="@style/EditTextHint"/>
+                android:theme="@style/EditTextHint" />
 
             <EditText
                 android:id="@+id/edittext_contact"
@@ -109,7 +109,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textAlignment="center"
-                android:theme="@style/EditTextHint"/>
+                android:theme="@style/EditTextHint" />
 
             <EditText
                 android:id="@+id/edittext_nationality"
@@ -122,7 +122,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textAlignment="center"
-                android:theme="@style/EditTextHint"/>
+                android:theme="@style/EditTextHint" />
 
             <EditText
                 android:id="@+id/edittext_home"
@@ -135,7 +135,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textAlignment="center"
-                android:theme="@style/EditTextHint"/>
+                android:theme="@style/EditTextHint" />
 
 
             <EditText
@@ -149,7 +149,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textAlignment="center"
-                android:theme="@style/EditTextHint"/>
+                android:theme="@style/EditTextHint" />
 
             <EditText
                 android:id="@+id/edittext_zip"
@@ -162,7 +162,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textAlignment="center"
-                android:theme="@style/EditTextHint"/>
+                android:theme="@style/EditTextHint" />
 
             <EditText
                 android:id="@+id/edittext_bday"
@@ -175,29 +175,45 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:textAlignment="center"
-                android:theme="@style/EditTextHint"/>
+                android:theme="@style/EditTextHint" />
 
             <Spinner
                 android:id="@+id/spinnr_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/btn_dropdown"
+                android:backgroundTint="@color/logincolor"
                 android:entries="@array/gender"
-                android:spinnerMode="dropdown"
-                android:textAlignment="center"
                 android:paddingStart="45dp"
-                android:backgroundTint="@color/logincolor"/>
+                android:spinnerMode="dropdown"
+                android:textAlignment="center" />
 
             <Button
                 android:id="@+id/rgister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/scroll"
+                android:layout_marginTop="15dp"
                 android:background="@color/colorPrimary"
                 android:onClick="recorduser"
                 android:text="Register"
+                android:textColor="@color/logincolor" />
+
+            <Button
+                android:id="@+id/button_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/button_loginback"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:gravity="center"
+                android:onClick="login"
+                android:text="@string/backto_login_activity"
+                android:textAllCaps="false"
                 android:textColor="@color/logincolor"
-                android:layout_marginTop="15dp"/>
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
