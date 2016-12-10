@@ -1,4 +1,4 @@
-package com.example.axel.redflow.notification_list;
+package com.example.capstone.redflow.notification_list;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.axel.redflow.R;
+import com.example.capstone.redflow.R;
 
 import java.util.List;
 

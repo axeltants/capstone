@@ -1,4 +1,4 @@
-package com.example.axel.redflow;
+package com.example.capstone.redflow;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +12,7 @@ public class home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home);
+        setContentView(com.example.capstone.redflow.R.layout.home);
 
         userID = getIntent().getStringExtra("userID");
 
@@ -21,7 +21,7 @@ public class home extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar, menu);
+        getMenuInflater().inflate(com.example.capstone.redflow.R.menu.actionbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

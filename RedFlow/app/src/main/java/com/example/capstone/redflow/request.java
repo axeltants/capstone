@@ -1,4 +1,4 @@
-package com.example.axel.redflow;
+package com.example.capstone.redflow;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,11 +9,11 @@ public class request extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.request);
+        setContentView(com.example.capstone.redflow.R.layout.request);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar, menu);
+        getMenuInflater().inflate(com.example.capstone.redflow.R.menu.actionbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 }

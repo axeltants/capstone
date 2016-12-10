@@ -1,4 +1,4 @@
-package com.example.axel.redflow.notification_list;
+package com.example.capstone.redflow.notification_list;
 
 /**
  * Created by axel on 11/30/16.

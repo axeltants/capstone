@@ -9,7 +9,7 @@
     android:paddingLeft="32dp"
     android:paddingRight="32dp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.axel.redflow.register">
+    tools:context="com.example.capstone.redflow.register">
 
     <TextView
         android:id="@+id/registertitle"
