@@ -1,4 +1,4 @@
-package com.example.axel.redflow.sms_sender;
+package com.example.capstone.redflow.sms_sender;
 
 
 import android.app.ProgressDialog;
@@ -6,10 +6,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.example.axel.redflow.R;
+import com.example.capstone.redflow.R;
 
 import org.json.JSONObject;
 
@@ -36,7 +35,7 @@ public class sms_httpPost extends AppCompatActivity {
         setContentView(R.layout.home);
         new SendRequest().execute();
     }
-    
+
     public class SendRequest extends AsyncTask<String, Void, String> {
 
         protected void onPreExecute() {

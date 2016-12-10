@@ -1,4 +1,4 @@
-package com.example.axel.redflow;
+package com.example.capstone.redflow;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,9 +6,9 @@ import android.view.Menu;
 import android.widget.ListView;
 
 
-import com.example.axel.redflow.notification_list.notificationGetSet;
-import com.example.axel.redflow.notification_list.notiflistAdapter;
-import com.example.axel.redflow.notification_list.notifprovider;
+import com.example.capstone.redflow.notification_list.notificationGetSet;
+import com.example.capstone.redflow.notification_list.notiflistAdapter;
+import com.example.capstone.redflow.notification_list.notifprovider;
 
 import java.util.List;
 
@@ -19,16 +19,16 @@ public class notification extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.notification);
+        setContentView(com.example.capstone.redflow.R.layout.notification);
 
         notiflistAdapter adapter = new notiflistAdapter(
-                this, R.layout.list_notif, notifications);
-        ListView lv = (ListView) findViewById(R.id.notificationlist);
+                this, com.example.capstone.redflow.R.layout.list_notif, notifications);
+        ListView lv = (ListView) findViewById(com.example.capstone.redflow.R.id.notificationlist);
         lv.setAdapter(adapter);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar, menu);
+        getMenuInflater().inflate(com.example.capstone.redflow.R.menu.actionbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 }

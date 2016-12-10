@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.axel.redflow">
+    package="com.example.capstone.redflow">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -8,21 +10,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".RedFlow">
-        <activity android:name=".LoginActivity">
+        android:name="com.example.capstone.redflow.RedFlow">
+        <activity android:name="com.example.capstone.redflow.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home" />
-        <activity android:name=".register" />
-        <activity android:name=".request" />
-        <activity android:name=".profile" />
-        <activity android:name=".beadonor" />
-        <activity android:name=".notification" />
-        <activity android:name=".history"></activity>
+        <activity android:name="com.example.capstone.redflow.home" />
+        <activity android:name="com.example.capstone.redflow.register" />
+        <activity android:name="com.example.capstone.redflow.request" />
+        <activity android:name="com.example.capstone.redflow.profile" />
+        <activity android:name="com.example.capstone.redflow.beadonor" />
+        <activity android:name="com.example.capstone.redflow.notification" />
+        <activity android:name="com.example.capstone.redflow.history"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.axel.redflow.notification_list;
+package com.example.capstone.redflow.notification_list;
 
 import java.util.ArrayList;
 import java.util.HashMap;

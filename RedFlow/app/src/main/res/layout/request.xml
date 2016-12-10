@@ -10,7 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.axel.redflow.request">
+    tools:context="com.example.capstone.redflow.request">
 
     <TextView
         android:id="@+id/requesttitle"
@@ -20,7 +20,8 @@
         android:text="Request Form"
         android:textColor="@color/logincolor"
         android:textSize="32sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginTop="52dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -151,26 +152,7 @@
                 android:orientation="vertical"
                 android:paddingLeft="12dp">
 
-                <TextView
-                    android:id="@+id/textview_reason"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Details/Reason for request: "
-                    android:textColor="@color/logincolor"
-                    android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/edittext_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rectangle_textedit"
-                    android:gravity="center"
-                    android:hint="contents here.."
-                    android:lines="5"
-                    android:padding="6dp" />
             </LinearLayout>
 
             <LinearLayout

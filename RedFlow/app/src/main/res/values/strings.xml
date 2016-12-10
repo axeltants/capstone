@@ -8,6 +8,7 @@
     <string name="title_activity_register">register</string>
     <string name="action_settings">Settings</string>
     <string name="beadonor_title">Please proceed to any DOH branches to donate blood for verification and approval of request.</string>
+    <string name="backto_login_activity">Already registered! login now</string>
 
     <string-array name="gender">
         <item>Male</item>

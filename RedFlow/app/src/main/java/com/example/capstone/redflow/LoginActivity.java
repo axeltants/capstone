@@ -1,15 +1,12 @@
-package com.example.axel.redflow;
+package com.example.capstone.redflow;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
@@ -17,14 +14,10 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -50,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(com.example.capstone.redflow.R.layout.login);
 
         loginActivity = this;
 
@@ -127,7 +120,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void register(View view) {
-
         Intent intent = new Intent(this, register.class);
         startActivity(intent);
     }

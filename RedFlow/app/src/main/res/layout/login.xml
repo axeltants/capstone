@@ -9,7 +9,7 @@
     android:paddingRight="16dp"
     android:paddingTop="40dp"
     android:paddingBottom="16dp"
-    tools:context="com.example.axel.redflow.LoginActivity"
+    tools:context="com.example.capstone.redflow.LoginActivity"
     android:gravity="center_vertical"
     android:background="@color/colorAccent2">
     <ScrollView

@@ -1,4 +1,4 @@
-package com.example.axel.redflow;
+package com.example.capstone.redflow;
 
 import android.app.Application;
 
