@@ -25,7 +25,8 @@
         <activity android:name=".beadonor" />
         <activity android:name=".notification" />
         <activity android:name=".history" />
-        <activity android:name=".admin.admin_home"></activity>
+        <activity android:name=".admin.admin_home" />
+        <activity android:name=".admin.search_user"></activity>
     </application>
 
 </manifest>
