@@ -188,6 +188,28 @@
                 android:spinnerMode="dropdown"
                 android:textAlignment="center" />
 
+            <TextView
+                android:id="@+id/textview_blood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Blood Type:(Optional)"
+                android:textColor="@color/logincolor"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnr_bloodtype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:drawable/btn_dropdown"
+                android:backgroundTint="@color/logincolor"
+                android:entries="@array/bloodtype2"
+                android:spinnerMode="dialog"
+                android:textAlignment="center"
+                android:paddingStart="45dp"/>
+
             <Button
                 android:id="@+id/rgister"
                 android:layout_width="match_parent"
@@ -216,6 +238,7 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>

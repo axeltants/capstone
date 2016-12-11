@@ -17,18 +17,66 @@
         android:gravity="center"
         android:text="Want to become a blood donor?"
         android:textColor="@color/colorAccent2"
-        android:textSize="40sp"
+        android:textSize="32sp"
         android:textStyle="bold" />
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:gravity="center"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
-        android:text="@string/beadonor_title"
-        android:textSize="28sp" />
+        android:layout_below="@id/titlebeadonor"
+        android:layout_marginTop="15dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/beadonor_title"
+                android:textSize="22sp"
+                android:id="@+id/bloodinfo"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prelimtest"
+                android:textSize="22sp"
+                android:layout_below="@id/bloodinfo"
+                android:layout_marginTop="32dp"
+                android:id="@+id/prelimtext"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Take preliminary test"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/logincolor"
+                android:layout_below="@id/prelimtext"
+                android:layout_marginTop="15dp"
+                android:id="@+id/button_prelim"
+                android:onClick="health_test"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/button_prelim"
+                android:text="How to Donate?"
+                android:layout_marginTop="20dp"
+                android:textSize="24sp"
+                android:id="@+id/how_donate"
+                android:textColor="@color/colorAccent2"/>
+            <Button android:id="@+id/btn_clickme"
+                android:text="Click me!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/how_donate"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/logincolor"
+                android:layout_marginTop="15dp"
+                android:onClick="redcross"/>
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

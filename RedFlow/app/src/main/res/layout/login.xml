@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:gravity="center_vertical"
+    android:paddingBottom="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:paddingTop="40dp"
-    android:paddingBottom="16dp"
-    tools:context="com.example.capstone.redflow.LoginActivity"
-    android:gravity="center_vertical"
-    android:background="@color/colorAccent2">
+    android:paddingTop="150dp"
+    tools:context="com.example.capstone.redflow.LoginActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,61 +23,67 @@
             android:layout_marginRight="32dp">
 
             <ImageView
+                android:id="@+id/logo"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:src="@drawable/logo"
-                android:id="@+id/logo"
-                android:scaleType="fitCenter"/>
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
                 android:id="@+id/edittext_email"
-                android:hint="Email"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
                 android:layout_below="@id/logo"
                 android:layout_marginTop="25dp"
+                android:background="@color/logincolor"
+                android:ems="10"
+                android:hint="Email"
+                android:padding="6dp"
                 android:textAlignment="center"
-                android:textColor="@color/logincolor" />
+                android:textSize="18sp"
+                android:theme="@style/EditTextHint" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:ems="10"
                 android:id="@+id/edittext_pass"
-                android:hint="Password"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
                 android:layout_below="@+id/edittext_email"
                 android:layout_marginTop="25dp"
+                android:background="@color/logincolor"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="6dp"
                 android:textAlignment="center"
-                android:textColor="@color/logincolor"/>
+                android:textSize="18sp"
+                android:theme="@style/EditTextHint" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sign_in"
-                android:layout_below="@+id/edittext_pass"
                 android:id="@+id/button_login"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/logincolor"
-                android:background="@color/colorPrimary"
-                android:layout_marginTop="25dp"
-                android:onClick="signin"/>
-
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/no_account_yet_create_one"
-                android:background="@null"
-                android:layout_below="@+id/button_login"
-                android:textColor="@color/logincolor"
+                android:layout_below="@+id/edittext_pass"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:textAllCaps="false"
+                android:background="@color/colorPrimary"
+                android:onClick="signin"
+                android:text="@string/sign_in"
+                android:textColor="@color/logincolor" />
+
+            <Button
                 android:id="@+id/button_register"
-                android:onClick="register"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/button_login"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:background="@null"
+                android:onClick="register"
+                android:text="@string/no_account_yet_create_one"
+                android:textAllCaps="false"
+                android:textColor="@color/logincolor"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
     </ScrollView>

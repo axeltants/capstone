@@ -8,6 +8,9 @@
     <string name="title_activity_register">register</string>
     <string name="action_settings">Settings</string>
     <string name="beadonor_title">Please proceed to any DOH branches to donate blood for verification and approval of request.</string>
+    <string name="prelimtest">Take our inapp preliminary test to evaluate if you are healthy enough to donate a blood,
+                              we are hoping for your honesty in answering this test to ensure that blood donation is safe for you
+                              and that it is safe for the person who receives you blood.</string>
     <string name="backto_login_activity">Already registered! login now</string>
 
     <string-array name="gender">
@@ -16,6 +19,18 @@
     </string-array>
 
     <string-array name="bloodtype">
+        <item>A+</item>
+        <item>O+</item>
+        <item>B+</item>
+        <item>AB+</item>
+        <item>A-</item>
+        <item>O-</item>
+        <item>B-</item>
+        <item>AB-</item>
+    </string-array>
+
+    <string-array name="bloodtype2">
+        <item>No idea</item>
         <item>A+</item>
         <item>O+</item>
         <item>B+</item>
@@ -42,4 +57,5 @@
         <item>Urgent</item>
         <item>ASAP</item>
     </string-array>
+    <string name="title_activity_redcross_location">Map</string>
 </resources>

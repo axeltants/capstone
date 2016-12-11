@@ -1,0 +1,21 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=EB:2A:06:22:C4:AE:BC:1C:00:90:47:2B:58:68:AD:82:C8:D6:3B:E5%3Bcom.example.axel.redflow
+
+    You can also add your credentials to an existing key, using this line:
+    EB:2A:06:22:C4:AE:BC:1C:00:90:47:2B:58:68:AD:82:C8:D6:3B:E5;com.example.axel.redflow
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyDTHPPvY2Dm2k2vx61QdT5stuP8kg94VxU
+    </string>
+</resources>
