@@ -27,11 +27,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="65dp">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -52,7 +53,8 @@
                     android:layout_marginBottom="15dp"
                     android:layout_toEndOf="@+id/imgname"
                     android:text="Brown, Joe L."
-                    android:textColor="@color/logincolor" />
+                    android:textColor="@color/logincolor"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/agelabel"
@@ -73,7 +75,8 @@
                     android:layout_alignBaseline="@+id/agelabel"
                     android:layout_toRightOf="@+id/agelabel"
                     android:text=" 30"
-                    android:textColor="@color/logincolor" />
+                    android:textColor="@color/logincolor"
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/imggender"
@@ -91,7 +94,8 @@
                     android:layout_marginBottom="15dp"
                     android:layout_toEndOf="@+id/imggender"
                     android:text="Male"
-                    android:textColor="@color/logincolor" />
+                    android:textColor="@color/logincolor"
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/imgemail"
@@ -109,7 +113,8 @@
                     android:layout_marginBottom="13dp"
                     android:layout_toEndOf="@+id/agelabel"
                     android:text=" joebrown@gmail.com"
-                    android:textColor="@color/logincolor" />
+                    android:textColor="@color/logincolor"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/nationalitylabel"
@@ -129,7 +134,8 @@
                     android:layout_alignBaseline="@+id/nationalitylabel"
                     android:layout_toEndOf="@+id/nationalitylabel"
                     android:text=" Filipino"
-                    android:textColor="@color/logincolor" />
+                    android:textColor="@color/logincolor"
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/imgaddress"
@@ -148,7 +154,8 @@
                     android:layout_marginTop="30dp"
                     android:layout_toEndOf="@+id/imgaddress"
                     android:text="Cebu, Mandaue, 6002"
-                    android:textColor="@color/logincolor" />
+                    android:textColor="@color/logincolor"
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/imgcontact"
@@ -166,10 +173,70 @@
                     android:layout_marginBottom="15dp"
                     android:layout_toEndOf="@+id/imgcontact"
                     android:text="0912 345 6579"
-                    android:textColor="@color/logincolor" />
+                    android:textColor="@color/logincolor"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/statuslabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imgcontact"
+                    android:layout_marginTop="15dp"
+                    android:text="Account status: "
+                    android:textColor="@color/logincolor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textview_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/statuslabel"
+                    android:layout_toRightOf="@id/statuslabel"
+                    android:text="Unverfied"
+                    android:textColor="@color/logincolor"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/bloodlabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/statuslabel"
+                    android:layout_marginTop="15dp"
+                    android:text="bloodtype: "
+                    android:textColor="@color/logincolor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textview_bloodtype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/bloodlabel"
+                    android:layout_toRightOf="@id/bloodlabel"
+                    android:text="O+"
+                    android:textColor="@color/logincolor"
+                    android:textSize="32sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bloodlabel"
+                    android:layout_marginTop="15dp"
+                    android:text="Last Donation: "
+                    android:textColor="@color/logincolor"
+                    android:textStyle="bold"
+                    android:id="@+id/donatedatelabel"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="November 5 2016"
+                    android:textColor="@color/logincolor"
+                    android:textSize="18sp"
+                    android:layout_alignBaseline="@id/donatedatelabel"
+                    android:layout_toRightOf="@id/donatedatelabel"
+                    android:id="@+id/textview_donatedate"/>
+
             </RelativeLayout>
         </LinearLayout>
-
     </ScrollView>
 
 

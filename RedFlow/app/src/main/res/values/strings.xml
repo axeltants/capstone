@@ -29,6 +29,18 @@
         <item>AB-</item>
     </string-array>
 
+    <string-array name="bloodtype2">
+        <item>No idea</item>
+        <item>A+</item>
+        <item>O+</item>
+        <item>B+</item>
+        <item>AB+</item>
+        <item>A-</item>
+        <item>O-</item>
+        <item>B-</item>
+        <item>AB-</item>
+    </string-array>
+
     <string-array name="location">
         <item>cebu</item>
         <item>Manila</item>
