@@ -57,4 +57,5 @@
         <item>Urgent</item>
         <item>ASAP</item>
     </string-array>
+    <string name="title_activity_redcross_location">Map</string>
 </resources>

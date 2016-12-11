@@ -55,14 +55,15 @@
                 android:textColor="@color/logincolor"
                 android:layout_below="@id/prelimtext"
                 android:layout_marginTop="15dp"
-                android:id="@+id/button_prelim"/>
+                android:id="@+id/button_prelim"
+                android:onClick="health_test"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/button_prelim"
                 android:text="How to Donate?"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="20dp"
                 android:textSize="24sp"
                 android:id="@+id/how_donate"
                 android:textColor="@color/colorAccent2"/>
