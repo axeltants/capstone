@@ -11,72 +11,95 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.capstone.redflow.home">
 
-    <LinearLayout
-        android:id="@+id/first"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/button_donate"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            android:minHeight="150dp"
-            android:onClick="request"
-            android:scaleType="fitCenter"
-            android:src="@drawable/blood" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/button_history"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            android:onClick="history"
-            android:scaleType="fitCenter"
-            android:src="@drawable/book"/>
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/second"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/first"
-        android:orientation="horizontal">
+                <ImageButton
+                    android:id="@+id/button_donate"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_weight="1"
+                    android:minHeight="180dp"
+                    android:onClick="request"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/blood" />
 
-        <ImageButton
-            android:id="@+id/button_profile"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            android:onClick="profile"
-            android:scaleType="fitCenter"
-            android:src="@drawable/profile"/>
+                <ImageButton
+                    android:id="@+id/button_history"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_weight="1"
+                    android:onClick="history"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/book" />
+            </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/button_exclamation"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            android:onClick="notification"
-            android:scaleType="fitCenter"
-            android:src="@drawable/exclamation"/>
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/first"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/second"
-        android:orientation="horizontal">
+                <ImageButton
+                    android:id="@+id/button_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_weight="1"
+                    android:onClick="profile"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/profile" />
 
-        <ImageButton
-            android:id="@+id/button_heart"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            android:onClick="donor"
-            android:scaleType="fitCenter"
-            android:src="@drawable/heart"/>
-    </LinearLayout>
+                <ImageButton
+                    android:id="@+id/button_exclamation"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_weight="1"
+                    android:onClick="notification"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/exclamation" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/second"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/button_heart"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_weight="1"
+                    android:onClick="donor"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/heart" />
+
+                <ImageButton
+                    android:id="@+id/button_test"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_weight="1"
+                    android:onClick="health_test"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/maps" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

@@ -10,51 +10,64 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".admin.admin_home">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/f1"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/stat"
-            android:onClick="statistics"/>
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/donors"
-            android:onClick="donors"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/f1"
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/f2"
-        android:layout_below="@+id/f1"
-        android:orientation="horizontal">
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/stat"
+                    android:onClick="statistics"/>
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/donors"
+                    android:onClick="donors"/>
 
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/records"
-            android:onClick="records"/>
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/search"
-            android:onClick="searchuser"/>
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/f2"
+                android:layout_below="@+id/f1"
+                android:orientation="horizontal">
 
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/records"
+                    android:onClick="records"/>
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search"
+                    android:onClick="searchuser"/>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+    </ScrollView>
 </RelativeLayout>

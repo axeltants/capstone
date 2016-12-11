@@ -54,4 +54,9 @@ public class home extends AppCompatActivity {
         Intent intent = new Intent(this, beadonor.class);
         startActivity(intent);
     }
+
+    public void health_test(View view) {
+        Toast.makeText(getApplicationContext(), "Red Cross locations", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, beadonor.class);
+    }
 }
