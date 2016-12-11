@@ -27,12 +27,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="65dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorAccent"
             android:paddingBottom="12dp"
             android:paddingTop="12dp">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -125,6 +127,7 @@
                     android:layout_marginTop="15dp"
                     android:text="Nationality: "
                     android:textColor="@color/logincolor"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -184,6 +187,7 @@
                     android:layout_marginTop="15dp"
                     android:text="Account status: "
                     android:textColor="@color/logincolor"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -204,6 +208,7 @@
                     android:layout_marginTop="15dp"
                     android:text="bloodtype: "
                     android:textColor="@color/logincolor"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -217,23 +222,25 @@
                     android:textSize="32sp" />
 
                 <TextView
+                    android:id="@+id/donatedatelabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/bloodlabel"
                     android:layout_marginTop="15dp"
                     android:text="Last Donation: "
                     android:textColor="@color/logincolor"
-                    android:textStyle="bold"
-                    android:id="@+id/donatedatelabel"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
                 <TextView
+                    android:id="@+id/textview_donatedate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="November 5 2016"
-                    android:textColor="@color/logincolor"
-                    android:textSize="18sp"
                     android:layout_alignBaseline="@id/donatedatelabel"
                     android:layout_toRightOf="@id/donatedatelabel"
-                    android:id="@+id/textview_donatedate"/>
+                    android:text="November 5 2016"
+                    android:textColor="@color/logincolor"
+                    android:textSize="18sp" />
 
             </RelativeLayout>
         </LinearLayout>

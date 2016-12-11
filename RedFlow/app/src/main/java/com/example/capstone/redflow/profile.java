@@ -22,6 +22,7 @@ public class profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.capstone.redflow.R.layout.profile);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         prof = this;
 
