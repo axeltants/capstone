@@ -16,7 +16,7 @@
                 android:layout_weight="1"
                 android:id="@+id/textview_fullname_list"
                 android:text="Axel Tantay"
-                android:textSize="24sp"/>
+                android:textSize="18sp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
                 android:id="@+id/textview_accountstatus_list"
                 android:text="Verefied"
                 android:textStyle="bold"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textAlignment="textEnd"/>
 
         </LinearLayout>

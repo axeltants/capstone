@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.search_result">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,8 +28,8 @@
         <activity android:name=".notification" android:parentActivityName=".home"/>
         <activity android:name=".history" android:parentActivityName=".home"/>
         <activity android:name=".admin.admin_home" />
-        <activity android:name=".admin.search_user" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".admin.search_user" android:parentActivityName=".admin.admin_home"/>
+        <activity android:name=".admin.search_result"  android:parentActivityName=".admin.search_user"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

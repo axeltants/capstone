@@ -44,7 +44,8 @@
         android:background="@color/colorPrimary"
         android:textColor="@color/logincolor"
         android:layout_below="@+id/edittext_srchusr"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:onClick="search"/>
 
 
 </RelativeLayout>
