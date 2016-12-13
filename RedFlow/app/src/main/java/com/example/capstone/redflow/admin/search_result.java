@@ -5,9 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.example.capstone.redflow.R;
-import com.example.capstone.redflow.admin_lists.resultGetSet;
-import com.example.capstone.redflow.admin_lists.resultlistAdapter;
-import com.example.capstone.redflow.admin_lists.resultprovider;
+import com.example.capstone.redflow.Result_lists.resultGetSet;
+import com.example.capstone.redflow.Result_lists.resultlistAdapter;
+import com.example.capstone.redflow.Result_lists.resultprovider;
 
 import java.util.List;
 

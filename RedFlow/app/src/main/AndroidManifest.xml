@@ -3,7 +3,6 @@
     package="com.example.capstone.redflow">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -20,16 +19,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home"/>
-        <activity android:name=".register" android:parentActivityName=".LoginActivity"/>
-        <activity android:name=".request" android:parentActivityName=".home"/>
-        <activity android:name=".profile" android:parentActivityName=".home"/>
-        <activity android:name=".beadonor" android:parentActivityName=".home"/>
-        <activity android:name=".notification" android:parentActivityName=".home"/>
-        <activity android:name=".history" android:parentActivityName=".home"/>
+        <activity android:name=".home" />
+        <activity
+            android:name=".register"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".request"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".profile"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".beadonor"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".notification"
+            android:parentActivityName=".home" />
+        <activity
+            android:name=".history"
+            android:parentActivityName=".home" />
         <activity android:name=".admin.admin_home" />
-        <activity android:name=".admin.search_user" android:parentActivityName=".admin.admin_home"/>
-        <activity android:name=".admin.search_result"  android:parentActivityName=".admin.search_user"/>
+        <activity
+            android:name=".admin.search_user"
+            android:parentActivityName=".admin.admin_home" />
+        <activity
+            android:name=".admin.search_result"
+            android:parentActivityName=".admin.search_user" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -37,7 +52,10 @@
 
         <activity
             android:name=".redcross_location"
-            android:label="@string/title_activity_redcross_location"></activity>
+            android:label="@string/title_activity_redcross_location" />
+        <activity
+            android:name=".admin.registered_users"
+            android:parentActivityName=".admin.search_user" />
     </application>
 
 </manifest>

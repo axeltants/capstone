@@ -1,4 +1,4 @@
-package com.example.capstone.redflow.admin_lists;
+package com.example.capstone.redflow.users_list;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,15 +12,15 @@ import com.example.capstone.redflow.R;
 import java.util.List;
 
 /**
- * Created by axel on 12/12/16.
+ * Created by axel on 12/13/16.
  */
 
-public class resultlistAdapter extends ArrayAdapter<resultGetSet>{
-    private List<resultGetSet> results;
+public class userslistAdapter extends ArrayAdapter<usersGetSet> {
+    private List<usersGetSet> users;
 
-    public resultlistAdapter(Context context, int resource, List<resultGetSet> objects) {
+    public userslistAdapter(Context context, int resource, List<usersGetSet> objects) {
         super(context, resource, objects);
-        results = objects;
+        users = objects;
     }
 
     @Override
@@ -28,15 +28,15 @@ public class resultlistAdapter extends ArrayAdapter<resultGetSet>{
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).
-                    inflate(R.layout.search_resultlist, parent, false);
+                    inflate(R.layout.registered_userslist, parent, false);
         }
 
-        resultGetSet result = results.get(position);
+        usersGetSet user = users.get(position);
 
         TextView fullname = (TextView) convertView.findViewById(R.id.textview_fullname_list);
-        fullname.setText(result.getFullname());
-        TextView accstatus = (TextView) convertView.findViewById(R.id.textview_accountstatus_list);
-        accstatus.setText(result.getAccstatuse());
+        fullname.setText(user.getFullname());
+        TextView history = (TextView) convertView.findViewById(R.id.textview_history_list);
+        history.setText(user.gethistory());
 
 
         return convertView;
