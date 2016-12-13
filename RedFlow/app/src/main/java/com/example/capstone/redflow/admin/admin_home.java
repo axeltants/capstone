@@ -25,7 +25,7 @@ public class admin_home extends AppCompatActivity {
 
     public void donors(View view) {
         Toast.makeText(getApplicationContext(), "Donors", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, admin_home.class);
+        Intent intent = new Intent(this, registered_users.class);
     }
 
     public void records(View view) {

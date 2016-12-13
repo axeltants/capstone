@@ -31,7 +31,7 @@
         android:layout_marginTop="60dp"/>
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="35dp"
         android:background="@drawable/rectangle_textedit"
         android:layout_below="@id/imagesearch"
         android:hint="search user"

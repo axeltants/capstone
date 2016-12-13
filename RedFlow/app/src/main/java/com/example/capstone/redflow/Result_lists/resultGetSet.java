@@ -1,4 +1,4 @@
-package com.example.capstone.redflow.admin_lists;
+package com.example.capstone.redflow.Result_lists;
 
 /**
  * Created by axel on 12/12/16.
@@ -11,17 +11,15 @@ public class resultGetSet {
 
     public String getResultID(){return resultID;}
 
-    public String getFullname(){
-        return fullname;
-    }
+    public String getFullname(){return fullname;}
 
     public String getAccstatuse(){
         return accstatus;
     }
 
-    public resultGetSet(String resultID, String mssge, String date){
+    public resultGetSet(String resultID, String fullname, String date){
         this.resultID = resultID;
-        this.fullname = mssge;
+        this.fullname = fullname;
         this.accstatus = date;
 
     }
