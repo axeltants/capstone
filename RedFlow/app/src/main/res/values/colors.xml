@@ -5,4 +5,9 @@
     <color name="colorAccent">#b65c55</color>
     <color name="colorAccent2">#ec7c73</color>
     <color name="logincolor">#ffffff</color>
+
+    <color name="black">#3b3b3b</color>
+
+    <color name="gold">#fff5a9</color>
+    <color name="empty">#969696</color>
 </resources>

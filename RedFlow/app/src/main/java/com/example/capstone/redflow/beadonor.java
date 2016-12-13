@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.capstone.redflow.preliminary_bloodtest.TestActivity;
+
 public class beadonor extends AppCompatActivity {
 
     @Override
@@ -31,7 +33,7 @@ public class beadonor extends AppCompatActivity {
 
     public void health_test(View view) {
         Toast.makeText(getApplicationContext(), "Health test", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, beadonor.class);
+        Intent intent = new Intent(this, TestActivity.class);
         startActivity(intent);
     }
 }

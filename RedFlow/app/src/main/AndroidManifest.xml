@@ -56,6 +56,8 @@
         <activity
             android:name=".admin.registered_users"
             android:parentActivityName=".admin.search_user" />
+        <activity android:name=".preliminary_bloodtest.TestActivity"/>
+        <activity android:name=".preliminary_bloodtest.ResultActivity"></activity>
     </application>
 
 </manifest>

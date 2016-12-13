@@ -29,4 +29,14 @@
         <item name="android:textColorHint">#585858</item>
     </style>
 
+    <style name="radioTheme" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#605f5f</item>
+        <item name="colorControlActivated">#fc9090</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/empty</item>
+        <item name="colorControlActivated">@color/empty</item>
+    </style>
+
 </resources>
