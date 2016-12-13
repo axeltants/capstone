@@ -38,8 +38,8 @@ public class home extends AppCompatActivity {
     }
 
     public void profile(View view) {
-        Toast.makeText(getApplicationContext(), "PROFILE", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, profile.class);
+        intent.putExtra("userID", userID);
         startActivity(intent);
     }
 
