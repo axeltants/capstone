@@ -222,27 +222,6 @@
                     android:textColor="@color/logincolor"
                     android:textSize="32sp" />
 
-                <TextView
-                    android:id="@+id/donatedatelabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/bloodlabel"
-                    android:layout_marginTop="15dp"
-                    android:text="Last Donation: "
-                    android:textColor="@color/logincolor"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textview_donatedate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@id/donatedatelabel"
-                    android:layout_toRightOf="@id/donatedatelabel"
-                    android:text="November 5 2016"
-                    android:textColor="@color/logincolor"
-                    android:textSize="18sp" />
-
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
