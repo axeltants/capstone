@@ -2,6 +2,7 @@ package com.example.capstone.redflow.admin;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.widget.ListView;
 
 import com.example.capstone.redflow.R;
@@ -28,5 +29,11 @@ public class search_result extends AppCompatActivity {
                 this, R.layout.search_resultlist, result);
         ListView lv = (ListView) findViewById(R.id.resultlist);
         lv.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(com.example.capstone.redflow.R.menu.actionbar, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

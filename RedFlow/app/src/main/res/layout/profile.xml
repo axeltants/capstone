@@ -66,7 +66,7 @@
                     android:layout_below="@+id/imgname"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="15dp"
-                    android:text="Age: "
+                    android:text="Birth date: "
                     android:textColor="@color/logincolor"
                     android:textSize="16dp"
                     android:textStyle="bold" />

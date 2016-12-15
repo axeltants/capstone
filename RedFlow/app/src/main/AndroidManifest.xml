@@ -56,9 +56,13 @@
         <activity
             android:name=".admin.registered_users"
             android:parentActivityName=".admin.search_user" />
-        <activity android:name=".preliminary_bloodtest.TestActivity"/>
-        <activity android:name=".preliminary_bloodtest.ResultActivity"
-            android:parentActivityName=".beadonor"></activity>
+        <activity android:name=".preliminary_bloodtest.TestActivity" />
+        <activity
+            android:name=".preliminary_bloodtest.ResultActivity"
+            android:parentActivityName=".beadonor" />
+        <activity
+            android:name=".admin.statistics_home"
+            android:parentActivityName=".admin.admin_home"></activity>
     </application>
 
 </manifest>
