@@ -13,7 +13,7 @@
                               and that it is safe for the person who receives you blood. (NOTE) A passing score doesn\'t mean your
                               not going to take the preliminary test given by the facility. the sole purpose of this inapp test is
                               to evaluate yourself before going to makeup your decision.</string>
-    <string name="backto_login_activity">Already registered! login now</string>
+    <string name="backto_login_activity">Already registered? Login now.</string>
 
     <string-array name="gender">
         <item>Male</item>
@@ -32,7 +32,7 @@
     </string-array>
 
     <string-array name="bloodtype2">
-        <item>No idea</item>
+        <item>No Idea</item>
         <item>A+</item>
         <item>O+</item>
         <item>B+</item>

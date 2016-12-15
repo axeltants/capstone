@@ -3,6 +3,7 @@ package com.example.capstone.redflow;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
@@ -19,6 +20,26 @@ public class profile extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseUser user;
     Query query;
+
+    TextView vCompleteName;
+    TextView vBdate;
+    TextView vGender;
+    TextView vEmail;
+    TextView vNationality;
+    TextView vAddress;
+    TextView vContact;
+    TextView vStatus;
+    TextView vBloodtype;
+
+    String sCompleteName;
+    String sBdate;
+    String sGender;
+    String sEmail;
+    String sNationality;
+    String sAddress;
+    String sContact;
+    String sStatus;
+    String sBloodtype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -43,6 +43,7 @@ public class register extends AppCompatActivity {
     private EditText vZip;
     private EditText vBday;
     private Spinner vGender;
+    private Spinner vBloodtype;
 
     private String sFname;
     private String sLname;
@@ -56,6 +57,7 @@ public class register extends AppCompatActivity {
     private String sZip;
     private String sBday;
     private String sGender;
+    private String sBloodtype;
 
     private ToolBox tools = new ToolBox();
 
@@ -80,6 +82,7 @@ public class register extends AppCompatActivity {
         vZip = (EditText) findViewById(R.id.edittext_zip);
         vBday = (EditText) findViewById(R.id.edittext_bday);
         vGender = (Spinner) findViewById(R.id.spinnr_gender);
+        vBloodtype = (Spinner) findViewById(R.id.spinnr_bloodtype);
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
@@ -109,8 +112,10 @@ public class register extends AppCompatActivity {
         sZip = vZip.getText().toString();
         sBday = vBday.getText().toString();
         sGender = vGender.getSelectedItem().toString();
+        sBloodtype = vBloodtype.getSelectedItem().toString();
 
-        if(sFname.trim().equals("") || sLname.trim().equals("") || sMname.trim().equals("") || sContact.trim().equals("") || sNationality.trim().equals("") || sEmail.trim().equals("") || sPassword.trim().equals("") || sHome.trim().equals("") || sProvince.trim().equals("") || sZip.trim().equals("") || sBday.trim().equals("") || sGender.trim().equals("")) {
+
+        if(sFname.trim().equals("") || sLname.trim().equals("") || sMname.trim().equals("") || sContact.trim().equals("") || sNationality.trim().equals("") || sEmail.trim().equals("") || sPassword.trim().equals("") || sHome.trim().equals("") || sProvince.trim().equals("") || sZip.trim().equals("") || sBday.trim().equals("") || sGender.trim().equals("") || sBloodtype.trim().equals("")) {
             Toast.makeText(this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -144,6 +149,8 @@ public class register extends AppCompatActivity {
                                     newUser.child("zip").setValue(sZip);
                                     newUser.child("bday").setValue(sBday);
                                     newUser.child("gender").setValue(sGender);
+                                    newUser.child("bloodtype").setValue(sBloodtype);
+                                    newUser.child("status").setValue("unverified");
 
                                     LoginActivity.getInstance().finish();
                                     Intent intent = new Intent(register.this, LoginActivity.class);
@@ -153,6 +160,7 @@ public class register extends AppCompatActivity {
 
                                 }
                                 else {
+                                    progressDialog.dismiss();
                                     Toast.makeText(register.this, "Failed to register.", Toast.LENGTH_SHORT).show();
                                 }
 
