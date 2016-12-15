@@ -22,10 +22,13 @@ public class search_user extends AppCompatActivity {
         setContentView(R.layout.search_user);
 
         vSearch = (EditText) findViewById(R.id.edittext_srchusr);
-        sSearch = vSearch.getText().toString();
+
     }
 
     public void search(View view) {
+
+        sSearch = vSearch.getText().toString();
+
         if(sSearch.trim().equals("")) {
             Toast.makeText(this, "Please enter a name.", Toast.LENGTH_SHORT).show();
         }
