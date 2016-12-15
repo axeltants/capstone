@@ -13,12 +13,16 @@ import java.util.List;
 
 public class search_result extends AppCompatActivity {
 
+    String searchname;
+
     private List<resultGetSet> result = resultprovider.searchlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result);
+
+        searchname = getIntent().getStringExtra("searchname");
 
         resultlistAdapter adapter = new resultlistAdapter(
                 this, R.layout.search_resultlist, result);

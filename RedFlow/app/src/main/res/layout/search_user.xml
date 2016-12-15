@@ -34,7 +34,7 @@
         android:layout_height="35dp"
         android:background="@drawable/rectangle_textedit"
         android:layout_below="@id/imagesearch"
-        android:hint="search user"
+        android:hint="enter a name..."
         android:theme="@style/EditTextHint"
         android:textAlignment="center"
         android:id="@+id/edittext_srchusr"/>

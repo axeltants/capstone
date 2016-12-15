@@ -19,6 +19,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import com.example.capstone.redflow.admin.*;
+
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static LoginActivity loginActivity;
@@ -83,11 +87,19 @@ public class LoginActivity extends AppCompatActivity {
                         query.addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
+                                Map<String, String> map = dataSnapshot.getValue(Map.class);
                                 userID = dataSnapshot.getKey().toString();
-                                Intent i = new Intent(LoginActivity.this, home.class);
-                                i.putExtra("userID", userID);
-                                startActivity(i);
+
+                                if(map.get("status").equals("admin")) {
+                                    Intent i = new Intent(LoginActivity.this, admin_home.class);
+                                    i.putExtra("userID", userID);
+                                    startActivity(i);
+                                }
+                                else {
+                                    Intent i = new Intent(LoginActivity.this, home.class);
+                                    i.putExtra("userID", userID);
+                                    startActivity(i);
+                                }
                             }
 
                             @Override
