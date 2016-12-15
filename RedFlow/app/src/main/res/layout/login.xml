@@ -6,29 +6,29 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg"
     android:gravity="center_vertical"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
     tools:context="com.example.capstone.redflow.LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg2">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
-            android:paddingTop="125dp">
+            android:paddingTop="141dp"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/redflow" />
+                android:src="@drawable/logoo" />
 
             <EditText
                 android:id="@+id/edittext_email"
@@ -82,7 +82,7 @@
                 android:onClick="register"
                 android:text="@string/no_account_yet_create_one"
                 android:textAllCaps="false"
-                android:textColor="@color/logincolor"
+                android:textColor="@color/colorAccent2"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

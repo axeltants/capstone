@@ -3,6 +3,7 @@ package com.example.capstone.redflow.preliminary_bloodtest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,7 +16,7 @@ import com.example.capstone.redflow.R;
 
 import java.util.List;
 
-public class TestActivity extends Activity {
+public class TestActivity extends AppCompatActivity {
     List<QuestionGetSet> quesList;
     int score = 0;
     int qid = 0;

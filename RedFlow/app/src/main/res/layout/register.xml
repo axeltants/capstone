@@ -4,241 +4,246 @@
     android:id="@+id/register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent2"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="32dp"
-    android:paddingRight="32dp"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.capstone.redflow.register">
+    tools:context="com.example.capstone.redflow.register"
+    android:background="@drawable/bg">
 
-    <TextView
-        android:id="@+id/registertitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:text="Create Account"
-        android:textColor="@color/logincolor"
-        android:textSize="28sp"
-        android:textStyle="bold" />
-
-    <ScrollView
-        android:id="@+id/scroll"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/registertitle">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg2"
+        android:paddingTop="50dp">
+        <TextView
+            android:id="@+id/registertitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:text="Create Account"
+            android:textColor="@color/colorAccent2"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_below="@id/registertitle"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:paddingTop="@dimen/activity_vertical_margin">
 
-            <EditText
-                android:id="@+id/edittext_email"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rectangle_textedit"
-                android:hint="E-mail address"
-                android:inputType="textEmailAddress"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textAlignment="center"
-                android:theme="@style/EditTextHint" />
-
-            <EditText
-                android:id="@+id/edittext_password"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rectangle_textedit"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textAlignment="center"
-                android:theme="@style/EditTextHint" />
-
-            <EditText
-                android:id="@+id/edittext_fname"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rectangle_textedit"
-                android:hint="First name"
-                android:inputType="text"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textAlignment="center"
-                android:theme="@style/EditTextHint" />
-
-            <EditText
-                android:id="@+id/edittext_lname"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rectangle_textedit"
-                android:hint="Last name"
-                android:inputType="text"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textAlignment="center"
-                android:theme="@style/EditTextHint" />
-
-            <EditText
-                android:id="@+id/edittext_mname"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rectangle_textedit"
-                android:hint="Middle name"
-                android:inputType="text"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textAlignment="center"
-                android:theme="@style/EditTextHint" />
-
-            <EditText
-                android:id="@+id/edittext_contact"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rectangle_textedit"
-                android:hint="Contact number"
-                android:inputType="number"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textAlignment="center"
-                android:theme="@style/EditTextHint" />
-
-            <EditText
-                android:id="@+id/edittext_nationality"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rectangle_textedit"
-                android:hint="Nationality"
-                android:inputType="text"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textAlignment="center"
-                android:theme="@style/EditTextHint" />
-
-            <EditText
-                android:id="@+id/edittext_home"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rectangle_textedit"
-                android:hint="Street Address"
-                android:inputType="text"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textAlignment="center"
-                android:theme="@style/EditTextHint" />
-
-
-            <EditText
-                android:id="@+id/edittext_province"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rectangle_textedit"
-                android:hint="Municipality/city"
-                android:inputType="text"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textAlignment="center"
-                android:theme="@style/EditTextHint" />
-
-            <EditText
-                android:id="@+id/edittext_zip"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rectangle_textedit"
-                android:hint="zip Code"
-                android:inputType="text"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textAlignment="center"
-                android:theme="@style/EditTextHint" />
-
-            <EditText
-                android:id="@+id/edittext_bday"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rectangle_textedit"
-                android:hint="birth date mm - dd - yy"
-                android:inputType="date"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textAlignment="center"
-                android:theme="@style/EditTextHint" />
-
-            <Spinner
-                android:id="@+id/spinnr_gender"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/btn_dropdown"
-                android:backgroundTint="@color/logincolor"
-                android:entries="@array/gender"
-                android:paddingStart="45dp"
-                android:spinnerMode="dropdown"
-                android:textAlignment="center" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textview_blood"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Blood Type:"
-                android:textColor="@color/logincolor"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/edittext_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_textedit"
+                    android:hint="E-mail address"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAlignment="center"
+                    android:theme="@style/EditTextHint" />
 
-            <Spinner
-                android:id="@+id/spinnr_bloodtype"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:drawable/btn_dropdown"
-                android:backgroundTint="@color/logincolor"
-                android:entries="@array/bloodtype2"
-                android:spinnerMode="dialog"
-                android:textAlignment="center"
-                android:paddingStart="45dp"/>
+                <EditText
+                    android:id="@+id/edittext_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_textedit"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAlignment="center"
+                    android:theme="@style/EditTextHint" />
 
-            <Button
-                android:id="@+id/rgister"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/scroll"
-                android:layout_marginTop="15dp"
-                android:background="@color/colorPrimary"
-                android:onClick="recorduser"
-                android:text="Register"
-                android:textColor="@color/logincolor" />
+                <EditText
+                    android:id="@+id/edittext_fname"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_textedit"
+                    android:hint="First name"
+                    android:inputType="text"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAlignment="center"
+                    android:theme="@style/EditTextHint" />
 
-            <Button
-                android:id="@+id/button_register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/button_loginback"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:background="@null"
-                android:gravity="center"
-                android:onClick="login"
-                android:text="@string/backto_login_activity"
-                android:textAllCaps="false"
-                android:textColor="@color/logincolor"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/edittext_lname"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_textedit"
+                    android:hint="Last name"
+                    android:inputType="text"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAlignment="center"
+                    android:theme="@style/EditTextHint" />
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/edittext_mname"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_textedit"
+                    android:hint="Middle name"
+                    android:inputType="text"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAlignment="center"
+                    android:theme="@style/EditTextHint" />
 
-    </ScrollView>
+                <EditText
+                    android:id="@+id/edittext_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_textedit"
+                    android:hint="Contact number"
+                    android:inputType="number"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAlignment="center"
+                    android:theme="@style/EditTextHint" />
+
+                <EditText
+                    android:id="@+id/edittext_nationality"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_textedit"
+                    android:hint="Nationality"
+                    android:inputType="text"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAlignment="center"
+                    android:theme="@style/EditTextHint" />
+
+                <EditText
+                    android:id="@+id/edittext_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_textedit"
+                    android:hint="Street Address"
+                    android:inputType="text"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAlignment="center"
+                    android:theme="@style/EditTextHint" />
+
+
+                <EditText
+                    android:id="@+id/edittext_province"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_textedit"
+                    android:hint="Municipality/city"
+                    android:inputType="text"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAlignment="center"
+                    android:theme="@style/EditTextHint" />
+
+                <EditText
+                    android:id="@+id/edittext_zip"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_textedit"
+                    android:hint="zip Code"
+                    android:inputType="text"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAlignment="center"
+                    android:theme="@style/EditTextHint" />
+
+                <EditText
+                    android:id="@+id/edittext_bday"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_textedit"
+                    android:hint="birth date mm - dd - yy"
+                    android:inputType="date"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAlignment="center"
+                    android:theme="@style/EditTextHint" />
+
+                <Spinner
+                    android:id="@+id/spinnr_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:backgroundTint="@color/logincolor"
+                    android:entries="@array/gender"
+                    android:paddingStart="45dp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textview_blood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Blood Type:"
+                    android:textColor="@color/logincolor"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnr_bloodtype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:backgroundTint="@color/logincolor"
+                    android:entries="@array/bloodtype2"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="center"
+                    android:paddingStart="45dp"/>
+
+                <Button
+                    android:id="@+id/rgister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/scroll"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/colorPrimary"
+                    android:onClick="recorduser"
+                    android:text="Register"
+                    android:textColor="@color/logincolor" />
+
+                <Button
+                    android:id="@+id/button_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/button_loginback"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:onClick="login"
+                    android:text="@string/backto_login_activity"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorAccent2"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 
 </RelativeLayout>
