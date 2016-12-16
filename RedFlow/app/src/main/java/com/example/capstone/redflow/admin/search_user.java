@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.ToolBox;
 import com.example.capstone.redflow.request;
 
 public class search_user extends AppCompatActivity {
@@ -17,12 +18,16 @@ public class search_user extends AppCompatActivity {
 
     String sSearch;
 
+    ToolBox tools;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_user);
 
         vSearch = (EditText) findViewById(R.id.edittext_srchusr);
+
+        tools = new ToolBox();
 
     }
 
@@ -41,7 +46,7 @@ public class search_user extends AppCompatActivity {
         }
         else {
             Intent intent = new Intent(this, search_result.class);
-            intent.putExtra("searchname", sSearch);
+            intent.putExtra("searchname", tools.nameFormatter(sSearch));
             startActivity(intent);
         }
     }

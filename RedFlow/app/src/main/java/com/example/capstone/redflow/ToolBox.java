@@ -9,6 +9,17 @@ import java.security.NoSuchAlgorithmException;
  */
 
 public class ToolBox {
+
+    public String nameFormatter(String name) {
+        String result;
+
+        name = name.toLowerCase();
+
+        result = name.substring(0, 1).toUpperCase() + name.substring(1);
+
+        return result;
+    }
+
     /**
      * Returns the SHA1 hash for the provided String
      * @param text

@@ -3,20 +3,30 @@ package com.example.capstone.redflow.admin;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.capstone.redflow.R;
-import com.example.capstone.redflow.Result_lists.resultGetSet;
-import com.example.capstone.redflow.Result_lists.resultlistAdapter;
-import com.example.capstone.redflow.Result_lists.resultprovider;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class search_result extends AppCompatActivity {
 
-    String searchname;
+    private String searchname;
 
-    private List<resultGetSet> result = resultprovider.searchlist;
+    private Firebase mRootRef;
+    private Query query;
+
+    private ArrayList<String> result_list;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +35,42 @@ public class search_result extends AppCompatActivity {
 
         searchname = getIntent().getStringExtra("searchname");
 
-        resultlistAdapter adapter = new resultlistAdapter(
-                this, R.layout.search_resultlist, result);
-        ListView lv = (ListView) findViewById(R.id.resultlist);
-        lv.setAdapter(adapter);
+        result_list = new ArrayList<String>();
+
+        adapter = new ArrayAdapter<String>(this, R.layout.result_item, result_list);
+        final ListView vResultList = (ListView) findViewById(R.id.resultlist);
+        vResultList.setAdapter(adapter);
+
+        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+        query = mRootRef.child("User").orderByChild("fname").equalTo(searchname);
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, String> map = dataSnapshot.getValue(Map.class);
+                result_list.add(map.get("lname"));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     @Override

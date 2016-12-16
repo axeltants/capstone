@@ -138,14 +138,14 @@ public class register extends AppCompatActivity {
 
                                     progressDialog.dismiss();
 
-                                    newUser.child("fname").setValue(sFname);
-                                    newUser.child("lname").setValue(sLname);
-                                    newUser.child("mname").setValue(sMname);
+                                    newUser.child("fname").setValue(tools.nameFormatter(sFname));
+                                    newUser.child("lname").setValue(tools.nameFormatter(sLname));
+                                    newUser.child("mname").setValue(tools.nameFormatter(sMname));
                                     newUser.child("contact").setValue(sContact);
-                                    newUser.child("nationality").setValue(sNationality);
-                                    newUser.child("email").setValue(sEmail);
+                                    newUser.child("nationality").setValue(tools.nameFormatter(sNationality));
+                                    newUser.child("email").setValue(sEmail.toLowerCase());
                                     newUser.child("home").setValue(sHome);
-                                    newUser.child("province").setValue(sProvince);
+                                    newUser.child("province").setValue(tools.nameFormatter(sProvince));
                                     newUser.child("zip").setValue(sZip);
                                     newUser.child("bday").setValue(sBday);
                                     newUser.child("gender").setValue(sGender);

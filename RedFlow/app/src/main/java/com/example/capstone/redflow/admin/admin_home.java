@@ -42,7 +42,6 @@ public class admin_home extends AppCompatActivity {
     }
 
     public void searchuser(View view) {
-        Toast.makeText(getApplicationContext(), "search user", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, search_user.class);
         startActivity(intent);
     }

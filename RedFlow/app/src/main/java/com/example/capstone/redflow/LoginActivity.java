@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
                         progressDialog.dismiss();
-                        query = mRootRef.child("User").orderByChild("email").equalTo(sEmail);
+                        query = mRootRef.child("User").orderByChild("email").equalTo(sEmail.toLowerCase());
 
                         query.addChildEventListener(new ChildEventListener() {
                             @Override
