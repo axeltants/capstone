@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/prelimtext"
                     android:layout_marginTop="15dp"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorAccent2"
                     android:onClick="health_test"
                     android:text="Take preliminary test"
                     android:textColor="@color/logincolor" />
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/how_donate"
                     android:layout_marginTop="15dp"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorAccent2"
                     android:onClick="redcross"
                     android:text="Click me!"
                     android:textColor="@color/logincolor" />
