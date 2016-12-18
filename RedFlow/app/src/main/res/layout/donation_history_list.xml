@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/historyicon"
+            android:id="@+id/iconhistory"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="January 2 2015"
+            android:layout_alignBaseline="@+id/iconhistory"
+            android:layout_toRightOf="@+id/iconhistory"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="15dp"
+            android:textSize="24sp"
+            android:id="@+id/donation_date"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

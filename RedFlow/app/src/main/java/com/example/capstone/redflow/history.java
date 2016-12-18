@@ -1,5 +1,6 @@
 package com.example.capstone.redflow;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,8 +20,12 @@ public class history extends AppCompatActivity {
     }
 
     public void blooddonation_list(View view) {
+        Intent intent = new Intent(this, Donation_history.class);
+        startActivity(intent);
     }
 
     public void bloodclaim_list(View view) {
+        Intent intent = new Intent(this, Claim_history.class);
+        startActivity(intent);
     }
 }
