@@ -60,4 +60,5 @@
         <item>ASAP</item>
     </string-array>
     <string name="title_activity_redcross_location">Map</string>
+    <string name="info_req">(NOTE) to claim blood bag/s you need to present your form request that has a signature of your doctor in it.</string>
 </resources>
