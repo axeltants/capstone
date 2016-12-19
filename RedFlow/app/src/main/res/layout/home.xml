@@ -17,13 +17,12 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/first"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -34,7 +33,8 @@
                     android:minHeight="180dp"
                     android:onClick="request"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/blood" />
+                    android:src="@drawable/blood"
+                    android:layout_gravity="center_vertical"/>
 
                 <ImageButton
                     android:id="@+id/button_history"
