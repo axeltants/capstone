@@ -24,6 +24,8 @@ public class search_result extends AppCompatActivity {
 
     private Firebase mRootRef;
     private Query query;
+    private Query query2;
+    private Query query3;
 
     private ArrayList<String> result_list;
     private ArrayAdapter<String> adapter;
@@ -47,7 +49,67 @@ public class search_result extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
-                result_list.add(map.get("lname"));
+                result_list.add(map.get("fname") + " " + map.get("lname"));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        query2 = mRootRef.child("User").orderByChild("fullname").equalTo(searchname.toLowerCase());
+        query2.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, String> map = dataSnapshot.getValue(Map.class);
+                result_list.add(map.get("fname") + " " + map.get("lname"));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        query3 = mRootRef.child("User").orderByChild("lname").equalTo(searchname);
+        query3.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, String> map = dataSnapshot.getValue(Map.class);
+                result_list.add(map.get("fname") + " " + map.get("lname"));
                 adapter.notifyDataSetChanged();
             }
 

@@ -150,7 +150,8 @@ public class register extends AppCompatActivity {
                                     newUser.child("bday").setValue(sBday);
                                     newUser.child("gender").setValue(sGender);
                                     newUser.child("bloodtype").setValue(sBloodtype);
-                                    newUser.child("status").setValue("unverified");
+                                    newUser.child("status").setValue("Unverified");
+                                    newUser.child("fullname").setValue(sFname.toLowerCase() + " " + sLname.toLowerCase());
 
                                     LoginActivity.getInstance().finish();
                                     Intent intent = new Intent(register.this, LoginActivity.class);
