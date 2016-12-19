@@ -7,9 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.capstone.redflow.R;
 import com.firebase.client.ChildEventListener;
@@ -19,8 +17,6 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 public class search_result extends AppCompatActivity {
@@ -155,7 +151,7 @@ public class search_result extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View clickedView, int position, long id) {
-                Intent i = new Intent(search_result.this, user_profile_admin.class);
+                Intent i = new Intent(search_result.this, user_profile_admin_verifier.class);
                 i.putExtra("userID", userIDs.get(position));
                 startActivity(i);
             }

@@ -69,7 +69,8 @@
         <activity
             android:name=".Claim_history"
             android:parentActivityName=".history" />
-        <activity android:name=".admin.user_profile_admin"/>
+        <activity android:name=".admin.user_profile_admin_verifier" />
+        <activity android:name=".admin.user_profile_admin"></activity>
     </application>
 
 </manifest>
