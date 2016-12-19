@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_user_profile_admin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.user_profile_admin"
+    android:background="@drawable/bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg2"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent2"
+            android:background="@null"
+            android:text="Verify this user now"
+            android:id="@+id/button_verifyuser"
+            android:textStyle="bold"
+            android:onClick="verifyuser"/>
+
+        <TextView
+            android:id="@+id/titleprof"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="5dp"
+            android:text="Profile"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/button_verifyuser"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:paddingTop="80dp"
+            android:id="@+id/scview">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="75dp">
+
+                    <ImageView
+                        android:id="@+id/imgname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/name" />
+
+                    <TextView
+                        android:id="@+id/textview_CompleteName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imgname"
+                        android:layout_marginBottom="15dp"
+                        android:layout_toEndOf="@+id/imgname"
+                        android:text="Brown, Joe L."
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/agelabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imgname"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Birth date: "
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textview_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/agelabel"
+                        android:layout_toRightOf="@+id/agelabel"
+                        android:text=" 30"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/imggender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/agelabel"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/gender" />
+
+                    <TextView
+                        android:id="@+id/textview_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/imgemail"
+                        android:layout_marginBottom="15dp"
+                        android:layout_toEndOf="@+id/imggender"
+                        android:text="Male"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/imgemail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imggender"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/email" />
+
+                    <TextView
+                        android:id="@+id/textview_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imgemail"
+                        android:layout_marginBottom="13dp"
+                        android:layout_toEndOf="@+id/imgemail"
+                        android:text=" joebrown@gmail.com"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/nationalitylabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imgemail"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Nationality: "
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textview_nationality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/nationalitylabel"
+                        android:layout_toEndOf="@+id/nationalitylabel"
+                        android:text=" Filipino"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/imgaddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/nationalitylabel"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/address" />
+
+                    <TextView
+                        android:id="@+id/textview_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/imgaddress"
+                        android:layout_below="@+id/nationalitylabel"
+                        android:layout_marginTop="30dp"
+                        android:layout_toEndOf="@+id/imgaddress"
+                        android:text="Cebu, Mandaue, 6002"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/imgcontact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imgaddress"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/contact" />
+
+                    <TextView
+                        android:id="@+id/textview_contact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imgcontact"
+                        android:layout_marginBottom="15dp"
+                        android:layout_toEndOf="@+id/imgcontact"
+                        android:text="0912 345 6579"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/statuslabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imgcontact"
+                        android:layout_marginTop="15dp"
+                        android:text="Account status: "
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textview_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/statuslabel"
+                        android:layout_toRightOf="@id/statuslabel"
+                        android:text="Unverfied"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/bloodlabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/statuslabel"
+                        android:layout_marginTop="30dp"
+                        android:text="bloodtype: "
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textview_bloodtype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/bloodlabel"
+                        android:layout_toRightOf="@id/bloodlabel"
+                        android:text="O+"
+                        android:textSize="32sp" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</RelativeLayout>
