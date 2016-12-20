@@ -21,6 +21,8 @@ import java.util.Map;
 
 public class search_result extends AppCompatActivity {
 
+    private static search_result searchResult;
+
     private String searchname;
 
     private Firebase mRootRef;
@@ -30,6 +32,8 @@ public class search_result extends AppCompatActivity {
 
     private ArrayList<String> result_list;
     private ArrayList<String> userIDs;
+    private ArrayList<String> status;
+
     private ArrayAdapter<String> adapter;
 
     @Override
@@ -37,10 +41,13 @@ public class search_result extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result);
 
+        searchResult = this;
+
         searchname = getIntent().getStringExtra("searchname");
 
         result_list = new ArrayList<String>();
         userIDs = new ArrayList<String>();
+        status = new ArrayList<String>();
 
         adapter = new ArrayAdapter<String>(this, R.layout.result_item, result_list);
         final ListView vResultList = (ListView) findViewById(R.id.resultlist);
@@ -57,6 +64,7 @@ public class search_result extends AppCompatActivity {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
                 result_list.add(map.get("fname") + " " + map.get("lname"));
                 userIDs.add(dataSnapshot.getKey());
+                status.add(map.get("status"));
                 adapter.notifyDataSetChanged();
             }
 
@@ -88,6 +96,7 @@ public class search_result extends AppCompatActivity {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
                 result_list.add(map.get("fname") + " " + map.get("lname"));
                 userIDs.add(dataSnapshot.getKey());
+                status.add(map.get("status"));
                 adapter.notifyDataSetChanged();
             }
 
@@ -119,6 +128,7 @@ public class search_result extends AppCompatActivity {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
                 result_list.add(map.get("fname") + " " + map.get("lname"));
                 userIDs.add(dataSnapshot.getKey());
+                status.add(map.get("status"));
                 adapter.notifyDataSetChanged();
             }
 
@@ -151,9 +161,17 @@ public class search_result extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View clickedView, int position, long id) {
-                Intent i = new Intent(search_result.this, user_profile_admin_verifier.class);
-                i.putExtra("userID", userIDs.get(position));
-                startActivity(i);
+                if(status.get(position).equals("Unverified")) {
+                    Intent i = new Intent(search_result.this, user_profile_admin_verifier.class);
+                    i.putExtra("userID", userIDs.get(position));
+                    startActivity(i);
+                }
+                else {
+                    Intent i = new Intent(search_result.this, user_profile_admin.class);
+                    i.putExtra("userID", userIDs.get(position));
+                    startActivity(i);
+                }
+
             }
         });
     }
@@ -162,5 +180,9 @@ public class search_result extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(com.example.capstone.redflow.R.menu.actionbar, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    public static search_result getInstance() {
+        return searchResult;
     }
 }

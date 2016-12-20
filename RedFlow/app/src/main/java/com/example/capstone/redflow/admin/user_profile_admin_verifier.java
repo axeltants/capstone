@@ -82,8 +82,9 @@ public class user_profile_admin_verifier extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         mRootRef.child("User").child(userID).child("status").setValue("Verified");
-                        Intent i = new Intent(user_profile_admin_verifier.this, user_profile_admin_verifier.class);
+                        Intent i = new Intent(user_profile_admin_verifier.this, user_profile_admin.class);
                         i.putExtra("userID", userID);
+                        search_result.getInstance().finish();
                         startActivity(i);
                         finish();
                     }

@@ -31,18 +31,7 @@ public class profile extends AppCompatActivity {
     TextView vNationality;
     TextView vAddress;
     TextView vContact;
-    TextView vStatus;
     TextView vBloodtype;
-
-    /*String sCompleteName;
-    String sBdate;
-    String sGender;
-    String sEmail;
-    String sNationality;
-    String sAddress;
-    String sContact;
-    String sStatus;
-    String sBloodtype;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +43,7 @@ public class profile extends AppCompatActivity {
 
         userID = getIntent().getStringExtra("userID");
 
-        //Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();
-
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
-
 
         vCompleteName = (TextView) findViewById(R.id.textview_CompleteName);
         vBdate = (TextView) findViewById(R.id.textview_age);
@@ -66,7 +52,6 @@ public class profile extends AppCompatActivity {
         vNationality = (TextView) findViewById(R.id.textview_nationality);
         vAddress = (TextView) findViewById(R.id.textview_address);
         vContact = (TextView) findViewById(R.id.textview_contact);
-        vStatus = (TextView) findViewById(R.id.textview_status);
         vBloodtype = (TextView) findViewById(R.id.textview_bloodtype);
 
 
@@ -83,7 +68,6 @@ public class profile extends AppCompatActivity {
                 vNationality.setText(map.get("nationality"));
                 vAddress.setText(map.get("home"));
                 vContact.setText(map.get("contact"));
-                vStatus.setText(map.get("status"));
                 vBloodtype.setText(map.get("bloodtype"));
             }
 
@@ -92,16 +76,7 @@ public class profile extends AppCompatActivity {
 
             }
         });
-
-        /*sCompleteName = vCompleteName.getText().toString();
-        sBdate = vBdate.getText().toString();
-        sGender = vGender.getText().toString();
-        sEmail = vEmail.getText().toString();
-        sNationality = vNationality.getText().toString();
-        sAddress = vAddress.getText().toString();
-        sContact = vContact.getText().toString();
-        sStatus = vStatus.getText().toString();
-        sBloodtype = vBloodtype.getText().toString();*/
+        
     }
 
     @Override
