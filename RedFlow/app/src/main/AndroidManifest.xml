@@ -70,7 +70,12 @@
             android:name=".Claim_history"
             android:parentActivityName=".history" />
         <activity android:name=".admin.user_profile_admin_verifier" />
-        <activity android:name=".admin.user_profile_admin"></activity>
+        <activity android:name=".admin.user_profile_admin" />
+        <activity android:name=".admin.search_menu" />
+        <activity android:name=".admin.search_blood" />
+        <activity android:name=".admin.search_blood_result" />
+        <activity android:name=".admin.blood_supply_record" />
+        <activity android:name=".admin.blood_supply_info"></activity>
     </application>
 
 </manifest>

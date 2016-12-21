@@ -2,6 +2,7 @@ package com.example.capstone.redflow.admin;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,5 +70,8 @@ public class user_profile_admin extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void add_donation(View view) {
     }
 }
