@@ -39,7 +39,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingBottom="20dp"
-                android:paddingTop="20dp">
+                android:paddingTop="20dp"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -214,6 +215,13 @@
                         android:textSize="32sp" />
 
                 </RelativeLayout>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="add blood donation"
+                    android:background="@color/colorAccent2"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/logincolor"/>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
