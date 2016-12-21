@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorAccent2"
             android:layout_marginTop="15dp"
-            android:text="submit"
+            android:text="Add this bag"
             android:onClick="submit_bag"
             android:textColor="@color/logincolor"/>
 
