@@ -75,7 +75,7 @@
         <activity android:name=".admin.search_blood" />
         <activity android:name=".admin.search_blood_result" />
         <activity android:name=".admin.blood_supply_record" />
-        <activity android:name=".admin.blood_supply_info"></activity>
+        <activity android:name=".admin.blood_supply_info" />
     </application>
 
 </manifest>
