@@ -31,7 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textview_donors_name"
-            android:gravity="center">
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="15dp">
 
             <TextView
                 android:id="@+id/textview_date_donated"
@@ -41,13 +43,18 @@
                 android:gravity="center"
                 android:text="Date donated: " />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:text="1-1-2016"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:theme="@style/EditTextHint"
+                android:background="@drawable/rectangle_textedit"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:hint="mm - dd - yy"
+                android:inputType="date"
+                android:id="@+id/iedittext_date_donated"/>
         </LinearLayout>
 
     </RelativeLayout>
