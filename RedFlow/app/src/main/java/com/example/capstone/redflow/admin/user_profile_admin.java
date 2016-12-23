@@ -1,5 +1,6 @@
 package com.example.capstone.redflow.admin;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.request;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -73,5 +75,7 @@ public class user_profile_admin extends AppCompatActivity {
     }
 
     public void add_donation(View view) {
+        Intent intent = new Intent(this, Add_blood_donation.class);
+        startActivity(intent);
     }
 }

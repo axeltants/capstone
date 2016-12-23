@@ -353,7 +353,7 @@ public class register extends AppCompatActivity {
                 View promptsView = li.inflate(R.layout.text_prompt, null);
                 TextView messageView = (TextView)promptsView.findViewById(R.id.textView1);
                 messageView.setText("Contact number");
-                messageView.setInputType(InputType.TYPE_CLASS_PHONE);
+                messageView.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         context);
