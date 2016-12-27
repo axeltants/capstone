@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_user_profile_admin"
+    android:id="@+id/search_blood_result"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.user_profile_admin"
+    tools:context=".admin.search_blood_result"
     android:background="@drawable/bg">
 
     <RelativeLayout
@@ -23,8 +23,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="5dp"
-            android:text="Profile"
-            android:textSize="32sp"
+            android:text="Blood bag owners information"
+            android:textSize="23sp"
             android:textStyle="bold"
             android:layout_below="@+id/button_verifyuser"/>
 
@@ -218,11 +218,11 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="add blood donation"
+                    android:text="User his/her blood"
                     android:background="@color/colorAccent2"
                     android:layout_marginTop="30dp"
                     android:textColor="@color/logincolor"
-                    android:onClick="add_donation"/>
+                    android:onClick="user_blood"/>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

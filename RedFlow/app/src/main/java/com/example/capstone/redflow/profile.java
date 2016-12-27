@@ -3,8 +3,11 @@ package com.example.capstone.redflow;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -86,4 +89,5 @@ public class profile extends AppCompatActivity {
     }
 
     public static profile getinstance(){return prof;}
+
 }

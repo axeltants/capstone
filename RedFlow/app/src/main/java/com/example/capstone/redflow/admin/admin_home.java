@@ -35,14 +35,15 @@ public class admin_home extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void records(View view) {
-        Toast.makeText(getApplicationContext(), "records", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this,  admin_home.class);
+    public void blood_supply_records(View view) {
+        Toast.makeText(getApplicationContext(), "bloodsupply", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this,  blood_supply_record.class);
         startActivity(intent);
     }
 
-    public void searchuser(View view) {
-        Intent intent = new Intent(this, search_user.class);
+
+    public void search(View view) {
+        Intent intent = new Intent(this, search_menu.class);
         startActivity(intent);
     }
 }

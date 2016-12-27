@@ -200,7 +200,6 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Blood Type:"
-                    android:textColor="@color/logincolor"
                     android:textStyle="bold" />
 
                 <Spinner
