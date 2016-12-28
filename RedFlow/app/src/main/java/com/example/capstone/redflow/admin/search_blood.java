@@ -36,22 +36,21 @@ public class search_blood extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void search(View view) {
+    public void search_blood(View view) {
 
         sSearch = vSearch.getText().toString();
 
         if(sSearch.trim().equals("")) {
-            Toast.makeText(this, "Please enter a serial for blood bag", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter a serial number.", Toast.LENGTH_SHORT).show();
+        }
+        else if(sSearch.length() != 8) {
+            Toast.makeText(this, "Invalid serial number.", Toast.LENGTH_SHORT).show();
         }
         else {
-            Intent intent = new Intent(this, search_result.class);
-            intent.putExtra("blood", sSearch);
+            Intent intent = new Intent(this, search_blood_result.class);
+            intent.putExtra("serial_number", sSearch);
             startActivity(intent);
         }
     }
 
-    public void search_blood(View view) {
-        Intent intent = new Intent(this, search_blood_result.class);
-        startActivity(intent);
-    }
 }

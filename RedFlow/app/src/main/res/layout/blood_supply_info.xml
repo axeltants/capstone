@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="quantity of bag avaiable"
+            android:text="Available: "
             android:textColor="@color/colorAccent2"
             android:textSize="20sp"
             android:gravity="center"
@@ -44,7 +44,7 @@
             android:background="@drawable/rectangle_textedit"
             android:theme="@style/EditTextHint"
             android:padding="8dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="35dp"
             android:textAlignment="center"
             android:id="@+id/bag_serial"
             android:textSize="18sp"/>

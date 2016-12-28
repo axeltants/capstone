@@ -33,7 +33,7 @@
         android:layout_height="35dp"
         android:background="@drawable/rectangle_textedit"
         android:layout_below="@id/imagesearch"
-        android:hint="enter serial or blood type.."
+        android:hint="enter serial number..."
         android:theme="@style/EditTextHint"
         android:textAlignment="center"
         android:id="@+id/edittext_srchblood"/>
