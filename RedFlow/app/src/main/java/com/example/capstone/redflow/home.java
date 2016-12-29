@@ -33,7 +33,9 @@ public class home extends AppCompatActivity {
 
     public void history(View view) {
         Toast.makeText(getApplicationContext(), "HISTORY", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, history.class);
+       /* Intent intent = new Intent(this, history.class);
+        startActivity(intent);*/
+        Intent intent = new Intent(this, Donation_history.class);
         startActivity(intent);
     }
 
