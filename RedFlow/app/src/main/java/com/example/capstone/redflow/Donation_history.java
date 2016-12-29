@@ -24,6 +24,7 @@ public class Donation_history extends AppCompatActivity {
                 this, R.layout.donation_history_list, donations);
         ListView lv = (ListView) findViewById(R.id.blooddonationlist);
         lv.setAdapter(adapter);
+        lv.setEmptyView(findViewById(R.id.empty));
     }
 
     @Override

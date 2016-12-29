@@ -18,5 +18,16 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"/>
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:text="NO RESULT!"
+        android:textColor="#525252"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="@drawable/bg2"/>
 
 </RelativeLayout>

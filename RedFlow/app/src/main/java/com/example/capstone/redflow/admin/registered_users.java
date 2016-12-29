@@ -27,6 +27,7 @@ public class registered_users extends AppCompatActivity {
                 this, R.layout.registered_userslist, user);
         ListView lv = (ListView) findViewById(R.id.userslist);
         lv.setAdapter(adapter);
+        lv.setEmptyView(findViewById(R.id.empty));
     }
 
     @Override

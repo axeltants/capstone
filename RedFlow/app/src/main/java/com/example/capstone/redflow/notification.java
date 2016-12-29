@@ -25,6 +25,7 @@ public class notification extends AppCompatActivity {
                 this, com.example.capstone.redflow.R.layout.list_notif, notifications);
         ListView lv = (ListView) findViewById(com.example.capstone.redflow.R.id.notificationlist);
         lv.setAdapter(adapter);
+        lv.setEmptyView(findViewById(R.id.empty));
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

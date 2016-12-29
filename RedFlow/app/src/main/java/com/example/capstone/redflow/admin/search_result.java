@@ -53,6 +53,8 @@ public class search_result extends AppCompatActivity {
         final ListView vResultList = (ListView) findViewById(R.id.resultlist);
         vResultList.setAdapter(adapter);
 
+        vResultList.setEmptyView(findViewById(R.id.empty));
+
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
 

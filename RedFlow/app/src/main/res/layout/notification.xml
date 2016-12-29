@@ -15,5 +15,16 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/bg2"
         android:padding="8dp" />
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:text="NO RESULT!"
+        android:textColor="#525252"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="@drawable/bg2"/>
 
 </RelativeLayout>
