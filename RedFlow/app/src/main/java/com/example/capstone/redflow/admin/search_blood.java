@@ -48,7 +48,7 @@ public class search_blood extends AppCompatActivity {
         }
         else {
             Intent intent = new Intent(this, search_blood_result.class);
-            intent.putExtra("serial_number", sSearch);
+            intent.putExtra("serial_number", sSearch.toUpperCase());
             startActivity(intent);
         }
     }
