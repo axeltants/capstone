@@ -54,7 +54,8 @@
                 android:textAlignment="center"
                 android:hint="mm / dd / yy"
                 android:inputType="date"
-                android:id="@+id/iedittext_date_donated"/>
+                android:id="@+id/iedittext_date_donated"
+                android:onClick="setDate"/>
         </LinearLayout>
 
     </RelativeLayout>

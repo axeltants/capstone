@@ -1,6 +1,8 @@
 package com.example.capstone.redflow;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +14,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,6 +29,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Calendar;
 
 public class register extends AppCompatActivity {
 
@@ -92,6 +97,11 @@ public class register extends AppCompatActivity {
     private EditText resultb;
     private EditText textb;
 
+    private DatePicker datePicker;
+    private Calendar calendar;
+    private TextView dateView;
+    private int year, month, day;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +152,14 @@ public class register extends AppCompatActivity {
         text9 = (EditText) findViewById(R.id.edittext_province);
         resulta= (EditText) findViewById(R.id.edittext_zip);
         texta = (EditText) findViewById(R.id.edittext_zip);
-        resultb = (EditText) findViewById(R.id.edittext_bday);
-        textb = (EditText) findViewById(R.id.edittext_bday);
+
+        dateView = (TextView) findViewById(R.id.edittext_bday);
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        showDate(year, month+1, day);
 
         text.setOnClickListener(new View.OnClickListener() {
 
@@ -545,46 +561,42 @@ public class register extends AppCompatActivity {
             }
 
         });
+    }
 
-        textb.setOnClickListener(new View.OnClickListener() {
+    @SuppressWarnings("deprecation")
+    public void setDate(View view) {
+        showDialog(999);
+        Toast.makeText(getApplicationContext(), "birthdate",
+                Toast.LENGTH_SHORT)
+                .show();
+    }
 
-            @Override
-            public void onClick(View arg0) {
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // TODO Auto-generated method stub
+        if (id == 999) {
+            return new DatePickerDialog(this,
+                    myDateListener, year, month, day);
+        }
+        return null;
+    }
 
-                LayoutInflater li = LayoutInflater.from(context);
-                View promptsView = li.inflate(R.layout.text_prompt, null);
-                TextView messageView = (TextView)promptsView.findViewById(R.id.textView1);
-                messageView.setText("Birth date (Separate with -)");
+    private DatePickerDialog.OnDateSetListener myDateListener = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0,
+                                      int arg1, int arg2, int arg3) {
+                    // TODO Auto-generated method stub
+                    // arg1 = year
+                    // arg2 = month
+                    // arg3 = day
+                    showDate(arg1, arg2+1, arg3);
+                }
+            };
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
-
-                alertDialogBuilder.setView(promptsView);
-                final EditText userInput = (EditText) promptsView
-                        .findViewById(R.id.editTextDialogUserInput);
-
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        resultb.setText(userInput.getText());
-                                    }
-                                })
-                        .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
-
-        });
+    private void showDate(int year, int month, int day) {
+        dateView.setText(new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
     }
 
 

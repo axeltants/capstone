@@ -168,6 +168,12 @@
                     android:paddingRight="8dp"
                     android:textAlignment="center"
                     android:theme="@style/EditTextHint" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Birthdate"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
 
                 <EditText
                     android:id="@+id/edittext_bday"
@@ -180,7 +186,8 @@
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:textAlignment="center"
-                    android:theme="@style/EditTextHint" />
+                    android:theme="@style/EditTextHint"
+                    android:onClick="setDate"/>
 
                 <Spinner
                     android:id="@+id/spinnr_gender"
