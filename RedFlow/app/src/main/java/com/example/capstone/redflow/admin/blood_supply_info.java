@@ -72,7 +72,7 @@ public class blood_supply_info extends AppCompatActivity {
         }
         else {
             blood.child("bloodtype").setValue(blood_type);
-            blood.child("serial").setValue(sBag_serial);
+            blood.child("serial").setValue(sBag_serial.toUpperCase());
             blood.child("userID").setValue("-K_2nAZ1ynR9ZF15HvVw");
             mRootRef.child("Supply").child(blood_type).child("count").setValue(count+1);
             Intent intent = new Intent(blood_supply_info.this, blood_supply_info.class);

@@ -18,19 +18,19 @@ import java.util.Map;
 
 public class user_profile_admin extends AppCompatActivity {
 
-    String userID;
+    private String userID;
 
-    Firebase mRootRef;
+    private Firebase mRootRef;
 
-    TextView vCompleteName;
-    TextView vBdate;
-    TextView vGender;
-    TextView vEmail;
-    TextView vNationality;
-    TextView vAddress;
-    TextView vContact;
-    TextView vStatus;
-    TextView vBloodtype;
+    private TextView vCompleteName;
+    private TextView vBdate;
+    private TextView vGender;
+    private TextView vEmail;
+    private TextView vNationality;
+    private TextView vAddress;
+    private TextView vContact;
+    private TextView vStatus;
+    private TextView vBloodtype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

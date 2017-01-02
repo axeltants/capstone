@@ -24,19 +24,16 @@ public class admin_home extends AppCompatActivity {
     }
 
     public void statistics(View view) {
-        Toast.makeText(getApplicationContext(), "Statistics", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,  statistics_home.class);
         startActivity(intent);
     }
 
     public void donors(View view) {
-        Toast.makeText(getApplicationContext(), "Donors", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, registered_users.class);
         startActivity(intent);
     }
 
     public void blood_supply_records(View view) {
-        Toast.makeText(getApplicationContext(), "bloodsupply", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,  blood_supply_record.class);
         startActivity(intent);
     }

@@ -615,6 +615,9 @@ public class register extends AppCompatActivity {
         if(sFname.trim().equals("") || sLname.trim().equals("") || sMname.trim().equals("") || sContact.trim().equals("") || sNationality.trim().equals("") || sEmail.trim().equals("") || sPassword.trim().equals("") || sHome.trim().equals("") || sProvince.trim().equals("") || sZip.trim().equals("") || sBday.trim().equals("") || sGender.trim().equals("") || sBloodtype.trim().equals("")) {
             Toast.makeText(this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
         }
+        else if(sContact.length() != 11) {
+            Toast.makeText(this, "Mobile number should be 11 digits long.", Toast.LENGTH_SHORT).show();
+        }
         else {
             query = mRootRef.child("User").orderByChild("email").equalTo(sEmail);
             query.addValueEventListener(new ValueEventListener() {

@@ -218,7 +218,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="User his/her blood"
+                    android:text="Use his/her blood"
                     android:background="@color/colorAccent2"
                     android:layout_marginTop="30dp"
                     android:textColor="@color/logincolor"

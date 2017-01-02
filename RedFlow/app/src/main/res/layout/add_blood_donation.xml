@@ -52,7 +52,7 @@
                 android:textSize="20sp"
                 android:padding="10dp"
                 android:textAlignment="center"
-                android:hint="mm - dd - yy"
+                android:hint="mm / dd / yy"
                 android:inputType="date"
                 android:id="@+id/iedittext_date_donated"/>
         </LinearLayout>
