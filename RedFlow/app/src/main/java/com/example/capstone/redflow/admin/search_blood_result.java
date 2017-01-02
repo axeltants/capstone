@@ -64,6 +64,7 @@ public class search_blood_result extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.search_blood_result);
 
         serial_number = getIntent().getStringExtra("serial_number");

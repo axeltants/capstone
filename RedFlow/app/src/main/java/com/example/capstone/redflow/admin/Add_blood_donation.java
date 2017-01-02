@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.capstone.redflow.R;
+import com.firebase.client.Firebase;
 
 public class Add_blood_donation extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class Add_blood_donation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.add_blood_donation);
 
         vDateDonated = (EditText) findViewById(R.id.iedittext_date_donated);

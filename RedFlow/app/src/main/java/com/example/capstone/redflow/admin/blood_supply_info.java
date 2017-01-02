@@ -33,8 +33,8 @@ public class blood_supply_info extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.blood_supply_info);
-
         blood_type = getIntent().getStringExtra("blood_type");
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
