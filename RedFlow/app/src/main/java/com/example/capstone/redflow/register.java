@@ -588,6 +588,13 @@ public class register extends AppCompatActivity {
                 public void onDateSet(DatePicker arg0,
                                       int arg1, int arg2, int arg3) {
                     // TODO Auto-generated method stub
+                    // arg1 = year
+                    // arg2 = month
+                    // arg3 = day
+
+                    mYear = arg1;
+                    mMonth = arg2;
+                    mDay = arg3;
 
                     showDate(arg1, arg2+1, arg3);
                 }
@@ -647,9 +654,9 @@ public class register extends AppCompatActivity {
 
                                     progressDialog.dismiss();
 
-                                    newUser.child("birthday").setValue(day);
-                                    newUser.child("birthmonth").setValue(month+1);
-                                    newUser.child("birthyear").setValue(year);
+                                    newUser.child("birthday").setValue(mDay);
+                                    newUser.child("birthmonth").setValue(mMonth+1);
+                                    newUser.child("birthyear").setValue(mYear);
                                     newUser.child("fname").setValue(tools.nameFormatter(sFname));
                                     newUser.child("lname").setValue(tools.nameFormatter(sLname));
                                     newUser.child("mname").setValue(tools.nameFormatter(sMname));

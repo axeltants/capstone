@@ -38,6 +38,7 @@ public class Add_blood_donation extends AppCompatActivity {
     private Calendar calendar;
     private TextView dateView;
     private int year, month, day;
+    private int mYear, mMonth, mDay;
     private int bloodcount;
 
     private Firebase mRootRef;
@@ -50,7 +51,7 @@ public class Add_blood_donation extends AppCompatActivity {
         blood_type = getIntent().getStringExtra("blood_type");
         userID = getIntent().getStringExtra("userID");
         fullname = getIntent().getStringExtra("fullname");
-        
+
         vDateDonated = (EditText) findViewById(R.id.iedittext_date_donated);
         vSerial = (EditText) findViewById(R.id.eddittext_donation_serial);
         vFullname = (TextView) findViewById(R.id.textview_donors_name);
@@ -94,6 +95,11 @@ public class Add_blood_donation extends AppCompatActivity {
                     // arg1 = year
                     // arg2 = month
                     // arg3 = day
+
+                    mYear = arg1;
+                    mMonth = arg2;
+                    mDay = arg3;
+
                     showDate(arg1, arg2+1, arg3);
                 }
             };
@@ -114,12 +120,18 @@ public class Add_blood_donation extends AppCompatActivity {
 
                         getBloodCount();
 
+                        if(mYear == 0) {
+                            mYear = year;
+                            mMonth = month;
+                            mDay = day;
+                        }
+
                         blood.child("bloodtype").setValue(blood_type);
                         blood.child("serial").setValue(sSerial.toUpperCase());
                         blood.child("userID").setValue(userID);
-                        blood.child("donateDay").setValue(day);
-                        blood.child("donateMonth").setValue(month+1);
-                        blood.child("donateYear").setValue(year);
+                        blood.child("donateDay").setValue(mDay);
+                        blood.child("donateMonth").setValue(mMonth+1);
+                        blood.child("donateYear").setValue(mYear);
 
                         Intent intent = new Intent(Add_blood_donation.this, blood_supply_info.class);
                         intent.putExtra("blood_type", blood_type);
