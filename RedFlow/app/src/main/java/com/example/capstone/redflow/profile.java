@@ -64,9 +64,10 @@ public class profile extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
+                Map<String, Integer> map2 = dataSnapshot.getValue(Map.class);
 
                 vCompleteName.setText(map.get("lname") + ", " + map.get("fname"));
-                vBdate.setText(map.get("bday"));
+                vBdate.setText(map2.get("birthmonth") + "/" + map2.get("birthday") + "/" + map2.get("birthyear"));
                 vGender.setText(map.get("gender"));
                 vEmail.setText(map.get("email"));
                 vNationality.setText(map.get("nationality"));

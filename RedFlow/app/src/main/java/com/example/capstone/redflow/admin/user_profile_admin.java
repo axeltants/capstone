@@ -19,6 +19,8 @@ import java.util.Map;
 public class user_profile_admin extends AppCompatActivity {
 
     private String userID;
+    private String bloodtype;
+    private String fullname;
 
     private Firebase mRootRef;
 
@@ -55,16 +57,20 @@ public class user_profile_admin extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
+                Map<String, Integer> map2 = dataSnapshot.getValue(Map.class);
 
-                vCompleteName.setText(map.get("lname") + ", " + map.get("fname"));
-                vBdate.setText(map.get("bday"));
+                bloodtype = map.get("bloodtype");
+                fullname = map.get("lname") + ", " + map.get("fname");
+
+                vCompleteName.setText(fullname);
+                vBdate.setText(map2.get("birthmonth") + "/" + map2.get("birthday") + "/" + map2.get("birthyear"));
                 vGender.setText(map.get("gender"));
                 vEmail.setText(map.get("email"));
                 vNationality.setText(map.get("nationality"));
                 vAddress.setText(map.get("home"));
                 vContact.setText(map.get("contact"));
                 vStatus.setText(map.get("status"));
-                vBloodtype.setText(map.get("bloodtype"));
+                vBloodtype.setText(bloodtype);
             }
 
             @Override
@@ -76,6 +82,9 @@ public class user_profile_admin extends AppCompatActivity {
 
     public void add_donation(View view) {
         Intent intent = new Intent(this, Add_blood_donation.class);
+        intent.putExtra("blood_type", bloodtype);
+        intent.putExtra("userID", userID);
+        intent.putExtra("fullname", fullname);
         startActivity(intent);
     }
 }

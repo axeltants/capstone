@@ -14,6 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.capstone.redflow.R;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 
 import java.util.Calendar;
 
@@ -21,27 +26,42 @@ public class Add_blood_donation extends AppCompatActivity {
 
     private String sDateDonated;
     private String sSerial;
+    private String blood_type;
+    private String userID;
+    private String fullname;
 
     private EditText vDateDonated;
     private EditText vSerial;
+    private TextView vFullname;
 
     private DatePicker datePicker;
     private Calendar calendar;
     private TextView dateView;
     private int year, month, day;
+    private int bloodcount;
+
+    private Firebase mRootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_blood_donation);
 
+        blood_type = getIntent().getStringExtra("blood_type");
+        userID = getIntent().getStringExtra("userID");
+        fullname = getIntent().getStringExtra("fullname");
+        
         vDateDonated = (EditText) findViewById(R.id.iedittext_date_donated);
         vSerial = (EditText) findViewById(R.id.eddittext_donation_serial);
+        vFullname = (TextView) findViewById(R.id.textview_donors_name);
+
+        vFullname.setText(fullname);
+
+        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
         dateView = (TextView) findViewById(R.id.iedittext_date_donated);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(year, month+1, day);
@@ -90,7 +110,23 @@ public class Add_blood_donation extends AppCompatActivity {
                 .setMessage("Is this serial correct (" + sSerial + ")?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // do something
+                        Firebase blood = mRootRef.child("Blood").push();
+
+                        getBloodCount();
+
+                        blood.child("bloodtype").setValue(blood_type);
+                        blood.child("serial").setValue(sSerial.toUpperCase());
+                        blood.child("userID").setValue(userID);
+                        blood.child("donateDay").setValue(day);
+                        blood.child("donateMonth").setValue(month+1);
+                        blood.child("donateYear").setValue(year);
+
+                        Intent intent = new Intent(Add_blood_donation.this, blood_supply_info.class);
+                        intent.putExtra("blood_type", blood_type);
+                        Add_blood_donation.this.finish();
+                        mRootRef.child("Supply").child(blood_type).child("count").setValue(bloodcount+1);
+                        Toast.makeText(Add_blood_donation.this, "Successfully added 1 "+ blood_type +" blood bag.", Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -100,5 +136,21 @@ public class Add_blood_donation extends AppCompatActivity {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+    public void getBloodCount() {
+        Query query;
+
+        query = mRootRef.child("Supply").child(blood_type).child("count");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                bloodcount = dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 }

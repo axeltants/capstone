@@ -102,6 +102,8 @@ public class register extends AppCompatActivity {
     private TextView dateView;
     private int year, month, day;
 
+    private int mDay, mMonth, mYear;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -587,9 +589,7 @@ public class register extends AppCompatActivity {
                 public void onDateSet(DatePicker arg0,
                                       int arg1, int arg2, int arg3) {
                     // TODO Auto-generated method stub
-                    // arg1 = year
-                    // arg2 = month
-                    // arg3 = day
+
                     showDate(arg1, arg2+1, arg3);
                 }
             };
@@ -598,8 +598,6 @@ public class register extends AppCompatActivity {
         dateView.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
     }
-
-
 
     public static register getInstance(){
         return   reg;
@@ -650,6 +648,9 @@ public class register extends AppCompatActivity {
 
                                     progressDialog.dismiss();
 
+                                    newUser.child("birthday").setValue(day);
+                                    newUser.child("birthmonth").setValue(month+1);
+                                    newUser.child("birthyear").setValue(year);
                                     newUser.child("fname").setValue(tools.nameFormatter(sFname));
                                     newUser.child("lname").setValue(tools.nameFormatter(sLname));
                                     newUser.child("mname").setValue(tools.nameFormatter(sMname));
@@ -659,7 +660,6 @@ public class register extends AppCompatActivity {
                                     newUser.child("home").setValue(sHome);
                                     newUser.child("province").setValue(tools.nameFormatter(sProvince));
                                     newUser.child("zip").setValue(sZip);
-                                    newUser.child("bday").setValue(sBday);
                                     newUser.child("gender").setValue(sGender);
                                     newUser.child("bloodtype").setValue(sBloodtype);
                                     newUser.child("status").setValue("Unverified");
