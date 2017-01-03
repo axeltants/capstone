@@ -36,6 +36,27 @@
             android:id="@+id/bag_quantity"
             android:layout_marginTop="5dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date donated:"
+            android:textStyle="bold"
+            android:layout_marginTop="15dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:id="@+id/edittext_date_donated"
+            android:inputType="date"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textAlignment="center"
+            android:theme="@style/EditTextHint"
+            android:background="@drawable/rectangle_textedit"
+            android:onClick="setDate"/>
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

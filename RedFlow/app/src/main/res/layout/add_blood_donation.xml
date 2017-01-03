@@ -55,7 +55,10 @@
                 android:hint="mm / dd / yy"
                 android:inputType="date"
                 android:id="@+id/iedittext_date_donated"
-                android:onClick="setDate"/>
+                android:onClick="setDate"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"/>
         </LinearLayout>
 
     </RelativeLayout>

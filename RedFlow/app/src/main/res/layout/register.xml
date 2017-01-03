@@ -187,7 +187,10 @@
                     android:paddingRight="8dp"
                     android:textAlignment="center"
                     android:theme="@style/EditTextHint"
-                    android:onClick="setDate"/>
+                    android:onClick="setDate"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"/>
 
                 <Spinner
                     android:id="@+id/spinnr_gender"
