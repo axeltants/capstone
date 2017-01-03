@@ -46,6 +46,7 @@ public class Add_blood_donation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.add_blood_donation);
 
         blood_type = getIntent().getStringExtra("blood_type");
