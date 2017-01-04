@@ -138,8 +138,10 @@ public class Add_blood_donation extends AppCompatActivity {
                         intent.putExtra("blood_type", blood_type);
                         Add_blood_donation.this.finish();
                         mRootRef.child("Supply").child(blood_type).child("count").setValue(bloodcount+1);
+                        mRootRef.child("Supply").child(blood_type).child("recent").setValue(sSerial.toUpperCase());
                         Toast.makeText(Add_blood_donation.this, "Successfully added 1 "+ blood_type +" blood bag.", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
+                        user_profile_admin.getInstance().finish();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

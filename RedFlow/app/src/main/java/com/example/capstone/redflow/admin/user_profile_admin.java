@@ -18,6 +18,8 @@ import java.util.Map;
 
 public class user_profile_admin extends AppCompatActivity {
 
+    private static user_profile_admin userProf;
+
     private String userID;
     private String bloodtype;
     private String fullname;
@@ -40,6 +42,8 @@ public class user_profile_admin extends AppCompatActivity {
         setContentView(R.layout.user_profile_admin);
 
         userID = getIntent().getStringExtra("userID");
+
+        userProf = this;
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
@@ -86,5 +90,9 @@ public class user_profile_admin extends AppCompatActivity {
         intent.putExtra("userID", userID);
         intent.putExtra("fullname", fullname);
         startActivity(intent);
+    }
+
+    public static user_profile_admin getInstance() {
+        return userProf;
     }
 }

@@ -48,6 +48,7 @@ public class search_user extends AppCompatActivity {
             Intent intent = new Intent(this, search_result.class);
             intent.putExtra("searchname", tools.nameFormatter(sSearch));
             startActivity(intent);
+            this.finish();
         }
     }
 }

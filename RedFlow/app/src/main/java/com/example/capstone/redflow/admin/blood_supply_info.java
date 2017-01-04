@@ -20,6 +20,7 @@ import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 
 import java.util.Calendar;
+import java.util.Map;
 
 public class blood_supply_info extends AppCompatActivity {
 
@@ -30,6 +31,7 @@ public class blood_supply_info extends AppCompatActivity {
 
     private TextView bloodtype;
     private TextView bag_quantity;
+    private TextView recentlyAdded;
     private EditText vBag_serial;
 
     private String sBag_serial;
@@ -53,6 +55,7 @@ public class blood_supply_info extends AppCompatActivity {
 
         bloodtype = (TextView) findViewById(R.id.bloodtype);
         bag_quantity = (TextView) findViewById(R.id.bag_quantity);
+        recentlyAdded = (TextView) findViewById(R.id.recently_added);
         vBag_serial = (EditText) findViewById(R.id.bag_serial);
 
         dateView = (TextView) findViewById(R.id.edittext_date_donated);
@@ -65,12 +68,16 @@ public class blood_supply_info extends AppCompatActivity {
 
 
         bloodtype.setText(blood_type);
-        query = mRootRef.child("Supply").child(blood_type).child("count");
+        query = mRootRef.child("Supply").child(blood_type);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                count = Integer.parseInt(dataSnapshot.getValue().toString());
+                Map<String, Integer> map = dataSnapshot.getValue(Map.class);
+                Map<String, String> map2 = dataSnapshot.getValue(Map.class);
+
+                count = map.get("count");
                 bag_quantity.setText("Available: " + count);
+                recentlyAdded.setText(map2.get("recent"));
             }
 
             @Override
@@ -107,6 +114,9 @@ public class blood_supply_info extends AppCompatActivity {
                     // arg1 = year
                     // arg2 = month
                     // arg3 = day
+                    mYear = arg1;
+                    mMonth = arg2;
+                    mDay = arg3;
                     showDate(arg1, arg2+1, arg3);
                 }
             };
@@ -127,10 +137,19 @@ public class blood_supply_info extends AppCompatActivity {
             Toast.makeText(this, "Invalid serial number.", Toast.LENGTH_SHORT).show();
         }
         else {
+            if(mYear == 0) {
+                mYear = year;
+                mMonth = month;
+                mDay = day;
+            }
+            blood.child("donateDay").setValue(mDay);
+            blood.child("donateMonth").setValue(mMonth+1);
+            blood.child("donateYear").setValue(mYear);
             blood.child("bloodtype").setValue(blood_type);
             blood.child("serial").setValue(sBag_serial.toUpperCase());
             blood.child("userID").setValue("-K_2nAZ1ynR9ZF15HvVw");
             mRootRef.child("Supply").child(blood_type).child("count").setValue(count+1);
+            mRootRef.child("Supply").child(blood_type).child("recent").setValue(sBag_serial.toUpperCase());
             Intent intent = new Intent(blood_supply_info.this, blood_supply_info.class);
             intent.putExtra("blood_type", blood_type);
             this.finish();

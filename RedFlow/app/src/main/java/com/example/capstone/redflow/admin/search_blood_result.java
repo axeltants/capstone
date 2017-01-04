@@ -127,7 +127,7 @@ public class search_blood_result extends AppCompatActivity {
                         }
                         else {
                             message = "Your blood has just been donated. Thank you for saving a life.";
-                            new SendRequest().execute();
+                            //new SendRequest().execute();
                         }
                         mRootRef.child("Supply").child(bloodtype).child("count").setValue(bloodcount-1);
                         mRootRef.child("Blood").child(bloodID).removeValue();
