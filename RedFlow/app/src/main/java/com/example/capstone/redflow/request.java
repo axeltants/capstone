@@ -67,7 +67,6 @@ public class request extends AppCompatActivity {
     public void onSubmit(View view) {
         vBloodtype = (Spinner) findViewById(R.id.spinnr_bloodtype);
         vLocation = (Spinner) findViewById(R.id.spinnr_location);
-        vUrgency = (Spinner) findViewById(R.id.spinnr_urgency);
         vBagqty = (EditText) findViewById(R.id.edittext_bagqntty);
 
         bloodtype = vBloodtype.getSelectedItem().toString();

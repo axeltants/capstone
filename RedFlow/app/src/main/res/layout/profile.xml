@@ -12,222 +12,238 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.capstone.redflow.profile">
 
-    <TextView
-        android:id="@+id/titleprof"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:text="Profile"
-        android:textColor="@color/logincolor"
-        android:textSize="32sp"
-        android:textStyle="bold" />
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:paddingTop="65dp">
+        android:background="@drawable/bg2"
+        android:paddingBottom="32dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="32dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/titleprof"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="5dp"
+            android:text="Profile"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/button_verifyuser"/>
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent2"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp">
+            android:layout_marginTop="20dp"
+            android:paddingTop="30dp"
+            android:id="@+id/scview">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center">
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imgname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/name" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="75dp">
 
-                <TextView
-                    android:id="@+id/textview_CompleteName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imgname"
-                    android:layout_marginBottom="15dp"
-                    android:layout_toEndOf="@+id/imgname"
-                    android:text="Brown, Joe L."
-                    android:textColor="@color/logincolor"
-                    android:textSize="18sp" />
+                    <ImageView
+                        android:id="@+id/imgname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/name" />
 
-                <TextView
-                    android:id="@+id/agelabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/imgname"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="15dp"
-                    android:text="Birth date: "
-                    android:textColor="@color/logincolor"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/textview_CompleteName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imgname"
+                        android:layout_marginBottom="15dp"
+                        android:layout_toEndOf="@+id/imgname"
+                        android:text="Brown, Joe L."
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/textview_age"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/agelabel"
-                    android:layout_toRightOf="@+id/agelabel"
-                    android:text=" 30"
-                    android:textColor="@color/logincolor"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/agelabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imgname"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Birth date: "
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/imggender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/agelabel"
-                    android:layout_marginTop="15dp"
-                    android:src="@mipmap/gender" />
+                    <TextView
+                        android:id="@+id/textview_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/agelabel"
+                        android:layout_toRightOf="@+id/agelabel"
+                        android:text=" 30"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/textview_gender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/imgemail"
-                    android:layout_marginBottom="15dp"
-                    android:layout_toEndOf="@+id/imggender"
-                    android:text="Male"
-                    android:textColor="@color/logincolor"
-                    android:textSize="18sp" />
+                    <ImageView
+                        android:id="@+id/imggender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/agelabel"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/gender" />
 
-                <ImageView
-                    android:id="@+id/imgemail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/imggender"
-                    android:layout_marginTop="15dp"
-                    android:src="@mipmap/email" />
+                    <TextView
+                        android:id="@+id/textview_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/imgemail"
+                        android:layout_marginBottom="15dp"
+                        android:layout_toEndOf="@+id/imggender"
+                        android:text="Male"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/textview_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imgemail"
-                    android:layout_marginBottom="13dp"
-                    android:layout_toEndOf="@+id/imgemail"
-                    android:text=" joebrown@gmail.com"
-                    android:textColor="@color/logincolor"
-                    android:textSize="18sp" />
+                    <ImageView
+                        android:id="@+id/imgemail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imggender"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/email" />
 
-                <TextView
-                    android:id="@+id/nationalitylabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/imgemail"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="15dp"
-                    android:text="Nationality: "
-                    android:textColor="@color/logincolor"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/textview_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imgemail"
+                        android:layout_marginBottom="13dp"
+                        android:layout_toEndOf="@+id/imgemail"
+                        android:text=" joebrown@gmail.com"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/textview_nationality"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/nationalitylabel"
-                    android:layout_toEndOf="@+id/nationalitylabel"
-                    android:text=" Filipino"
-                    android:textColor="@color/logincolor"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/nationalitylabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imgemail"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Nationality: "
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/imgaddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/nationalitylabel"
-                    android:layout_marginTop="15dp"
-                    android:src="@mipmap/address" />
+                    <TextView
+                        android:id="@+id/textview_nationality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/nationalitylabel"
+                        android:layout_toEndOf="@+id/nationalitylabel"
+                        android:text=" Filipino"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/textview_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/imgaddress"
-                    android:layout_below="@+id/nationalitylabel"
-                    android:layout_marginTop="30dp"
-                    android:layout_toEndOf="@+id/imgaddress"
-                    android:text="Cebu, Mandaue, 6002"
-                    android:textColor="@color/logincolor"
-                    android:textSize="18sp" />
+                    <ImageView
+                        android:id="@+id/imgaddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/nationalitylabel"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/address" />
 
-                <ImageView
-                    android:id="@+id/imgcontact"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/imgaddress"
-                    android:layout_marginTop="15dp"
-                    android:src="@mipmap/contact" />
+                    <TextView
+                        android:id="@+id/textview_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/imgaddress"
+                        android:layout_below="@+id/nationalitylabel"
+                        android:layout_marginTop="30dp"
+                        android:layout_toEndOf="@+id/imgaddress"
+                        android:text="Cebu, Mandaue, 6002"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/textview_contact"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imgcontact"
-                    android:layout_marginBottom="15dp"
-                    android:layout_toEndOf="@+id/imgcontact"
-                    android:text="0912 345 6579"
-                    android:textColor="@color/logincolor"
-                    android:textSize="18sp" />
+                    <ImageView
+                        android:id="@+id/imgcontact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imgaddress"
+                        android:layout_marginTop="15dp"
+                        android:src="@mipmap/contact" />
 
-                <TextView
-                    android:id="@+id/bloodlabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/imgcontact"
-                    android:layout_marginTop="30dp"
-                    android:text="bloodtype: "
-                    android:textColor="@color/logincolor"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/textview_contact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imgcontact"
+                        android:layout_marginBottom="15dp"
+                        android:layout_toEndOf="@+id/imgcontact"
+                        android:text="0912 345 6579"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/textview_bloodtype"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@id/bloodlabel"
-                    android:layout_toRightOf="@id/bloodlabel"
-                    android:text="O+"
-                    android:textColor="@color/logincolor"
-                    android:textSize="32sp" />
+                    <TextView
+                        android:id="@+id/statuslabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imgcontact"
+                        android:layout_marginTop="15dp"
+                        android:text="Account status: "
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SMS notification: "
-                    android:textColor="@color/logincolor"
-                    android:textSize="16sp"
-                    android:layout_below="@id/bloodlabel"
-                    android:layout_marginTop="35dp"
-                    android:textStyle="bold"
-                    android:id="@+id/smsnotiflabel"/>
-                <Switch
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/smsnotiflabel"
-                    android:layout_alignBaseline="@id/smsnotiflabel"
-                    android:id="@+id/sms_switch"
-                    android:checked="false"
-                    android:textOff="OFF"
-                    android:textOn="ON"
-                    android:textColor="@color/logincolor"
-                    android:textSize="22sp"
-                    style="@style/Base.TextAppearance.AppCompat.Widget.Switch"
-                    android:onClick="switchhh"/>
+                    <TextView
+                        android:id="@+id/textview_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/statuslabel"
+                        android:layout_toRightOf="@id/statuslabel"
+                        android:text="Unverfied"
+                        android:textSize="18sp" />
 
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
+                    <TextView
+                        android:id="@+id/bloodlabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/statuslabel"
+                        android:layout_marginTop="30dp"
+                        android:text="bloodtype: "
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/textview_bloodtype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/bloodlabel"
+                        android:layout_toRightOf="@id/bloodlabel"
+                        android:text="O+"
+                        android:textSize="32sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SMS notification: "
+                        android:textSize="16sp"
+                        android:layout_below="@id/bloodlabel"
+                        android:layout_marginTop="35dp"
+                        android:textStyle="bold"
+                        android:id="@+id/smsnotiflabel"/>
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/smsnotiflabel"
+                        android:layout_alignBaseline="@id/smsnotiflabel"
+                        android:id="@+id/sms_switch"
+                        android:checked="false"
+                        android:textOff="OFF"
+                        android:textOn="ON"
+                        android:textSize="22sp"
+                        style="@style/Base.TextAppearance.AppCompat.Widget.Switch"
+                        android:onClick="switchhh"
+                        android:layout_marginLeft="5dp"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 
 </RelativeLayout>
