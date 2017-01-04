@@ -51,7 +51,7 @@ public class register extends AppCompatActivity {
     private EditText vEmail;
     private EditText vPassword;
     private EditText vHome;
-    private EditText vProvince;
+    private Spinner vProvince;
     private EditText vZip;
     private EditText vBday;
     private Spinner vGender;
@@ -120,7 +120,7 @@ public class register extends AppCompatActivity {
         vEmail = (EditText) findViewById(R.id.edittext_email);
         vPassword = (EditText) findViewById(R.id.edittext_password);
         vHome = (EditText) findViewById(R.id.edittext_home);
-        vProvince = (EditText) findViewById(R.id.edittext_province);
+        vProvince = (Spinner) findViewById(R.id.spinnr_province);
         vZip = (EditText) findViewById(R.id.edittext_zip);
         vBday = (EditText) findViewById(R.id.edittext_bday);
         vGender = (Spinner) findViewById(R.id.spinnr_gender);
@@ -150,8 +150,6 @@ public class register extends AppCompatActivity {
         text7 = (EditText) findViewById(R.id.edittext_nationality);
         result8 = (EditText) findViewById(R.id.edittext_home);
         text8 = (EditText) findViewById(R.id.edittext_home);
-        result9 = (EditText) findViewById(R.id.edittext_province);
-        text9 = (EditText) findViewById(R.id.edittext_province);
         resulta= (EditText) findViewById(R.id.edittext_zip);
         texta = (EditText) findViewById(R.id.edittext_zip);
 
@@ -483,46 +481,6 @@ public class register extends AppCompatActivity {
 
         });
 
-        text9.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                LayoutInflater li = LayoutInflater.from(context);
-                View promptsView = li.inflate(R.layout.text_prompt, null);
-                TextView messageView = (TextView)promptsView.findViewById(R.id.textView1);
-                messageView.setText("Municipality/City");
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
-
-                alertDialogBuilder.setView(promptsView);
-                final EditText userInput = (EditText) promptsView
-                        .findViewById(R.id.editTextDialogUserInput);
-
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        result9.setText(userInput.getText());
-                                    }
-                                })
-                        .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
-
-        });
-
         texta.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -621,7 +579,7 @@ public class register extends AppCompatActivity {
         sEmail = vEmail.getText().toString();
         sPassword = vPassword.getText().toString();
         sHome = vHome.getText().toString();
-        sProvince = vProvince.getText().toString();
+        sProvince = vProvince.getSelectedItem().toString();
         sZip = vZip.getText().toString();
         sBday = vBday.getText().toString();
         sGender = vGender.getSelectedItem().toString();

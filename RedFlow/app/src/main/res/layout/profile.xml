@@ -211,7 +211,7 @@
                     android:layout_marginTop="35dp"
                     android:textStyle="bold"
                     android:id="@+id/smsnotiflabel"/>
-                <android.support.v7.widget.SwitchCompat
+                <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/smsnotiflabel"
@@ -220,10 +220,10 @@
                     android:checked="false"
                     android:textOff="OFF"
                     android:textOn="ON"
-                    app:showText="true"
                     android:textColor="@color/logincolor"
                     android:textSize="22sp"
-                    style="@style/Base.TextAppearance.AppCompat.Widget.Switch"/>
+                    style="@style/Base.TextAppearance.AppCompat.Widget.Switch"
+                    android:onClick="switchhh"/>
 
             </RelativeLayout>
         </LinearLayout>

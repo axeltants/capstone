@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -36,6 +37,9 @@ public class profile extends AppCompatActivity {
     TextView vContact;
     TextView vBloodtype;
 
+    private TextView switchStatus;
+    private Switch mySwitch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +62,8 @@ public class profile extends AppCompatActivity {
         vContact = (TextView) findViewById(R.id.textview_contact);
         vBloodtype = (TextView) findViewById(R.id.textview_bloodtype);
 
-
+        switchStatus = (TextView) findViewById(R.id.smsnotiflabel);
+        mySwitch = (Switch) findViewById(R.id.sms_switch);
 
         mRootRef.child("User").child(userID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -81,6 +86,26 @@ public class profile extends AppCompatActivity {
 
             }
         });
+        mySwitch.setChecked(true);
+        //attach a listener to check for changes in state
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked){
+                    switchStatus.setText("SMS notification: ON");
+                }else{
+                    switchStatus.setText("SMS notification: OFF");
+                }
+            }
+        });
+        //check the current state before we display the screen
+        if(mySwitch.isChecked()){
+            switchStatus.setText("SMS notification: ON");
+        }
+        else {
+            switchStatus.setText("SMS notification: ON");
+        }
 
     }
 
@@ -92,4 +117,6 @@ public class profile extends AppCompatActivity {
 
     public static profile getinstance(){return prof;}
 
+    public void switchhh(View view) {
+    }
 }
