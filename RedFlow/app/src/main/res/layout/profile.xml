@@ -239,7 +239,8 @@
                         android:textSize="22sp"
                         style="@style/Base.TextAppearance.AppCompat.Widget.Switch"
                         android:onClick="switchhh"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/switchh"/>
 
                 </RelativeLayout>
             </LinearLayout>

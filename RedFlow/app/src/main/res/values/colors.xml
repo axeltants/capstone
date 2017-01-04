@@ -10,4 +10,6 @@
 
     <color name="gold">#fff5a9</color>
     <color name="empty">#969696</color>
+
+    <color name="switchh">#e2e2e2</color>
 </resources>
