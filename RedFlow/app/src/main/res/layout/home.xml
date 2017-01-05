@@ -28,7 +28,7 @@
                 <ImageButton
                     android:id="@+id/button_donate"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="175dp"
                     android:layout_weight="1"
                     android:minHeight="180dp"
                     android:onClick="request"
@@ -39,7 +39,7 @@
                 <ImageButton
                     android:id="@+id/button_history"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="175dp"
                     android:layout_weight="1"
                     android:onClick="history"
                     android:scaleType="fitCenter"
@@ -56,7 +56,7 @@
                 <ImageButton
                     android:id="@+id/button_profile"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="175dp"
                     android:layout_weight="1"
                     android:onClick="profile"
                     android:scaleType="fitCenter"
@@ -65,7 +65,7 @@
                 <ImageButton
                     android:id="@+id/button_exclamation"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="175dp"
                     android:layout_weight="1"
                     android:onClick="notification"
                     android:scaleType="fitCenter"
@@ -81,7 +81,7 @@
                 <ImageButton
                     android:id="@+id/button_heart"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="175dp"
                     android:layout_weight="1"
                     android:onClick="donor"
                     android:scaleType="fitCenter"
@@ -90,7 +90,7 @@
                 <ImageButton
                     android:id="@+id/button_test"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="175dp"
                     android:layout_weight="1"
                     android:onClick="location"
                     android:scaleType="fitCenter"

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class home extends AppCompatActivity {
@@ -17,6 +18,7 @@ public class home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(com.example.capstone.redflow.R.layout.home);
 
         userID = getIntent().getStringExtra("userID");
@@ -81,7 +83,7 @@ public class home extends AppCompatActivity {
                 Logout();
                 return true;
             case R.id.actionabout:
-                Logout();
+                about();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -108,6 +110,10 @@ public class home extends AppCompatActivity {
     }
     public void backtologin(){
         Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+    public void about(){
+        Intent intent = new Intent(this, about.class);
         startActivity(intent);
     }
 /////////////////////////////////////////////////////

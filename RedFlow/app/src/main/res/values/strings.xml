@@ -62,4 +62,7 @@
     </string-array>
     <string name="title_activity_redcross_location">Map</string>
     <string name="info_req">(NOTE) To claim blood bag/s you need to present your form request that was given by the hospital or doctor with a signature of an authorized personnel on it.</string>
+    <string name="about1">RedFlow is a tool that puts the power to save lives in the palm of your hand. Donating and finding a blood Donor is easier than ever. Find nearby Red Cross blood facilities with shortest path feeatures for you to easily find its locations. In app preliminary test to determine if you are healthy enough to donate a blood before going to a certain Red cross facility, and also save your precious time.Keep track on your donated blood. And be notified through push notification and SMS notification, Be a life saver to your fellow Countrymen.</string>
+    <string name="about2">The Developers have been collaborating with red cross during development, to ensure quality and service that is aligned with the Policy and guidelines of Philippine RedCross.</string>
+    <string name="about3">Developed by WolfPack</string>
 </resources>
