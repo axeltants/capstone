@@ -20,6 +20,8 @@ import java.util.Map;
 public class user_profile_admin_verifier extends AppCompatActivity {
 
     String userID;
+    String bldtyp;
+    int option = 0;
 
     Firebase mRootRef;
 
@@ -38,6 +40,8 @@ public class user_profile_admin_verifier extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_profile_admin_verifier);
 
+
+
         userID = getIntent().getStringExtra("userID");
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
@@ -52,11 +56,32 @@ public class user_profile_admin_verifier extends AppCompatActivity {
         vStatus = (TextView) findViewById(R.id.textview_status);
         vBloodtype = (Spinner) findViewById(R.id.textview_bloodtype);
 
+
         mRootRef.child("User").child(userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
                 Map<String, Integer> map2 = dataSnapshot.getValue(Map.class);
+
+                bldtyp = (String)map.get("bloodtype");
+
+                if(bldtyp.equals("A+")){
+                    option = 1;
+                }else if(bldtyp.equals("O+")){
+                    option = 2;
+                }else if(bldtyp.equals("B+")){
+                    option = 3;
+                }else if(bldtyp.equals("AB+")){
+                    option = 4;
+                }else if(bldtyp.equals("A-")){
+                    option = 5;
+                }else if(bldtyp.equals("O-")){
+                    option = 6;
+                }else if(bldtyp.equals("B-")){
+                    option =7;
+                }else if(bldtyp.equals("AB-")){
+                    option = 8;
+                }
 
                 vCompleteName.setText(map.get("lname") + ", " + map.get("fname"));
                 vBdate.setText(map2.get("birthmonth") + "/" + map2.get("birthday") + "/" + map2.get("birthyear"));
@@ -66,7 +91,7 @@ public class user_profile_admin_verifier extends AppCompatActivity {
                 vAddress.setText(map.get("home"));
                 vContact.setText(map.get("contact"));
                 vStatus.setText(map.get("status"));
-                vBloodtype.setSelection(0);
+                vBloodtype.setSelection(option);
             }
 
             @Override
