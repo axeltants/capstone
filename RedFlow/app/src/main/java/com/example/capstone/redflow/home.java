@@ -1,11 +1,16 @@
 package com.example.capstone.redflow;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class home extends AppCompatActivity {
     String userID;
@@ -62,4 +67,48 @@ public class home extends AppCompatActivity {
         Intent intent = new Intent(this, redcross_location.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    /*FOR ACTION BAR EVENTS*/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.actionlogout:
+                Logout();
+                return true;
+            case R.id.actionabout:
+                Logout();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    private void Logout(){
+        new AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("Do you really want to logout?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(), "successfully logged out", Toast.LENGTH_SHORT).show();
+                        FirebaseAuth.getInstance().signOut();
+                        backtologin();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+    public void backtologin(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+/////////////////////////////////////////////////////
 }
