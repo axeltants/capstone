@@ -22,7 +22,8 @@ import java.util.Map;
 
 public class profile extends AppCompatActivity {
 
-    String userID;
+    private String userID;
+    private String notif;
 
     private static profile prof;
 
@@ -79,6 +80,30 @@ public class profile extends AppCompatActivity {
                 vAddress.setText(map.get("home"));
                 vContact.setText(map.get("contact"));
                 vBloodtype.setText(map.get("bloodtype"));
+                notif = map.get("sms");
+
+                if(notif.equals("on")) {
+                    mySwitch.setChecked(true);
+                    switchStatus.setText("SMS notification: ON");
+                }
+                else {
+                    mySwitch.setChecked(false);
+                    switchStatus.setText("SMS notification: OFF");
+                }
+                //attach a listener to check for changes in state
+                mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                        if(isChecked){
+                            switchStatus.setText("SMS notification: ON");
+                            mRootRef.child("User").child(userID).child("sms").setValue("on");
+                        }else{
+                            switchStatus.setText("SMS notification: OFF");
+                            mRootRef.child("User").child(userID).child("sms").setValue("off");
+                        }
+                    }
+                });
             }
 
             @Override
@@ -86,26 +111,7 @@ public class profile extends AppCompatActivity {
 
             }
         });
-        mySwitch.setChecked(true);
-        //attach a listener to check for changes in state
-        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(isChecked){
-                    switchStatus.setText("SMS notification: ON");
-                }else{
-                    switchStatus.setText("SMS notification: OFF");
-                }
-            }
-        });
-        //check the current state before we display the screen
-        if(mySwitch.isChecked()){
-            switchStatus.setText("SMS notification: ON");
-        }
-        else {
-            switchStatus.setText("SMS notification: ON");
-        }
 
     }
 

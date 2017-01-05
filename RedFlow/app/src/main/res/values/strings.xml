@@ -44,9 +44,10 @@
     </string-array>
 
     <string-array name="location">
-        <item>cebu</item>
-        <item>Manila</item>
         <item>Bohol</item>
+        <item>Cebu</item>
+        <item>Davao</item>
+        <item>Manila</item>
         <item>Negros Occidental</item>
         <item>Negros Oriental</item>
         <item>Palawan</item>

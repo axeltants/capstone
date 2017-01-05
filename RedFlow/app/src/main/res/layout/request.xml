@@ -169,8 +169,8 @@
                         android:layout_marginTop="30dp"
                         android:background="@color/colorAccent2"
                         android:gravity="center"
-                        android:text="submit"
-                        android:onClick="onSubmit"
+                        android:text="Submit"
+                        android:onClick="onSubmitButton"
                         android:textColor="@color/logincolor" />
 
                 </LinearLayout>

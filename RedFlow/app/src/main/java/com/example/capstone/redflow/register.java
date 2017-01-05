@@ -622,12 +622,13 @@ public class register extends AppCompatActivity {
                                     newUser.child("nationality").setValue(tools.nameFormatter(sNationality));
                                     newUser.child("email").setValue(sEmail.toLowerCase());
                                     newUser.child("home").setValue(sHome);
-                                    newUser.child("province").setValue(tools.nameFormatter(sProvince));
+                                    newUser.child("province").setValue(sProvince);
                                     newUser.child("zip").setValue(sZip);
                                     newUser.child("gender").setValue(sGender);
                                     newUser.child("bloodtype").setValue(sBloodtype);
                                     newUser.child("status").setValue("Unverified");
                                     newUser.child("fullname").setValue(sFname.toLowerCase() + " " + sLname.toLowerCase());
+                                    newUser.child("sms").setValue("on");
 
                                     LoginActivity.getInstance().finish();
                                     Intent intent = new Intent(register.this, LoginActivity.class);

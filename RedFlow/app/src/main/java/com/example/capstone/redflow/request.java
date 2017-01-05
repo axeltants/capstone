@@ -37,17 +37,17 @@ public class request extends AppCompatActivity {
 
     private Spinner vBloodtype;
     private Spinner vLocation;
-    private Spinner vUrgency;
     private EditText vBagqty;
 
     private String bloodtype;
     private String location;
-    private String urgency;
     private String sBagqty;
     private int bagqty;
 
     private String contact;
     private String message;
+    private String notif;
+    private String province;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +64,13 @@ public class request extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void onSubmit(View view) {
+    public void onSubmitButton(View view) {
         vBloodtype = (Spinner) findViewById(R.id.spinnr_bloodtype);
         vLocation = (Spinner) findViewById(R.id.spinnr_location);
         vBagqty = (EditText) findViewById(R.id.edittext_bagqntty);
 
         bloodtype = vBloodtype.getSelectedItem().toString();
         location = vLocation.getSelectedItem().toString();
-        urgency = vUrgency.getSelectedItem().toString();
         sBagqty = vBagqty.getText().toString();
 
         if(sBagqty.trim().equals("")) {
@@ -82,7 +81,7 @@ public class request extends AppCompatActivity {
             bagqty = Integer.parseInt(sBagqty);
 
             message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
-            Toast.makeText(request.this, message, Toast.LENGTH_LONG).show();
+            //Toast.makeText(request.this, message, Toast.LENGTH_LONG).show();
 
             query = mRootRef.child("User").orderByChild("bloodtype").equalTo(bloodtype);
             query.addChildEventListener(new ChildEventListener() {
@@ -91,8 +90,13 @@ public class request extends AppCompatActivity {
                     Map<String, String> map = dataSnapshot.getValue(Map.class);
 
                     contact = map.get("contact");
-                    //send sms here.
-                    //Toast.makeText(request.this, "Hey, " + contact, Toast.LENGTH_SHORT).show();
+                    notif = map.get("sms");
+                    province = map.get("province");
+                    if(notif.equals("on") && province.equals(location)) {
+                        new SendRequest().execute();
+                        //Toast.makeText(request.this, "Hey, " + contact, Toast.LENGTH_LONG).show();
+                    }
+
                 }
 
                 @Override
