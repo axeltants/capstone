@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.capstone.redflow.R;
@@ -30,7 +31,7 @@ public class user_profile_admin_verifier extends AppCompatActivity {
     TextView vAddress;
     TextView vContact;
     TextView vStatus;
-    TextView vBloodtype;
+    Spinner vBloodtype;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class user_profile_admin_verifier extends AppCompatActivity {
         vAddress = (TextView) findViewById(R.id.textview_address);
         vContact = (TextView) findViewById(R.id.textview_contact);
         vStatus = (TextView) findViewById(R.id.textview_status);
-        vBloodtype = (TextView) findViewById(R.id.textview_bloodtype);
+        vBloodtype = (Spinner) findViewById(R.id.textview_bloodtype);
 
         mRootRef.child("User").child(userID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -65,7 +66,7 @@ public class user_profile_admin_verifier extends AppCompatActivity {
                 vAddress.setText(map.get("home"));
                 vContact.setText(map.get("contact"));
                 vStatus.setText(map.get("status"));
-                vBloodtype.setText(map.get("bloodtype"));
+                vBloodtype.setSelection(0);
             }
 
             @Override

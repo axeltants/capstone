@@ -214,14 +214,21 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <Spinner
                         android:id="@+id/textview_bloodtype"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:background="@android:drawable/btn_dropdown"
+                        android:entries="@array/bloodtype2"
+                        android:spinnerMode="dropdown"
+                        android:textAlignment="center"
+                        android:paddingStart="45dp"
                         android:layout_alignBaseline="@id/bloodlabel"
+                        android:layout_toEndOf="@id/bloodlabel"
                         android:layout_toRightOf="@id/bloodlabel"
-                        android:text="O+"
-                        android:textSize="32sp" />
+                        android:gravity="center"
+                        android:layout_marginBottom="15dp"/>
 
                 </RelativeLayout>
             </LinearLayout>
