@@ -29,7 +29,6 @@ public class search_blood extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
         setContentView(R.layout.search_blood);
 
         vSearch = (EditText) findViewById(R.id.edittext_srchblood);

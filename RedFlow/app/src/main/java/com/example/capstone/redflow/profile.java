@@ -48,7 +48,6 @@ public class profile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(this);
         setContentView(com.example.capstone.redflow.R.layout.profile);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
