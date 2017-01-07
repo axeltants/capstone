@@ -97,5 +97,10 @@ public class admin_home extends AppCompatActivity {
         Intent intent = new Intent(this, about.class);
         startActivity(intent);
     }
+
+    public void textall(View view) {
+        Intent intent = new Intent(this, announcement.class);
+        startActivity(intent);
+    }
 /////////////////////////////////////////////////////
 }

@@ -39,6 +39,9 @@
         <activity
             android:name=".history"
             android:parentActivityName=".home" />
+        <activity
+            android:name=".proceed_to_RedCross"
+            android:parentActivityName=".home" />
         <activity android:name=".admin.admin_home" />
         <activity
             android:name=".admin.search_user"
@@ -80,9 +83,8 @@
         <activity android:name=".admin.Add_blood_donation" />
         <activity android:name=".admin.empty_searchblood_result" />
         <activity android:name=".about" />
-        <activity
-            android:name=".proceed_to_RedCross"
-            android:parentActivityName=".home" />
+        <activity android:name=".admin.announcement"
+            android:parentActivityName=".admin.admin_home"/>
     </application>
 
 </manifest>
