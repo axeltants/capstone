@@ -35,6 +35,7 @@ public class home extends AppCompatActivity {
 
     public void request(View view) {
         Intent intent = new Intent(this, request.class);
+        intent.putExtra("userID", userID);
         startActivity(intent);
     }
 

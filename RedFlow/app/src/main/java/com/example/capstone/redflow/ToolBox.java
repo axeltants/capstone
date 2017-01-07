@@ -1,8 +1,15 @@
 package com.example.capstone.redflow;
 
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 
 /**
  * Created by jp on 12/3/16.
@@ -68,5 +75,15 @@ public class ToolBox {
         sb.append(HEX.charAt((b >> 4) & 0x0f))
                 .append(HEX.charAt(b & 0x0f));
 
+    }
+
+    public int getCurrentDate() {
+        final Calendar c = Calendar.getInstance();
+
+        int date =   (c.get(Calendar.YEAR) * 10000) +
+                        ((c.get(Calendar.MONTH) + 1) * 100) +
+                        (c.get(Calendar.DAY_OF_MONTH));
+
+        return date;
     }
 }

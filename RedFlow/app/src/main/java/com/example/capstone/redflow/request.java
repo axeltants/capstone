@@ -1,5 +1,6 @@
 package com.example.capstone.redflow;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -19,6 +20,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONObject;
@@ -31,6 +33,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -39,6 +42,12 @@ import javax.net.ssl.HttpsURLConnection;
 public class request extends AppCompatActivity {
 
     private Firebase mRootRef;
+    private Firebase notify;
+    private Query query;
+    private Query sQuery;
+    private Query notifyquery;
+
+    private ProgressDialog progressDialog;
 
     private Spinner vBloodtype;
     private Spinner vLocation;
@@ -47,19 +56,42 @@ public class request extends AppCompatActivity {
     private String bloodtype;
     private String location;
     private String sBagqty;
+
     private int bagqty;
+    private int bloodcount;
+    private long priority;
+    private long matchcount;
 
     private String contact;
     private String message;
     private String notif;
     private String province;
+    private String userID;
+    private String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.capstone.redflow.R.layout.request);
 
+        userID = getIntent().getStringExtra("userID");
+
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+
+        notifyquery = mRootRef.child("Notify");
+        notifyquery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                priority = dataSnapshot.getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        progressDialog = new ProgressDialog(this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,6 +100,8 @@ public class request extends AppCompatActivity {
     }
 
     public void onSubmitButton(View view) {
+        Query userquery;
+
         vBloodtype = (Spinner) findViewById(R.id.spinnr_bloodtype);
         vLocation = (Spinner) findViewById(R.id.spinnr_location);
         vBagqty = (EditText) findViewById(R.id.edittext_bagqntty);
@@ -76,53 +110,134 @@ public class request extends AppCompatActivity {
         location = vLocation.getSelectedItem().toString();
         sBagqty = vBagqty.getText().toString();
 
+        sQuery = mRootRef.child("Supply").child(bloodtype).child("count");
+        sQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                bloodcount = dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
         if(sBagqty.trim().equals("")) {
             Toast.makeText(this, "Please enter quantity of blood bag needed.", Toast.LENGTH_SHORT).show();
         }
         else {
-            Query query;
             bagqty = Integer.parseInt(sBagqty);
 
             message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
-            //Toast.makeText(request.this, message, Toast.LENGTH_LONG).show();
 
-            query = mRootRef.child("User").orderByChild("bloodtype").equalTo(bloodtype);
-            query.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Map<String, String> map = dataSnapshot.getValue(Map.class);
+            progressDialog.setMessage("Sending request...");
+            progressDialog.show();
 
-                    contact = map.get("contact");
-                    notif = map.get("sms");
-                    province = map.get("province");
-                    if(notif.equals("on") && province.equals(location)) {
-                        new SendRequest().execute();
-                        //Toast.makeText(request.this, "Hey, " + contact, Toast.LENGTH_LONG).show();
+            if(bloodcount > bagqty) {
+                Toast.makeText(request.this, "There are available supply. Please visit any RedCross blood facility to get blood.", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                userquery = mRootRef.child("User").child(userID).child("contact");
+                userquery.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        notify = mRootRef.child("Notify").child(dataSnapshot.getValue(String.class));
+                        notify.child("priority").setValue(priority);
+                        notify.child("qty").setValue(bagqty);
+                        notify.child("bloodtype").setValue(bloodtype);
+                        sendSMSRequest();
                     }
 
-                }
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
-                }
-            });
+                    }
+                });
+            }
         }
+    }
+
+
+    public void sendSMSRequest() {
+
+        query = mRootRef.child("User").orderByChild("bloodtype").equalTo(bloodtype);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                matchcount = dataSnapshot.getChildrenCount();
+                progressDialog.dismiss();
+                Toast.makeText(request.this, "Request sent. The system will notify you if there any available blood supply.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(request.this, home.class);
+                intent.putExtra("userID", userID);
+                startActivity(intent);
+                query.removeEventListener(this);
+                request.this.finish();
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, String> map = dataSnapshot.getValue(Map.class);
+                Firebase onsms;
+
+                onsms = mRootRef.child("ONSMS").push();
+
+                contact = map.get("contact");
+                notif = map.get("sms");
+                province = map.get("province");
+                user = dataSnapshot.getKey();
+
+
+                if (notif.equals("on") && province.equals(location)) {
+                    int myDays = 1;
+
+                    final Calendar c = Calendar.getInstance();
+                    c.add(Calendar.DATE, myDays);  // number of days to add
+                    int newDate =   (c.get(Calendar.YEAR) * 10000) +
+                                    ((c.get(Calendar.MONTH) + 1) * 100) +
+                                    (c.get(Calendar.DAY_OF_MONTH));
+
+                    onsms.child("userID").setValue(user);
+                    onsms.child("duedate").setValue(newDate);
+
+                    //new SendRequest().execute();
+
+                    //Toast.makeText(request.this, "Request sent.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(request.this, "Hey, " + user, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(request.this, "Date is, " + newDate, Toast.LENGTH_LONG).show();
+
+                    mRootRef.child("User").child(user).child("sms").setValue("off");
+                }
+
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     public class SendRequest extends AsyncTask<String, Void, String> {

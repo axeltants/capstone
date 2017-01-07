@@ -12,15 +12,73 @@ import android.widget.Toast;
 
 import com.example.capstone.redflow.LoginActivity;
 import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.ToolBox;
 import com.example.capstone.redflow.about;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Map;
+
 public class admin_home extends AppCompatActivity {
+    private ToolBox tools;
+
+    private Firebase mRootRef;
+    private Query query;
+
+    private int date;
+    private String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_home);
+
+        tools = new ToolBox();
+
+        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+
+        date = tools.getCurrentDate();
+
+        query = mRootRef.child("ONSMS").orderByChild("duedate").equalTo(date);
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, String> map = dataSnapshot.getValue(Map.class);
+                String id;
+
+                id = dataSnapshot.getKey();
+                user = map.get("userID");
+
+                mRootRef.child("User").child(user).child("sms").setValue("on");
+                mRootRef.child("ONSMS").child(id).removeValue();
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+        //Toast.makeText(this, "Today is, " + tools.getCurrentDate(), Toast.LENGTH_LONG).show();
     }
 
     @Override
