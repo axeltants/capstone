@@ -37,14 +37,19 @@
         android:theme="@style/EditTextHint"
         android:textAlignment="center"
         android:id="@+id/edittext_srchblood"/>
-    <Button
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/logincolor"
-        android:layout_below="@+id/edittext_srchblood"
+        android:background="@color/colorAccent2"
         android:layout_marginTop="15dp"
-        android:onClick="search_blood"/>
+        android:layout_below="@+id/edittext_srchblood">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/logincolor"
+            android:onClick="search_blood"/>
+    </FrameLayout>
 
 </RelativeLayout>

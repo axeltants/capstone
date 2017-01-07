@@ -24,14 +24,20 @@
                 android:text="search user by full name, last name or by first name"
                 android:textColor="@color/colorAccent2"
                 android:textSize="18sp"/>
-            <Button
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="click here to search for user"
-                android:textColor="@color/logincolor"
                 android:background="@color/colorAccent2"
-                android:layout_marginTop="15dp"
-                android:onClick="searchuser"/>
+                android:layout_marginTop="15dp">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="click here to search for user"
+                    android:textColor="@color/logincolor"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:onClick="searchuser"/>
+            </FrameLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -40,14 +46,20 @@
                 android:textColor="@color/colorAccent2"
                 android:textSize="18sp"
                 android:layout_marginTop="50dp"/>
-            <Button
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="click here to search for blood supply"
-                android:textColor="@color/logincolor"
                 android:background="@color/colorAccent2"
-                android:layout_marginTop="15dp"
-                android:onClick="searchbloodsupply"/>
+                android:layout_marginTop="15dp">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="click here to search for blood supply"
+                    android:textColor="@color/logincolor"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:onClick="searchbloodsupply"/>
+            </FrameLayout>
 
         </LinearLayout>
 </RelativeLayout>

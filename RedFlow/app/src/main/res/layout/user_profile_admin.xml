@@ -215,14 +215,22 @@
                         android:textSize="32sp" />
 
                 </RelativeLayout>
-                <Button
+
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="add blood donation"
                     android:background="@color/colorAccent2"
                     android:layout_marginTop="30dp"
-                    android:textColor="@color/logincolor"
-                    android:onClick="add_donation"/>
+                    android:layout_below="@+id/edittext_srchusr">
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="add blood donation"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:textColor="@color/logincolor"
+                        android:onClick="add_donation"/>
+                </FrameLayout>
+
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

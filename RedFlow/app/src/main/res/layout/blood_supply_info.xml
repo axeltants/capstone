@@ -84,14 +84,19 @@
             android:textAlignment="center"
             android:id="@+id/bag_serial"
             android:textSize="18sp"/>
-        <Button
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent2"
-            android:layout_marginTop="15dp"
-            android:text="Add this bag"
-            android:onClick="submit_bag"
-            android:textColor="@color/logincolor"/>
+            android:layout_marginTop="15dp">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add this bag"
+                android:onClick="submit_bag"
+                android:textColor="@color/logincolor"/>
+        </FrameLayout>
 
     </LinearLayout>
 

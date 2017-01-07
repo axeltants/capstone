@@ -59,23 +59,29 @@
                 android:textSize="18sp"
                 android:theme="@style/EditTextHint" />
 
-            <Button
-                android:id="@+id/button_login"
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/colorAccent2"
                 android:layout_below="@+id/edittext_pass"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
-                android:background="@color/colorPrimary"
+                android:id="@+id/button_loginf">
+            <Button
+                android:id="@+id/button_login"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
                 android:onClick="signin"
                 android:text="@string/sign_in"
-                android:textColor="@color/logincolor" />
+                android:textColor="@color/logincolor"/>
+            </FrameLayout>
 
             <Button
                 android:id="@+id/button_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/button_login"
+                android:layout_below="@+id/button_loginf"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
                 android:background="@null"
@@ -84,7 +90,8 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorAccent2"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:clickable="true"/>
 
         </RelativeLayout>
     </ScrollView>

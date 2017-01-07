@@ -230,16 +230,21 @@
                     android:textAlignment="center"
                     android:paddingStart="45dp"/>
 
-                <Button
-                    android:id="@+id/rgister"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/scroll"
-                    android:layout_marginTop="15dp"
                     android:background="@color/colorAccent2"
-                    android:onClick="recorduser"
-                    android:text="Register"
-                    android:textColor="@color/logincolor" />
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/scroll">
+                    <Button
+                        android:id="@+id/rgister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:onClick="recorduser"
+                        android:text="Register"
+                        android:textColor="@color/logincolor" />
+                </FrameLayout>
 
                 <Button
                     android:id="@+id/button_register"

@@ -87,13 +87,19 @@
         android:textStyle="bold"
         android:theme="@style/EditTextHint" />
 
-    <Button
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:background="@color/colorAccent2"
-        android:onClick="add_donation_now"
-        android:text="Add this donation"
-        android:textColor="@color/logincolor" />
+        android:id="@+id/button_loginf"
+        android:layout_marginTop="15dp">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="add_donation_now"
+            android:text="Add this donation"
+            android:textColor="@color/logincolor" />
+    </FrameLayout>
 
 </LinearLayout>

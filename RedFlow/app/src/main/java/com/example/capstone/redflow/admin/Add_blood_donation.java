@@ -76,7 +76,7 @@ public class Add_blood_donation extends AppCompatActivity {
     @SuppressWarnings("deprecation")
     public void setDate(View view) {
         showDialog(999);
-        Toast.makeText(getApplicationContext(), "birthdate",
+        Toast.makeText(getApplicationContext(), "Bloodbag date of donation",
                 Toast.LENGTH_SHORT)
                 .show();
     }

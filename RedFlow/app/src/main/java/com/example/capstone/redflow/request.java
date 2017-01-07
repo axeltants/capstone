@@ -60,8 +60,6 @@ public class request extends AppCompatActivity {
         setContentView(com.example.capstone.redflow.R.layout.request);
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
-
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
