@@ -95,7 +95,9 @@
                 android:layout_height="wrap_content"
                 android:text="Add this bag"
                 android:onClick="submit_bag"
-                android:textColor="@color/logincolor"/>
+                android:textColor="@color/logincolor"
+                android:background="?android:attr/selectableItemBackground"
+                />
         </FrameLayout>
 
     </LinearLayout>
