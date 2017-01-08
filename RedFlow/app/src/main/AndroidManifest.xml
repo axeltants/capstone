@@ -83,8 +83,10 @@
         <activity android:name=".admin.Add_blood_donation" />
         <activity android:name=".admin.empty_searchblood_result" />
         <activity android:name=".about" />
-        <activity android:name=".admin.announcement"
-            android:parentActivityName=".admin.admin_home"/>
+        <activity
+            android:name=".admin.announcement"
+            android:parentActivityName=".admin.admin_home" />
+        <activity android:name=".zero_supply_request"></activity>
     </application>
 
 </manifest>

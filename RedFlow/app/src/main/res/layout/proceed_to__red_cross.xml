@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_toEndOf="@+id/edittext_bloodtype"
-                    android:text="You can proceed to any red cross branches to claim your blood bag."
+                    android:text="You can proceed to any red cross branches to claim your blood bag. remember, this is First come first serve basis. according to who claims the bag first."
                     android:textSize="20sp" />
 
                 <TextView

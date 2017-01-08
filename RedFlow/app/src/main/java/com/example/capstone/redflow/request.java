@@ -205,8 +205,12 @@ public class request extends AppCompatActivity {
                         intent.putExtra("bloodcount", bloodcount);
                         startActivity(intent);
                         request.this.finish();
-                    }
-                    else {
+                    }else if(bloodcount == 0){
+                        Intent intent = new Intent(request.this, zero_supply_request.class);
+                        intent.putExtra("bloodtype", bloodtype);
+                        startActivity(intent);
+                        request.this.finish();
+                    }else {
                         userquery = userRef.child(userID).child("contact");
                         userquery.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
