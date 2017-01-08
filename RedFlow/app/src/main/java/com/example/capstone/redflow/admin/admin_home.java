@@ -19,6 +19,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Map;
@@ -27,6 +28,7 @@ public class admin_home extends AppCompatActivity {
     private ToolBox tools;
 
     private Firebase mRootRef;
+    private Firebase onsmsRef;
     private Query query;
 
     private int date;
@@ -40,10 +42,22 @@ public class admin_home extends AppCompatActivity {
         tools = new ToolBox();
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+        onsmsRef = mRootRef.child("ONSMS");
 
         date = tools.getCurrentDate();
 
-        query = mRootRef.child("ONSMS").orderByChild("duedate").equalTo(date);
+        query = onsmsRef.orderByChild("duedate").equalTo(date);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                onsmsRef.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

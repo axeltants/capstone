@@ -15,6 +15,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     Firebase mRootRef;
+    Firebase userRef;
+
     Query query;
 
     String userID;
@@ -52,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         loginActivity = this;
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+        userRef = mRootRef.child("User");
 
         vEmail = (EditText) findViewById(R.id.edittext_email);
         vPassword = (EditText) findViewById(R.id.edittext_pass);
@@ -81,8 +85,18 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
                         progressDialog.dismiss();
-                        query = mRootRef.child("User").orderByChild("email").equalTo(sEmail.toLowerCase());
+                        query = userRef.orderByChild("email").equalTo(sEmail.toLowerCase());
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                userRef.removeEventListener(this);
+                            }
 
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        });
                         query.addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

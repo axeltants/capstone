@@ -1,5 +1,7 @@
 package com.example.capstone.redflow;
 
+import android.widget.Spinner;
+
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -16,6 +18,19 @@ import java.util.Calendar;
  */
 
 public class ToolBox {
+
+    public int getIndex(Spinner spinner, String myString)
+    {
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
 
     public String nameFormatter(String name) {
         String result;

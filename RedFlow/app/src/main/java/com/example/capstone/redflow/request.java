@@ -43,9 +43,15 @@ public class request extends AppCompatActivity {
 
     private Firebase mRootRef;
     private Firebase notify;
+    private Firebase userRef;
+    private Firebase supplyRef;
+    private Firebase notifyRef;
+
     private Query query;
     private Query sQuery;
     private Query notifyquery;
+    private Query quser;
+    private Query userquery;
 
     private ProgressDialog progressDialog;
 
@@ -68,6 +74,10 @@ public class request extends AppCompatActivity {
     private String province;
     private String userID;
     private String user;
+    private String iBloodtype;
+    private String iLocation;
+
+    private ToolBox tools;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +87,21 @@ public class request extends AppCompatActivity {
         userID = getIntent().getStringExtra("userID");
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+        userRef = mRootRef.child("User");
+        supplyRef = mRootRef.child("Supply");
+        notifyRef = mRootRef.child("Notify");
 
-        notifyquery = mRootRef.child("Notify");
-        notifyquery.addValueEventListener(new ValueEventListener() {
+        tools = new ToolBox();
+
+        vBloodtype = (Spinner) findViewById(R.id.spinnr_bloodtype);
+        vLocation = (Spinner) findViewById(R.id.spinnr_location);
+        vBagqty = (EditText) findViewById(R.id.edittext_bagqntty);
+
+        notifyquery = notifyRef.child("count");
+        notifyquery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                priority = dataSnapshot.getChildrenCount();
+                notifyRef.removeEventListener(this);
             }
 
             @Override
@@ -90,6 +109,51 @@ public class request extends AppCompatActivity {
 
             }
         });
+        notifyquery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                priority = dataSnapshot.getValue(Long.class);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        quser = userRef.child(userID);
+        quser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userRef.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+        quser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, String> map = dataSnapshot.getValue(Map.class);
+
+                iBloodtype = map.get("bloodtype");
+                iLocation = map.get("province");
+
+                //Toast.makeText(request.this, "Bloodtype: " + iBloodtype + "\n Location: " + iLocation, Toast.LENGTH_LONG).show();
+                vBloodtype.setSelection(tools.getIndex(vBloodtype, iBloodtype));
+                vLocation.setSelection(tools.getIndex(vLocation, iLocation));
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+
 
         progressDialog = new ProgressDialog(this);
     }
@@ -100,21 +164,78 @@ public class request extends AppCompatActivity {
     }
 
     public void onSubmitButton(View view) {
-        Query userquery;
 
-        vBloodtype = (Spinner) findViewById(R.id.spinnr_bloodtype);
-        vLocation = (Spinner) findViewById(R.id.spinnr_location);
-        vBagqty = (EditText) findViewById(R.id.edittext_bagqntty);
 
         bloodtype = vBloodtype.getSelectedItem().toString();
         location = vLocation.getSelectedItem().toString();
         sBagqty = vBagqty.getText().toString();
 
-        sQuery = mRootRef.child("Supply").child(bloodtype).child("count");
+        sQuery = supplyRef.child(bloodtype).child("count");
+        sQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                supplyRef.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
         sQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 bloodcount = dataSnapshot.getValue(Integer.class);
+                if(sBagqty.trim().equals("")) {
+                    Toast.makeText(request.this, "Please enter quantity of blood bag needed.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    bagqty = Integer.parseInt(sBagqty);
+
+                    message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
+
+                    progressDialog.setMessage("Sending request...");
+                    progressDialog.show();
+
+                    if(bloodcount > bagqty) {
+                        //Toast.makeText(request.this, "Count: " + bloodcount, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(request.this, "There are available supply. Please visit any RedCross blood facility to get blood.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(request.this, proceed_to_RedCross.class);
+                        intent.putExtra("bloodtype", bloodtype);
+                        intent.putExtra("bloodcount", bloodcount);
+                        startActivity(intent);
+                        request.this.finish();
+                    }
+                    else {
+                        userquery = userRef.child(userID).child("contact");
+                        userquery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                userRef.removeEventListener(this);
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        });
+                        userquery.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                notify = mRootRef.child("Notify").child(bloodtype).child(dataSnapshot.getValue(String.class));
+                                notify.child("priority").setValue(priority+1);
+                                notify.child("qty").setValue(bagqty);
+                                mRootRef.child("Notify").child("count").setValue(priority+1);
+                                sendSMSRequest();
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        });
+                    }
+                }
             }
 
             @Override
@@ -123,55 +244,24 @@ public class request extends AppCompatActivity {
             }
         });
 
-        if(sBagqty.trim().equals("")) {
-            Toast.makeText(this, "Please enter quantity of blood bag needed.", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            bagqty = Integer.parseInt(sBagqty);
 
-            message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
-
-            progressDialog.setMessage("Sending request...");
-            progressDialog.show();
-
-            if(bloodcount > bagqty) {
-                Toast.makeText(request.this, "There are available supply. Please visit any RedCross blood facility to get blood.", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                userquery = mRootRef.child("User").child(userID).child("contact");
-                userquery.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        notify = mRootRef.child("Notify").child(dataSnapshot.getValue(String.class));
-                        notify.child("priority").setValue(priority);
-                        notify.child("qty").setValue(bagqty);
-                        notify.child("bloodtype").setValue(bloodtype);
-                        sendSMSRequest();
-                    }
-
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
-                    }
-                });
-            }
-        }
     }
 
 
     public void sendSMSRequest() {
 
-        query = mRootRef.child("User").orderByChild("bloodtype").equalTo(bloodtype);
+        query = userRef.orderByChild("bloodtype").equalTo(bloodtype);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 matchcount = dataSnapshot.getChildrenCount();
                 progressDialog.dismiss();
                 Toast.makeText(request.this, "Request sent. The system will notify you if there any available blood supply.", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(request.this, home.class);
-                intent.putExtra("userID", userID);
+                Intent intent = new Intent(request.this, proceed_to_RedCross.class);
+                intent.putExtra("bloodtype", bloodtype);
+                intent.putExtra("bloodcount", bloodcount);
                 startActivity(intent);
-                query.removeEventListener(this);
+                userRef.removeEventListener(this);
                 request.this.finish();
             }
 
@@ -206,7 +296,7 @@ public class request extends AppCompatActivity {
                     onsms.child("userID").setValue(user);
                     onsms.child("duedate").setValue(newDate);
 
-                    //new SendRequest().execute();
+                    new SendRequest().execute();
 
                     //Toast.makeText(request.this, "Request sent.", Toast.LENGTH_SHORT).show();
                     //Toast.makeText(request.this, "Hey, " + user, Toast.LENGTH_LONG).show();
@@ -354,7 +444,6 @@ public class request extends AppCompatActivity {
                 .setMessage("Do you really want to logout?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "successfully logged out", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
                         backtologin();
                     }

@@ -38,6 +38,7 @@ public class register extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private Firebase mRootRef;
+    private Firebase userRef;
     private Firebase newUser;
     private FirebaseAuth mAuth;
     private Query query;
@@ -126,6 +127,7 @@ public class register extends AppCompatActivity {
         vBloodtype = (Spinner) findViewById(R.id.spinnr_bloodtype);
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+        userRef = mRootRef.child("User");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -567,7 +569,6 @@ public class register extends AppCompatActivity {
     }
 
     public void recorduser(View view) {
-        Firebase userRef = mRootRef.child("User");
         newUser = userRef.push();
 
         sFname = vFname.getText().toString();
@@ -592,7 +593,18 @@ public class register extends AppCompatActivity {
             Toast.makeText(this, "Mobile number should be 11 digits long.", Toast.LENGTH_SHORT).show();
         }
         else {
-            query = mRootRef.child("User").orderByChild("email").equalTo(sEmail);
+            query = userRef.orderByChild("email").equalTo(sEmail);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    userRef.removeEventListener(this);
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
