@@ -392,8 +392,8 @@ public class request extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(), result,
-                    Toast.LENGTH_LONG).show();
+            /*Toast.makeText(getApplicationContext(), result,
+                    Toast.LENGTH_LONG).show();*/
 
         }
     }
