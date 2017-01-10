@@ -87,6 +87,16 @@
             android:name=".admin.announcement"
             android:parentActivityName=".admin.admin_home" />
         <activity android:name=".zero_supply_request"></activity>
+        <service android:name=".Firebasenotification.MyFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"></action>
+            </intent-filter>
+        </service>
+        <service android:name=".Firebasenotification.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
