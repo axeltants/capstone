@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.capstone.redflow.LoginActivity;
 import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.SendRequest;
 import com.example.capstone.redflow.about;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -73,7 +74,9 @@ public class blood_supply_info extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.blood_supply_info);
+
         blood_type = getIntent().getStringExtra("blood_type");
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
@@ -188,7 +191,7 @@ public class blood_supply_info extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     notifyRef.removeEventListener(this);
-                    mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
+
                     //message = "Someone donated 1 " + blood_type + " blood bag. Please bear in mind that supply doesn't last long due to increasing public demand.";
 
                     //Toast.makeText(blood_supply_info.this, "To: " + contact + "\n" + message, Toast.LENGTH_LONG).show();
@@ -205,7 +208,9 @@ public class blood_supply_info extends AppCompatActivity {
                     contact = dataSnapshot.getKey();
                     message = "Someone donated 1 " + blood_type + " blood bag. From RedFlow.";
 
-                    new SendRequest().execute();
+                    mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
+
+                    new SendRequest(contact, message).execute();
                 }
 
                 @Override
@@ -237,98 +242,6 @@ public class blood_supply_info extends AppCompatActivity {
         }
     }
 
-    public class SendRequest extends AsyncTask<String, Void, String> {
-
-        protected void onPreExecute() {
-        }
-
-        protected String doInBackground(String... arg0) {
-
-            try {
-
-                URL url = new URL("https://axeltants.000webhostapp.com/sms.php");
-
-                JSONObject postDataParams = new JSONObject();
-
-
-                postDataParams.put("contact", contact); //ANHI IBUTANG ANG CONTACT NUMBER SA RCPIENT
-                postDataParams.put("message", message); //ANG CONTENT SA MESSAGE DIRI.
-
-                Log.e("params", postDataParams.toString());
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(getPostDataString(postDataParams));
-
-                writer.flush();
-                writer.close();
-                os.close();
-
-                int responseCode = conn.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-
-                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuffer sb = new StringBuffer("");
-                    String line = "";
-
-                    while ((line = in.readLine()) != null) {
-
-                        sb.append(line);
-                        break;
-                    }
-
-                    in.close();
-                    return sb.toString();
-
-                } else {
-                    return new String("false : " + responseCode);
-                }
-            } catch (Exception e) {
-                return new String("Exception: " + e.getMessage());
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(), result,
-                    Toast.LENGTH_LONG).show();
-
-        }
-    }
-
-    public String getPostDataString(JSONObject params) throws Exception {
-
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-
-        Iterator<String> itr = params.keys();
-
-        while (itr.hasNext()) {
-
-            String key = itr.next();
-            Object value = params.get(key);
-
-            if (first)
-                first = false;
-            else
-                result.append("&");
-
-            result.append(URLEncoder.encode(key, "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-
-        }
-        return result.toString();
-    }
 
     /*FOR ACTION BAR EVENTS*/
     @Override
