@@ -66,7 +66,6 @@ public class request extends AppCompatActivity {
     private int bagqty;
     private int bloodcount;
     private long priority;
-    private long matchcount;
 
     private String contact;
     private String message;
@@ -206,12 +205,8 @@ public class request extends AppCompatActivity {
                         intent.putExtra("bloodcount", bloodcount);
                         startActivity(intent);
                         request.this.finish();
-                    }else if(bloodcount == 0){
-                        Intent intent = new Intent(request.this, zero_supply_request.class);
-                        intent.putExtra("bloodtype", bloodtype);
-                        startActivity(intent);
-                        request.this.finish();
-                    }else {
+                    }
+                    else {
                         userquery = userRef.child(userID).child("contact");
                         userquery.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -259,12 +254,9 @@ public class request extends AppCompatActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                matchcount = dataSnapshot.getChildrenCount();
                 progressDialog.dismiss();
-                Toast.makeText(request.this, "Request sent. The system will notify you if there any available blood supply.", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(request.this, proceed_to_RedCross.class);
+                Intent intent = new Intent(request.this, zero_supply_request.class);
                 intent.putExtra("bloodtype", bloodtype);
-                intent.putExtra("bloodcount", bloodcount);
                 startActivity(intent);
                 userRef.removeEventListener(this);
                 request.this.finish();
@@ -279,17 +271,17 @@ public class request extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
-                Firebase onsms;
+                Firebase offsms;
 
-                onsms = mRootRef.child("ONSMS").push();
+                offsms = mRootRef.child("OffSMS").push();
 
                 contact = map.get("contact");
-                notif = map.get("sms");
+                notif = map.get("request");
                 province = map.get("province");
                 user = dataSnapshot.getKey();
 
 
-                if (notif.equals("on") && province.equals(location)) {
+                if (notif.equals("on") && province.equals(location) && !userID.equals(user)) {
                     int myDays = 1;
 
                     final Calendar c = Calendar.getInstance();
@@ -298,8 +290,8 @@ public class request extends AppCompatActivity {
                                     ((c.get(Calendar.MONTH) + 1) * 100) +
                                     (c.get(Calendar.DAY_OF_MONTH));
 
-                    onsms.child("userID").setValue(user);
-                    onsms.child("duedate").setValue(newDate);
+                    offsms.child("userID").setValue(user);
+                    offsms.child("duedate").setValue(newDate);
 
                     new SendRequest(contact, message).execute();
 
@@ -307,7 +299,7 @@ public class request extends AppCompatActivity {
                     //Toast.makeText(request.this, "Hey, " + user, Toast.LENGTH_LONG).show();
                     //Toast.makeText(request.this, "Date is, " + newDate, Toast.LENGTH_LONG).show();
 
-                    mRootRef.child("User").child(user).child("sms").setValue("off");
+                    mRootRef.child("User").child(user).child("request").setValue("off");
                 }
 
 

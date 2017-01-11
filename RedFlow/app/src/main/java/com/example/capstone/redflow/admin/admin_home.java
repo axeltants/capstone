@@ -28,7 +28,7 @@ public class admin_home extends AppCompatActivity {
     private ToolBox tools;
 
     private Firebase mRootRef;
-    private Firebase onsmsRef;
+    private Firebase offsmsRef;
     private Query query;
 
     private int date;
@@ -42,15 +42,15 @@ public class admin_home extends AppCompatActivity {
         tools = new ToolBox();
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
-        onsmsRef = mRootRef.child("ONSMS");
+        offsmsRef = mRootRef.child("OffSMS");
 
         date = tools.getCurrentDate();
 
-        query = onsmsRef.orderByChild("duedate").equalTo(date);
+        query = offsmsRef.orderByChild("duedate").equalTo(date);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                onsmsRef.removeEventListener(this);
+                offsmsRef.removeEventListener(this);
             }
 
             @Override
@@ -67,8 +67,8 @@ public class admin_home extends AppCompatActivity {
                 id = dataSnapshot.getKey();
                 user = map.get("userID");
 
-                mRootRef.child("User").child(user).child("sms").setValue("on");
-                mRootRef.child("ONSMS").child(id).removeValue();
+                mRootRef.child("User").child(user).child("request").setValue("on");
+                mRootRef.child("OffSMS").child(id).removeValue();
 
             }
 
@@ -148,7 +148,6 @@ public class admin_home extends AppCompatActivity {
                 .setMessage("Do you really want to logout?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "successfully logged out", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
                         backtologin();
                     }

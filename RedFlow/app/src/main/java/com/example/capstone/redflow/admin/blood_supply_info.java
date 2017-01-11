@@ -191,6 +191,11 @@ public class blood_supply_info extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     notifyRef.removeEventListener(this);
+                    Intent intent = new Intent(blood_supply_info.this, blood_supply_info.class);
+                    intent.putExtra("blood_type", blood_type);
+                    blood_supply_info.this.finish();
+                    Toast.makeText(blood_supply_info.this, "Successfully added.", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
 
                     //message = "Someone donated 1 " + blood_type + " blood bag. Please bear in mind that supply doesn't last long due to increasing public demand.";
 
@@ -233,12 +238,6 @@ public class blood_supply_info extends AppCompatActivity {
 
                 }
             });
-
-            Intent intent = new Intent(blood_supply_info.this, blood_supply_info.class);
-            intent.putExtra("blood_type", blood_type);
-            this.finish();
-            Toast.makeText(this, "Successfully added.", Toast.LENGTH_SHORT).show();
-            startActivity(intent);
         }
     }
 

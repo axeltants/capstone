@@ -640,6 +640,7 @@ public class register extends AppCompatActivity {
                                     newUser.child("status").setValue("Unverified");
                                     newUser.child("fullname").setValue(sFname.toLowerCase() + " " + sLname.toLowerCase());
                                     newUser.child("sms").setValue("on");
+                                    newUser.child("request").setValue("on");
 
                                     LoginActivity.getInstance().finish();
                                     Intent intent = new Intent(register.this, LoginActivity.class);
