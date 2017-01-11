@@ -165,10 +165,13 @@ public class request extends AppCompatActivity {
 
     public void onSubmitButton(View view) {
 
-
         bloodtype = vBloodtype.getSelectedItem().toString();
         location = vLocation.getSelectedItem().toString();
         sBagqty = vBagqty.getText().toString();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Requesting..");
+        progressDialog.show();
 
         sQuery = supplyRef.child(bloodtype).child("count");
         sQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -194,15 +197,17 @@ public class request extends AppCompatActivity {
 
                     message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
 
-                    progressDialog.setMessage("Sending request...");
-                    progressDialog.show();
-
-                    if(bloodcount > bagqty) {
+                    if(bloodcount > 0) {
                         //Toast.makeText(request.this, "Count: " + bloodcount, Toast.LENGTH_SHORT).show();
                         //Toast.makeText(request.this, "There are available supply. Please visit any RedCross blood facility to get blood.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(request.this, proceed_to_RedCross.class);
                         intent.putExtra("bloodtype", bloodtype);
                         intent.putExtra("bloodcount", bloodcount);
+                        startActivity(intent);
+                        request.this.finish();
+                    }else if(bloodcount == 0){
+                        Intent intent = new Intent(request.this, zero_supply_request.class);
+                        intent.putExtra("bloodtype", bloodtype);
                         startActivity(intent);
                         request.this.finish();
                     }
@@ -254,10 +259,6 @@ public class request extends AppCompatActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                progressDialog.dismiss();
-                Intent intent = new Intent(request.this, zero_supply_request.class);
-                intent.putExtra("bloodtype", bloodtype);
-                startActivity(intent);
                 userRef.removeEventListener(this);
                 request.this.finish();
             }
