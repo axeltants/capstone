@@ -10,11 +10,18 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
  */
 
 public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
-    private static final String REG_TOKEN="REG_TOKEN";
+
+    private static final String TAG = "MyFirebaseIIDService";
 
     @Override
     public void onTokenRefresh() {
-        String recent_token = FirebaseInstanceId.getInstance().getToken();
-        Log.d(REG_TOKEN, recent_token);
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "Refreshed token: " + refreshedToken);
+        storeToken(refreshedToken);
+    }
+
+    private void storeToken(String token) {
+        //saving the token on shared preferences
+        SharedPrefManager.getInstance(getApplicationContext()).saveDeviceToken(token);
     }
 }

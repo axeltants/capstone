@@ -86,17 +86,20 @@
         <activity
             android:name=".admin.announcement"
             android:parentActivityName=".admin.admin_home" />
-        <activity android:name=".zero_supply_request"></activity>
+        <activity android:name=".zero_supply_request" />
+
         <service android:name=".Firebasenotification.MyFirebaseInstanceIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"></action>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <service android:name=".Firebasenotification.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name="com.example.axel.redflow.Send_Push_Notification"></activity>
     </application>
 
 </manifest>
