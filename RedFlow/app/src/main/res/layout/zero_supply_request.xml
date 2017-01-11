@@ -7,57 +7,63 @@
     tools:context=".zero_supply_request"
     android:background="@drawable/bg">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg2"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Good Day!"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:layout_marginTop="30dp"/>
+            android:background="@drawable/bg2"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_marginTop="30dp"
-            android:textSize="20sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="We're sorry to inform you, that currently we dont have available supply of blood type:"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Good Day!"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:layout_marginTop="30dp"/>
 
-        <TextView
-            android:id="@+id/btype"
-            android:textColor="@color/colorAccent2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="O+"
-        android:textStyle="bold"
-        android:textSize="52sp"
-        android:textAlignment="center"
-        android:layout_marginTop="15dp"/>
+            <TextView
+                android:layout_marginTop="30dp"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="We're sorry to inform you, that currently we dont have available supply of blood type:"/>
 
-        <TextView
-            android:layout_marginTop="15dp"
-            android:textSize="20sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="But don't lose hope, The system will notify you if there are any available blood supply. And will also notify people that matches the blood type to let them donate."/>
+            <TextView
+                android:id="@+id/btype"
+                android:textColor="@color/colorAccent2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="O+"
+                android:textStyle="bold"
+                android:textSize="52sp"
+                android:textAlignment="center"
+                android:layout_marginTop="15dp"/>
 
-        <TextView
-        android:layout_marginTop="15dp"
-        android:textSize="20sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="We are hoping for your kindness and consideration, Thank you."/>
+            <TextView
+                android:layout_marginTop="15dp"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="But don't lose hope, The system will notify you if there are any available blood supply. And will also notify people that matches the blood type to let them donate."/>
 
-    </LinearLayout>
+            <TextView
+                android:layout_marginTop="15dp"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="We are hoping for your kindness and consideration, Thank you."/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
