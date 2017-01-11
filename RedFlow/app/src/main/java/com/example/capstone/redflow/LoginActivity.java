@@ -56,6 +56,9 @@ public class LoginActivity extends AppCompatActivity {
     String sEmail;
     String sPassword;
 
+    String bloodType;
+    String location;
+
     ToolBox tools = new ToolBox();
 
     @Override
@@ -190,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        //Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {
 
