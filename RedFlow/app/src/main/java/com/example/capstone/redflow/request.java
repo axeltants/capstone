@@ -269,8 +269,10 @@ public class request extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(bloodcount == 0) {
+                    progressDialog.dismiss();
                     Intent intent = new Intent(request.this, zero_supply_request.class);
                     intent.putExtra("bloodtype", bloodtype);
+                    intent.putExtra("qtty", sBagqty);
                     startActivity(intent);
                 }
                 else {
@@ -347,42 +349,6 @@ public class request extends AppCompatActivity {
             }
         });
     }
-
-
-    private void sendMultiplePush() {
-        final String title = "RedFlow";
-        final String message =  message2;
-        final String image = null;
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_MULTIPLE_PUSH,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        Toast.makeText(request.this, response, Toast.LENGTH_LONG).show();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("title", title);
-                params.put("message", message);
-
-                if (!TextUtils.isEmpty(image))
-                    params.put("image", image);
-                return params;
-            }
-        };
-
-        MyVolley.getInstance(this).addToRequestQueue(stringRequest);
-    }
-
 
 
     /*FOR ACTION BAR EVENTS*/
