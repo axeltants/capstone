@@ -35,7 +35,7 @@
                 android:textSize="20sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="We're sorry to inform you, that currently we dont have available supply of blood type:"/>
+                android:text="We're sorry to inform you, that currently we don't have available supply of blood type:"/>
 
             <TextView
                 android:id="@+id/btype"
@@ -53,7 +53,7 @@
                 android:textSize="20sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="But don't lose hope, The system will notify you if there are any available blood supply. And will also notify people that matches the blood type to let them donate."/>
+                android:text="But don't lose hope, the system will notify you, via SMS, if there are any available blood supply. And we will also notify and encourage users with matching blood type to donate."/>
 
             <TextView
                 android:layout_marginTop="15dp"

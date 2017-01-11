@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_toEndOf="@+id/edittext_bloodtype"
-                    android:text="You can proceed to any red cross branches to claim your blood bag. remember, this is First come first serve basis. according to who claims the bag first."
+                    android:text="You can proceed to any red cross branches to claim your blood bag. Remember, this is first come first serve basis."
                     android:textSize="20sp" />
 
                 <TextView
@@ -123,7 +123,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_toEndOf="@+id/edittext_bloodtype"
                     android:lineSpacingExtra="2dp"
-                    android:text="Incase you dont know where RedCross is located use our inapp map, just press the button below."
+                    android:text="Incase you don't know where RedCross is located, you may use our in-app map. Just press the button below."
                     android:textSize="20sp" />
 
                 <FrameLayout
