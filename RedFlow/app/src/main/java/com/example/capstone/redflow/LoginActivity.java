@@ -9,6 +9,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.capstone.redflow.Firebasenotification.EndPoints;
+import com.example.capstone.redflow.Firebasenotification.MyVolley;
 import com.example.capstone.redflow.admin.admin_home;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -20,7 +27,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
@@ -112,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent i = new Intent(LoginActivity.this, home.class);
                                     i.putExtra("userID", userID);
                                     startActivity(i);
+                                    sendTokenToServer();
                                 }
                             }
 
@@ -148,6 +161,48 @@ public class LoginActivity extends AppCompatActivity {
     public void register(View view) {
         Intent intent = new Intent(this, register.class);
         startActivity(intent);
+    }
+
+    private void sendTokenToServer() {
+
+        final String token = FirebaseInstanceId.getInstance().getToken();
+        final String email = vEmail.getText().toString();
+
+        if (token == null) {
+            //Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_REGISTER_DEVICE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            Toast.makeText(LoginActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("token", token);
+                return params;
+            }
+        };
+        MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
 }

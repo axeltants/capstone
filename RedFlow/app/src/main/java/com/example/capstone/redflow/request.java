@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.capstone.redflow.Firebasenotification.EndPoints;
+import com.example.capstone.redflow.Firebasenotification.MyVolley;
+import com.example.capstone.redflow.admin.announcement;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -34,7 +43,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -69,6 +80,7 @@ public class request extends AppCompatActivity {
 
     private String contact;
     private String message;
+    private String message2;
     private String notif;
     private String province;
     private String userID;
@@ -77,6 +89,8 @@ public class request extends AppCompatActivity {
     private String iLocation;
 
     private ToolBox tools;
+
+    private List<String> devices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,7 +210,7 @@ public class request extends AppCompatActivity {
                     bagqty = Integer.parseInt(sBagqty);
 
                     message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
-
+                    message2 = message;
                     if(bloodcount > bagqty) {
                         //Toast.makeText(request.this, "Count: " + bloodcount, Toast.LENGTH_SHORT).show();
                         //Toast.makeText(request.this, "There are available supply. Please visit any RedCross blood facility to get blood.", Toast.LENGTH_SHORT).show();
@@ -333,6 +347,42 @@ public class request extends AppCompatActivity {
             }
         });
     }
+
+
+    private void sendMultiplePush() {
+        final String title = "RedFlow";
+        final String message =  message2;
+        final String image = null;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_MULTIPLE_PUSH,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        Toast.makeText(request.this, response, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("title", title);
+                params.put("message", message);
+
+                if (!TextUtils.isEmpty(image))
+                    params.put("image", image);
+                return params;
+            }
+        };
+
+        MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
 
 
     /*FOR ACTION BAR EVENTS*/
