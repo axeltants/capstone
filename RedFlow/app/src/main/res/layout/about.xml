@@ -68,7 +68,8 @@
                     android:ellipsize="marquee"
                     android:fadingEdge="horizontal"
                     android:marqueeRepeatLimit="marquee_forever"
-                    android:scrollHorizontally="true"/>
+                    android:scrollHorizontally="true"
+                    android:gravity="center"/>
 
             </LinearLayout>
 

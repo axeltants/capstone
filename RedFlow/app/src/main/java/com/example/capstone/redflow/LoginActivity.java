@@ -212,4 +212,8 @@ public class LoginActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    public void about(View view) {
+        Intent intent = new Intent(this, about.class);
+        startActivity(intent);
+    }
 }
