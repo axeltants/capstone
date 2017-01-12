@@ -171,6 +171,7 @@ public class request extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(com.example.capstone.redflow.R.menu.actionbar, menu);

@@ -42,6 +42,7 @@ public class user_profile_admin extends AppCompatActivity {
     private TextView vContact;
     private TextView vStatus;
     private TextView vBloodtype;
+    String mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,7 @@ public class user_profile_admin extends AppCompatActivity {
                 vContact.setText(map.get("contact"));
                 vStatus.setText(map.get("status"));
                 vBloodtype.setText(bloodtype);
+                mail = map.get("email");
             }
 
             @Override
@@ -102,6 +104,7 @@ public class user_profile_admin extends AppCompatActivity {
         intent.putExtra("blood_type", bloodtype);
         intent.putExtra("userID", userID);
         intent.putExtra("fullname", fullname);
+        intent.putExtra("mail", mail);
         startActivity(intent);
     }
 

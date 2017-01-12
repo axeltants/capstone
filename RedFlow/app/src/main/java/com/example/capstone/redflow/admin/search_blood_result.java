@@ -6,12 +6,21 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.capstone.redflow.Firebasenotification.EndPoints;
+import com.example.capstone.redflow.Firebasenotification.MyVolley;
+import com.example.capstone.redflow.Firebasenotification.Send_Push_Notification;
 import com.example.capstone.redflow.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.SendRequest;
@@ -34,6 +43,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -68,6 +78,8 @@ public class search_blood_result extends AppCompatActivity {
     private TextView vContact;
     private TextView vStatus;
     private TextView vBloodtype;
+
+    String mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +160,7 @@ public class search_blood_result extends AppCompatActivity {
                             Toast.makeText(search_blood_result.this, bloodtype + " blood supply reduced by 1 bag.", Toast.LENGTH_SHORT).show();
                         }
                         else {
+                            sendSinglePush();
                             message = "Your blood has just been donated. Thank you for saving a life.";
                             new SendRequest(contact, message).execute();
                         }
@@ -198,6 +211,8 @@ public class search_blood_result extends AppCompatActivity {
                 vContact.setText(contact);
                 vStatus.setText(status);
                 vBloodtype.setText(bloodtype);
+
+                mail = map.get("email");
             }
 
             @Override
@@ -234,6 +249,44 @@ public class search_blood_result extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    private void sendSinglePush() {
+        final String title = "RedFlow";
+        final String message = "Your blood has just been donated. Thank you for saving a life.";
+        final String image = null;
+        final String email = mail;
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_SINGLE_PUSH,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Toast.makeText(search_blood_result.this, response, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("title", title);
+                params.put("message", message);
+
+                if (!TextUtils.isEmpty(image))
+                    params.put("image", image);
+
+                params.put("email", email);
+                return params;
+            }
+        };
+
+        MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
 
