@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
+import com.example.capstone.redflow.Firebasenotification.SharedPrefManager;
 import com.example.capstone.redflow.admin.admin_home;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -125,10 +127,10 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(i);
                                 }
                                 else {
+                                    sendTokenToServer();
                                     Intent i = new Intent(LoginActivity.this, home.class);
                                     i.putExtra("userID", userID);
                                     startActivity(i);
-                                    sendTokenToServer();
                                 }
                             }
 
@@ -169,8 +171,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void sendTokenToServer() {
 
-        final String token = FirebaseInstanceId.getInstance().getToken();
-        final String email = vEmail.getText().toString();
+        final String token = SharedPrefManager.getInstance(this).getDeviceToken();
+        final String email = sEmail;
 
         if (token == null) {
             //Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
@@ -194,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {
 
