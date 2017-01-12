@@ -169,15 +169,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void sendTokenToServer() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Registering Device...");
-        progressDialog.show();
 
         final String token = SharedPrefManager.getInstance(this).getDeviceToken();
         final String email = sEmail;
 
         if (token == null) {
-            progressDialog.dismiss();
             //Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
             return;
         }
