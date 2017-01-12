@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(com.example.capstone.redflow.R.layout.login);
 
         loginActivity = this;

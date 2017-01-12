@@ -44,6 +44,7 @@ public class user_profile_admin_verifier extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.user_profile_admin_verifier);
 
 
@@ -73,17 +74,17 @@ public class user_profile_admin_verifier extends AppCompatActivity {
 
                 if(bldtyp.equals("A+")){
                     option = 1;
-                }else if(bldtyp.equals("O+")){
+                }else if(bldtyp.equals("A-")){
                     option = 2;
                 }else if(bldtyp.equals("B+")){
                     option = 3;
-                }else if(bldtyp.equals("AB+")){
+                }else if(bldtyp.equals("B-")){
                     option = 4;
-                }else if(bldtyp.equals("A-")){
+                }else if(bldtyp.equals("O+")){
                     option = 5;
                 }else if(bldtyp.equals("O-")){
                     option = 6;
-                }else if(bldtyp.equals("B-")){
+                }else if(bldtyp.equals("AB+")){
                     option =7;
                 }else if(bldtyp.equals("AB-")){
                     option = 8;
@@ -120,6 +121,7 @@ public class user_profile_admin_verifier extends AppCompatActivity {
                 .setMessage("Are you sure you want to verify this user?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        mRootRef.child("User").child(userID).child("bloodtype").setValue(vBloodtype.getSelectedItem().toString());
                         mRootRef.child("User").child(userID).child("status").setValue("Verified");
                         Intent i = new Intent(user_profile_admin_verifier.this, user_profile_admin.class);
                         i.putExtra("userID", userID);
@@ -158,7 +160,6 @@ public class user_profile_admin_verifier extends AppCompatActivity {
                 .setMessage("Do you really want to logout?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "successfully logged out", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
                         backtologin();
                     }

@@ -37,6 +37,7 @@ public class admin_home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.admin_home);
 
         tools = new ToolBox();

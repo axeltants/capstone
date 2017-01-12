@@ -273,16 +273,19 @@ public class request extends AppCompatActivity {
                     Intent intent = new Intent(request.this, zero_supply_request.class);
                     intent.putExtra("bloodtype", bloodtype);
                     intent.putExtra("qtty", sBagqty);
+                    userRef.removeEventListener(this);
                     startActivity(intent);
+                    request.this.finish();
                 }
                 else {
                     Intent intent = new Intent(request.this, proceed_to_RedCross.class);
                     intent.putExtra("bloodtype", bloodtype);
                     intent.putExtra("bloodcount", bloodcount);
+                    userRef.removeEventListener(this);
                     startActivity(intent);
+                    request.this.finish();
                 }
-                userRef.removeEventListener(this);
-                request.this.finish();
+
             }
 
             @Override

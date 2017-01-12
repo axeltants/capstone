@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.capstone.redflow.LoginActivity;
 import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.SendRequest;
 import com.example.capstone.redflow.about;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -51,6 +52,9 @@ public class search_blood_result extends AppCompatActivity {
     private int bloodcount;
 
     private Firebase mRootRef;
+    private Firebase userRef;
+    private Firebase bloodRef;
+    private Firebase supplyRef;
     private Query query;
     private Query query2;
     private Query query3;
@@ -68,6 +72,7 @@ public class search_blood_result extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.search_blood_result);
 
         serial_number = getIntent().getStringExtra("serial_number");
@@ -83,8 +88,22 @@ public class search_blood_result extends AppCompatActivity {
         vBloodtype = (TextView) findViewById(R.id.textview_bloodtype);
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+        userRef = mRootRef.child("User");
+        bloodRef = mRootRef.child("Blood");
+        supplyRef = mRootRef.child("Supply");
 
-        query = mRootRef.child("Blood").orderByChild("serial").equalTo(serial_number);
+        query = bloodRef.orderByChild("serial").equalTo(serial_number);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                bloodRef.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -130,7 +149,7 @@ public class search_blood_result extends AppCompatActivity {
                         }
                         else {
                             message = "Your blood has just been donated. Thank you for saving a life.";
-                            //new SendRequest().execute();
+                            new SendRequest(contact, message).execute();
                         }
                         mRootRef.child("Supply").child(bloodtype).child("count").setValue(bloodcount-1);
                         mRootRef.child("Blood").child(bloodID).removeValue();
@@ -150,7 +169,18 @@ public class search_blood_result extends AppCompatActivity {
     }
 
     public void setProfile(String userID, final String bloodtype) {
-        query2 = mRootRef.child("User").child(userID);
+        query2 = userRef.child(userID);
+        query2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userRef.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
         query2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -176,103 +206,23 @@ public class search_blood_result extends AppCompatActivity {
             }
         });
     }
-    public class SendRequest extends AsyncTask<String, Void, String> {
 
-        protected void onPreExecute() {
-        }
-
-        protected String doInBackground(String... arg0) {
-
-            try {
-
-                URL url = new URL("https://axeltants.000webhostapp.com/sms.php");
-
-                JSONObject postDataParams = new JSONObject();
-
-
-                postDataParams.put("contact", contact); //ANHI IBUTANG ANG CONTACT NUMBER SA RCPIENT
-                postDataParams.put("message", message); //ANG CONTENT SA MESSAGE DIRI.
-
-                Log.e("params", postDataParams.toString());
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(15000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(os, "UTF-8"));
-                writer.write(getPostDataString(postDataParams));
-
-                writer.flush();
-                writer.close();
-                os.close();
-
-                int responseCode = conn.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-
-                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    StringBuffer sb = new StringBuffer("");
-                    String line = "";
-
-                    while ((line = in.readLine()) != null) {
-
-                        sb.append(line);
-                        break;
-                    }
-
-                    in.close();
-                    return sb.toString();
-
-                } else {
-                    return new String("false : " + responseCode);
-                }
-            } catch (Exception e) {
-                return new String("Exception: " + e.getMessage());
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(), result,
-                    Toast.LENGTH_LONG).show();
-
-        }
-    }
-
-    public String getPostDataString(JSONObject params) throws Exception {
-
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-
-        Iterator<String> itr = params.keys();
-
-        while (itr.hasNext()) {
-
-            String key = itr.next();
-            Object value = params.get(key);
-
-            if (first)
-                first = false;
-            else
-                result.append("&");
-
-            result.append(URLEncoder.encode(key, "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-
-        }
-        return result.toString();
-    }
 
     public void getBloodCount() {
         Query query;
 
-        query = mRootRef.child("Supply").child(bloodtype).child("count");
+        query = supplyRef.child(bloodtype).child("count");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                supplyRef.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -307,7 +257,6 @@ public class search_blood_result extends AppCompatActivity {
                 .setMessage("Do you really want to logout?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "successfully logged out", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
                         backtologin();
                     }
