@@ -129,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                                 else {
                                     sendTokenToServer();
                                     Intent i = new Intent(LoginActivity.this, home.class);
+                                    i.putExtra("mail", sEmail);
                                     i.putExtra("userID", userID);
                                     startActivity(i);
                                 }
