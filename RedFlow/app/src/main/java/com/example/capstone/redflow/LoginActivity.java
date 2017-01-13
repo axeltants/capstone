@@ -127,11 +127,14 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(i);
                                 }
                                 else {
+                                    bloodType = map.get("bloodtype");
+                                    location = map.get("province");
                                     sendTokenToServer();
                                     Intent i = new Intent(LoginActivity.this, home.class);
                                     i.putExtra("mail", sEmail);
                                     i.putExtra("userID", userID);
                                     startActivity(i);
+                                    //Toast.makeText(LoginActivity.this, "Bloodtype: " + bloodType + "\n Location: " + location, Toast.LENGTH_LONG).show();
                                 }
                             }
 
