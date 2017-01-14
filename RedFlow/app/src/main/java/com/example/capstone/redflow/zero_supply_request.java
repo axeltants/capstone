@@ -37,10 +37,10 @@ public class zero_supply_request extends AppCompatActivity {
         vBloodtype = (TextView) findViewById(R.id.btype);
         vBloodtype.setText(bloodtype);
         message2 = "Someone is in need of " + qtty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
-        sendMultiplePush();
+        sendFilteredPush();
     }
 
-    private void sendMultiplePush() {
+    private void sendFilteredPush() {
         final String title = "RedFlow";
         final String message =  message2;
         final String image = null;

@@ -352,6 +352,7 @@ public class request extends AppCompatActivity {
                 else {
                     Intent intent = new Intent(request.this, proceed_to_RedCross.class);
                     intent.putExtra("bloodtype", bloodtype);
+                    intent.putExtra("qtty", bagqty);
                     intent.putExtra("bloodcount", bloodcount);
 
                     query.removeEventListener(userListenerCE);
