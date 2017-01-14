@@ -9,5 +9,6 @@ public class EndPoints {
     public static final String URL_DELETE_DEVICE = "https://pushnotification.000webhostapp.com/DeleteDevice.php";
     public static final String URL_SEND_SINGLE_PUSH = "https://pushnotification.000webhostapp.com/sendSinglePush.php";
     public static final String URL_SEND_MULTIPLE_PUSH = "https://pushnotification.000webhostapp.com/sendMultiplePush.php";
+    public static final String URL_SEND_FILTERED_PUSH = "https://pushnotification.000webhostapp.com/sendFilteredPush.php";
     public static final String URL_FETCH_DEVICES = "https://pushnotification.000webhostapp.com/GetRegisteredDevices.php";
 }

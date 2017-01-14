@@ -200,6 +200,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
+                        sendTokenToServer();
                         //Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {

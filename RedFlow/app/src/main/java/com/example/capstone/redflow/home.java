@@ -106,7 +106,7 @@ public class home extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             JSONObject obj = new JSONObject(response);
-                            Toast.makeText(home.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(home.this, obj.getString("message"), Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -115,7 +115,7 @@ public class home extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(home.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        DeleteToken();
                     }
                 }) {
 

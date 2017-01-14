@@ -25,6 +25,8 @@ public class zero_supply_request extends AppCompatActivity {
     String message2;
     private ProgressDialog progressDialog;
 
+    String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,7 @@ public class zero_supply_request extends AppCompatActivity {
         final String message =  message2;
         final String image = null;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_MULTIPLE_PUSH,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_FILTERED_PUSH,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -61,6 +63,8 @@ public class zero_supply_request extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("title", title);
                 params.put("message", message);
+                params.put("bloodType", bloodtype);
+                params.put("email", "axeltants@gmail.com");
 
                 if (!TextUtils.isEmpty(image))
                     params.put("image", image);
