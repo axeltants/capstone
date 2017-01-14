@@ -25,7 +25,7 @@ public class zero_supply_request extends AppCompatActivity {
     String message2;
     private ProgressDialog progressDialog;
 
-    String email;
+    String mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,9 @@ public class zero_supply_request extends AppCompatActivity {
 
         bloodtype = getIntent().getStringExtra("bloodtype");
         qtty = getIntent().getStringExtra("qtty");
+        mail = getIntent().getStringExtra("mail");
+
+
         vBloodtype = (TextView) findViewById(R.id.btype);
         vBloodtype.setText(bloodtype);
         message2 = "Someone is in need of " + qtty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
@@ -64,7 +67,7 @@ public class zero_supply_request extends AppCompatActivity {
                 params.put("title", title);
                 params.put("message", message);
                 params.put("bloodType", bloodtype);
-                params.put("email", "axeltants@gmail.com");
+                params.put("email", mail);
 
                 if (!TextUtils.isEmpty(image))
                     params.put("image", image);

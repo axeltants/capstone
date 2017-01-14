@@ -100,6 +100,8 @@ public class request extends AppCompatActivity {
 
     private List<String> devices;
 
+    String mail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +109,8 @@ public class request extends AppCompatActivity {
         setContentView(com.example.capstone.redflow.R.layout.request);
 
         userID = getIntent().getStringExtra("userID");
+        mail = getIntent().getStringExtra("mail");
+
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
         userRef = mRootRef.child("User");
@@ -343,6 +347,7 @@ public class request extends AppCompatActivity {
                     Intent intent = new Intent(request.this, zero_supply_request.class);
                     intent.putExtra("bloodtype", bloodtype);
                     intent.putExtra("qtty", sBagqty);
+                    intent.putExtra("mail", mail);
 
                     query.removeEventListener(userListenerCE);
 
@@ -354,6 +359,7 @@ public class request extends AppCompatActivity {
                     intent.putExtra("bloodtype", bloodtype);
                     intent.putExtra("qtty", bagqty);
                     intent.putExtra("bloodcount", bloodcount);
+                    intent.putExtra("mail", mail);
 
                     query.removeEventListener(userListenerCE);
 

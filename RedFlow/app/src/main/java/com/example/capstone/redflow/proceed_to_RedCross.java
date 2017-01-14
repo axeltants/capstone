@@ -30,6 +30,7 @@ public class proceed_to_RedCross extends AppCompatActivity {
     private TextView vBloodtype;
     String message2;
     private int qtty;
+    String mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class proceed_to_RedCross extends AppCompatActivity {
         bloodtype = getIntent().getStringExtra("bloodtype");
         bloodcount = getIntent().getIntExtra("bloodcount", 0);
         qtty = getIntent().getIntExtra("qtty",0);
+        mail = getIntent().getStringExtra("mail");
 
         vBloodcount = (TextView) findViewById(R.id.edittext_bloodcount);
         vBloodtype = (TextView) findViewById(R.id.edittext_bloodtype);
@@ -47,7 +49,6 @@ public class proceed_to_RedCross extends AppCompatActivity {
         vBloodtype.setText(" " + bloodtype + " ");
 
         message2 = "Someone is in need of " + qtty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
-
         if(qtty > bloodcount){
             sendFilteredPush();
         }
@@ -84,7 +85,7 @@ public class proceed_to_RedCross extends AppCompatActivity {
                 params.put("title", title);
                 params.put("message", message);
                 params.put("bloodType", bloodtype);
-                params.put("email", "axeltants@gmail.com");
+                params.put("email", mail);
 
                 if (!TextUtils.isEmpty(image))
                     params.put("image", image);

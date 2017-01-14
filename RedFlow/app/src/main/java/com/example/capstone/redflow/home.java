@@ -49,6 +49,7 @@ public class home extends AppCompatActivity {
 
         userID = getIntent().getStringExtra("userID");
         mail = getIntent().getStringExtra("mail");
+        Toast.makeText(home.this, mail, Toast.LENGTH_LONG).show();
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
         userRef = mRootRef.child("User");
@@ -69,6 +70,7 @@ public class home extends AppCompatActivity {
     public void request(View view) {
         Intent intent = new Intent(this, request.class);
         intent.putExtra("userID", userID);
+        intent.putExtra("mail", mail);
         startActivity(intent);
     }
 
