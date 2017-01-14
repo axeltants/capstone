@@ -208,6 +208,8 @@ public class LoginActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("email", email);
+                params.put("bloodType", bloodType);
+                params.put("location", location);
                 params.put("token", token);
                 return params;
             }
