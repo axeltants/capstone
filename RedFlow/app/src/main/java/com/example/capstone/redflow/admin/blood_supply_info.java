@@ -193,13 +193,9 @@ public class blood_supply_info extends AppCompatActivity {
                     notifyRef.removeEventListener(this);
                     Intent intent = new Intent(blood_supply_info.this, blood_supply_info.class);
                     intent.putExtra("blood_type", blood_type);
-                    blood_supply_info.this.finish();
                     Toast.makeText(blood_supply_info.this, "Successfully added.", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
-
-                    //message = "Someone donated 1 " + blood_type + " blood bag. Please bear in mind that supply doesn't last long due to increasing public demand.";
-
-                    //Toast.makeText(blood_supply_info.this, "To: " + contact + "\n" + message, Toast.LENGTH_LONG).show();
+                    blood_supply_info.this.finish();
                 }
 
                 @Override

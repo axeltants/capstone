@@ -58,6 +58,14 @@ public class request extends AppCompatActivity {
     private Firebase supplyRef;
     private Firebase notifyRef;
 
+    private ValueEventListener notifyListenerVE;
+    private ValueEventListener userListenerVE;
+    private ValueEventListener supplyListenerVE;
+
+    private ChildEventListener notifyListenerCE;
+    private ChildEventListener userListenerCE;
+    private ChildEventListener supplyListenerCE;
+
     private Query query;
     private Query sQuery;
     private Query notifyquery;
@@ -112,18 +120,8 @@ public class request extends AppCompatActivity {
         vBagqty = (EditText) findViewById(R.id.edittext_bagqntty);
 
         notifyquery = notifyRef.child("count");
-        notifyquery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                notifyRef.removeEventListener(this);
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-        notifyquery.addValueEventListener(new ValueEventListener() {
+        //First use of notifyListenerVE.
+        notifyListenerVE = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 priority = dataSnapshot.getValue(Long.class);
@@ -133,13 +131,11 @@ public class request extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
-        });
-
-        quser = userRef.child(userID);
-        quser.addListenerForSingleValueEvent(new ValueEventListener() {
+        };
+        notifyquery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                userRef.removeEventListener(this);
+                notifyRef.removeEventListener(notifyListenerVE);
             }
 
             @Override
@@ -147,7 +143,11 @@ public class request extends AppCompatActivity {
 
             }
         });
-        quser.addValueEventListener(new ValueEventListener() {
+        notifyquery.addValueEventListener(notifyListenerVE);
+
+        quser = userRef.child(userID);
+        //First use of userListenerVE.
+        userListenerVE = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
@@ -155,7 +155,6 @@ public class request extends AppCompatActivity {
                 iBloodtype = map.get("bloodtype");
                 iLocation = map.get("province");
 
-                //Toast.makeText(request.this, "Bloodtype: " + iBloodtype + "\n Location: " + iLocation, Toast.LENGTH_LONG).show();
                 vBloodtype.setSelection(tools.getIndex(vBloodtype, iBloodtype));
                 vLocation.setSelection(tools.getIndex(vLocation, iLocation));
 
@@ -165,7 +164,19 @@ public class request extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
+        };
+        quser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userRef.removeEventListener(userListenerVE);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
         });
+        quser.addValueEventListener(userListenerVE);
 
 
 
@@ -189,18 +200,8 @@ public class request extends AppCompatActivity {
         progressDialog.show();
 
         sQuery = supplyRef.child(bloodtype).child("count");
-        sQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                supplyRef.removeEventListener(this);
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-        sQuery.addValueEventListener(new ValueEventListener() {
+        //First use of supplyListenerVE.
+        supplyListenerVE = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 bloodcount = dataSnapshot.getValue(Integer.class);
@@ -213,9 +214,7 @@ public class request extends AppCompatActivity {
                     message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
                     message2 = message;
                     if(bloodcount > bagqty) {
-                        //Toast.makeText(request.this, "Count: " + bloodcount, Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(request.this, "There are available supply. Please visit any RedCross blood facility to get blood.", Toast.LENGTH_SHORT).show();
-                        supplyRef.removeEventListener(this);
+                        sQuery.removeEventListener(supplyListenerVE);
                         Intent intent = new Intent(request.this, proceed_to_RedCross.class);
                         intent.putExtra("bloodtype", bloodtype);
                         intent.putExtra("bloodcount", bloodcount);
@@ -224,25 +223,16 @@ public class request extends AppCompatActivity {
                     }
                     else {
                         userquery = userRef.child(userID).child("contact");
-                        userquery.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                userRef.removeEventListener(this);
-                            }
-
-                            @Override
-                            public void onCancelled(FirebaseError firebaseError) {
-
-                            }
-                        });
-                        userquery.addValueEventListener(new ValueEventListener() {
+                        //Second use of userListenerVE;
+                        userListenerVE = new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 notify = mRootRef.child("Notify").child(bloodtype).child(dataSnapshot.getValue(String.class));
                                 notify.child("priority").setValue(priority+1);
                                 notify.child("qty").setValue(bagqty);
                                 mRootRef.child("Notify").child("count").setValue(priority+1);
-                                userRef.removeEventListener(this);
+                                userquery.removeEventListener(userListenerVE);
+                                sQuery.removeEventListener(supplyListenerVE);
                                 sendSMSRequest();
                             }
 
@@ -250,7 +240,19 @@ public class request extends AppCompatActivity {
                             public void onCancelled(FirebaseError firebaseError) {
 
                             }
+                        };
+                        userquery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                userRef.removeEventListener(userListenerVE);
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
                         });
+                        userquery.addValueEventListener(userListenerVE);
                     }
                 }
             }
@@ -259,7 +261,19 @@ public class request extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
+        };
+        sQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                supplyRef.removeEventListener(supplyListenerVE);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
         });
+        sQuery.addValueEventListener(supplyListenerVE);
 
 
     }
@@ -268,35 +282,8 @@ public class request extends AppCompatActivity {
     public void sendSMSRequest() {
 
         query = userRef.orderByChild("bloodtype").equalTo(bloodtype);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(bloodcount == 0) {
-                    progressDialog.dismiss();
-                    Intent intent = new Intent(request.this, zero_supply_request.class);
-                    intent.putExtra("bloodtype", bloodtype);
-                    intent.putExtra("qtty", sBagqty);
-                    userRef.removeEventListener(this);
-                    startActivity(intent);
-                    request.this.finish();
-                }
-                else {
-                    Intent intent = new Intent(request.this, proceed_to_RedCross.class);
-                    intent.putExtra("bloodtype", bloodtype);
-                    intent.putExtra("bloodcount", bloodcount);
-                    userRef.removeEventListener(this);
-                    startActivity(intent);
-                    request.this.finish();
-                }
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-        query.addChildEventListener(new ChildEventListener() {
+        //First use of userListenerCE;
+        userListenerCE = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
@@ -316,22 +303,16 @@ public class request extends AppCompatActivity {
                     final Calendar c = Calendar.getInstance();
                     c.add(Calendar.DATE, myDays);  // number of days to add
                     int newDate =   (c.get(Calendar.YEAR) * 10000) +
-                                    ((c.get(Calendar.MONTH) + 1) * 100) +
-                                    (c.get(Calendar.DAY_OF_MONTH));
+                            ((c.get(Calendar.MONTH) + 1) * 100) +
+                            (c.get(Calendar.DAY_OF_MONTH));
 
                     offsms.child("userID").setValue(user);
                     offsms.child("duedate").setValue(newDate);
 
                     new SendRequest(contact, message).execute();
 
-                    //Toast.makeText(request.this, "Request sent.", Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(request.this, "Hey, " + user, Toast.LENGTH_LONG).show();
-                    //Toast.makeText(request.this, "Date is, " + newDate, Toast.LENGTH_LONG).show();
-
                     mRootRef.child("User").child(user).child("request").setValue("off");
                 }
-
-
             }
 
             @Override
@@ -353,8 +334,43 @@ public class request extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
+        };
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(bloodcount == 0) {
+                    progressDialog.dismiss();
+                    Intent intent = new Intent(request.this, zero_supply_request.class);
+                    intent.putExtra("bloodtype", bloodtype);
+                    intent.putExtra("qtty", sBagqty);
+
+                    query.removeEventListener(userListenerCE);
+
+                    startActivity(intent);
+                    request.this.finish();
+                }
+                else {
+                    Intent intent = new Intent(request.this, proceed_to_RedCross.class);
+                    intent.putExtra("bloodtype", bloodtype);
+                    intent.putExtra("bloodcount", bloodcount);
+
+                    query.removeEventListener(userListenerCE);
+
+                    startActivity(intent);
+                    request.this.finish();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
         });
+        query.addChildEventListener(userListenerCE);
     }
+
+
 
 
     /*FOR ACTION BAR EVENTS*/
