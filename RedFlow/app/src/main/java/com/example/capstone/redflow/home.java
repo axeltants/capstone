@@ -19,6 +19,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
 import com.example.capstone.redflow.Firebasenotification.SharedPrefManager;
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -29,8 +30,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class home extends AppCompatActivity {
-    String userID;
-    String mail;
+
+    private Firebase mRootRef;
+    private Firebase userRef;
+    private Firebase supplyRef;
+    private Firebase notifyRef;
+    private Firebase bloodRef;
+
+    private String userID;
+    private String mail;
     private ProgressDialog progressDialog;
 
     @Override
@@ -41,6 +49,12 @@ public class home extends AppCompatActivity {
 
         userID = getIntent().getStringExtra("userID");
         mail = getIntent().getStringExtra("mail");
+
+        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+        userRef = mRootRef.child("User");
+        supplyRef = mRootRef.child("Supply");
+        notifyRef = mRootRef.child("Notify");
+        bloodRef = mRootRef.child("Blood");
 
         //Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();
     }

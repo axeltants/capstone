@@ -3,6 +3,7 @@ package com.example.capstone.redflow;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,5 +35,7 @@ public class proceed_to_RedCross extends AppCompatActivity {
     public void location(View view) {
         Intent intent = new Intent(this, redcross_location.class);
         startActivity(intent);
+        this.finish();
     }
+
 }
