@@ -215,6 +215,7 @@ public class request extends AppCompatActivity {
                     if(bloodcount > bagqty) {
                         //Toast.makeText(request.this, "Count: " + bloodcount, Toast.LENGTH_SHORT).show();
                         //Toast.makeText(request.this, "There are available supply. Please visit any RedCross blood facility to get blood.", Toast.LENGTH_SHORT).show();
+                        supplyRef.removeEventListener(this);
                         Intent intent = new Intent(request.this, proceed_to_RedCross.class);
                         intent.putExtra("bloodtype", bloodtype);
                         intent.putExtra("bloodcount", bloodcount);
@@ -241,6 +242,7 @@ public class request extends AppCompatActivity {
                                 notify.child("priority").setValue(priority+1);
                                 notify.child("qty").setValue(bagqty);
                                 mRootRef.child("Notify").child("count").setValue(priority+1);
+                                userRef.removeEventListener(this);
                                 sendSMSRequest();
                             }
 

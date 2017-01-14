@@ -41,7 +41,7 @@ public class home extends AppCompatActivity {
 
         userID = getIntent().getStringExtra("userID");
         mail = getIntent().getStringExtra("mail");
-        Toast.makeText(this,mail, Toast.LENGTH_SHORT).show();
+
         //Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();
     }
 
