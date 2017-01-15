@@ -42,9 +42,6 @@ public class admin_home extends AppCompatActivity {
         setContentView(R.layout.admin_home);
 
         tools = new ToolBox();
-        mail = getIntent().getStringExtra("mail");
-        Toast.makeText(this, mail, Toast.LENGTH_SHORT).show();
-
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
         offsmsRef = mRootRef.child("OffSMS");
 
