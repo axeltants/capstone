@@ -113,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if(map.get("status").equals("admin")) {
                                     Intent i = new Intent(LoginActivity.this, admin_home.class);
                                     i.putExtra("userID", userID);
+                                    i.putExtra("mail", sEmail);
                                     query.removeEventListener(this);
                                     startActivity(i);
                                 }
