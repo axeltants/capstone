@@ -1,13 +1,12 @@
 package com.example.capstone.redflow.admin;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -20,7 +19,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
-import com.example.capstone.redflow.Firebasenotification.Send_Push_Notification;
 import com.example.capstone.redflow.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.SendRequest;
@@ -33,23 +31,10 @@ import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
-
-public class search_blood_result extends AppCompatActivity {
+public class search_blood_profile extends AppCompatActivity {
 
     private String serial_number;
     private String userID;
@@ -65,9 +50,10 @@ public class search_blood_result extends AppCompatActivity {
     private Firebase userRef;
     private Firebase bloodRef;
     private Firebase supplyRef;
+
+    private ChildEventListener bloodListenerCE;
+
     private Query query;
-    private Query query2;
-    private Query query3;
 
     private TextView vCompleteName;
     private TextView vBdate;
@@ -79,52 +65,55 @@ public class search_blood_result extends AppCompatActivity {
     private TextView vStatus;
     private TextView vBloodtype;
 
-    String mail;
+    private String mail;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
-        setContentView(R.layout.search_blood_result);
+
 
         serial_number = getIntent().getStringExtra("serial_number");
 
-        vCompleteName = (TextView) findViewById(R.id.textview_CompleteName);
-        vBdate = (TextView) findViewById(R.id.textview_age);
-        vGender = (TextView) findViewById(R.id.textview_gender);
-        vEmail = (TextView) findViewById(R.id.textview_email);
-        vNationality = (TextView) findViewById(R.id.textview_nationality);
-        vAddress = (TextView) findViewById(R.id.textview_address);
-        vContact = (TextView) findViewById(R.id.textview_contact);
-        vStatus = (TextView) findViewById(R.id.textview_status);
-        vBloodtype = (TextView) findViewById(R.id.textview_bloodtype);
+
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
         userRef = mRootRef.child("User");
         bloodRef = mRootRef.child("Blood");
         supplyRef = mRootRef.child("Supply");
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Searching...");
+        progressDialog.show();
+
         query = bloodRef.orderByChild("serial").equalTo(serial_number);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                bloodRef.removeEventListener(this);
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-        query.addChildEventListener(new ChildEventListener() {
+        bloodListenerCE = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
+
+                setContentView(R.layout.search_blood_result);
+
+                vCompleteName = (TextView) findViewById(R.id.textview_CompleteName);
+                vBdate = (TextView) findViewById(R.id.textview_age);
+                vGender = (TextView) findViewById(R.id.textview_gender);
+                vEmail = (TextView) findViewById(R.id.textview_email);
+                vNationality = (TextView) findViewById(R.id.textview_nationality);
+                vAddress = (TextView) findViewById(R.id.textview_address);
+                vContact = (TextView) findViewById(R.id.textview_contact);
+                vStatus = (TextView) findViewById(R.id.textview_status);
+                vBloodtype = (TextView) findViewById(R.id.textview_bloodtype);
+
                 userID = map.get("userID");
                 bloodtype = map.get("bloodtype");
                 bloodID = dataSnapshot.getKey();
-                setProfile(userID, bloodtype);
                 getBloodCount();
+                setProfile(userID, bloodtype);
+                progressDialog.dismiss();
+
             }
 
             @Override
@@ -146,7 +135,23 @@ public class search_blood_result extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
+        };
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getChildrenCount() == 0) {
+                    setContentView(R.layout.empty_searchblood_result);
+                    progressDialog.dismiss();
+                }
+                query.removeEventListener(bloodListenerCE);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
         });
+        query.addChildEventListener(bloodListenerCE);
 
     }
 
@@ -157,7 +162,7 @@ public class search_blood_result extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         if(status.equals("Unknown")) {
-                            Toast.makeText(search_blood_result.this, bloodtype + " blood supply reduced by 1 bag.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(search_blood_profile.this, bloodtype + " blood supply reduced by 1 bag.", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             sendSinglePush();
@@ -166,10 +171,10 @@ public class search_blood_result extends AppCompatActivity {
                         }
                         mRootRef.child("Supply").child(bloodtype).child("count").setValue(bloodcount-1);
                         mRootRef.child("Blood").child(bloodID).removeValue();
-                        Intent intent = new Intent(search_blood_result.this, blood_supply_info.class);
+                        Intent intent = new Intent(search_blood_profile.this, blood_supply_info.class);
                         intent.putExtra("blood_type", bloodtype);
                         startActivity(intent);
-                        search_blood_result.this.finish();
+                        search_blood_profile.this.finish();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -182,19 +187,11 @@ public class search_blood_result extends AppCompatActivity {
     }
 
     public void setProfile(String userID, final String bloodtype) {
-        query2 = userRef.child(userID);
-        query2.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userRef.removeEventListener(this);
-            }
+        final Query query;
 
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
+        query = userRef.child(userID);
 
-            }
-        });
-        query2.addValueEventListener(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
@@ -213,6 +210,8 @@ public class search_blood_result extends AppCompatActivity {
                 vBloodtype.setText(bloodtype);
 
                 mail = map.get("email");
+
+                query.removeEventListener(this);
             }
 
             @Override
@@ -224,24 +223,15 @@ public class search_blood_result extends AppCompatActivity {
 
 
     public void getBloodCount() {
-        Query query;
+        final Query query;
 
         query = supplyRef.child(bloodtype).child("count");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                supplyRef.removeEventListener(this);
-            }
 
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 bloodcount = dataSnapshot.getValue(Integer.class);
+                query.removeEventListener(this);
             }
 
             @Override
@@ -263,7 +253,7 @@ public class search_blood_result extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //Toast.makeText(search_blood_result.this, response, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(search_blood_profile.this, response, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {

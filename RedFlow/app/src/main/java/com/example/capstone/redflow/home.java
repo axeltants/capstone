@@ -31,12 +31,6 @@ import java.util.Map;
 
 public class home extends AppCompatActivity {
 
-    private Firebase mRootRef;
-    private Firebase userRef;
-    private Firebase supplyRef;
-    private Firebase notifyRef;
-    private Firebase bloodRef;
-
     private String userID;
     private String mail;
     private ProgressDialog progressDialog;
@@ -49,15 +43,8 @@ public class home extends AppCompatActivity {
 
         userID = getIntent().getStringExtra("userID");
         mail = getIntent().getStringExtra("mail");
-        Toast.makeText(home.this, mail, Toast.LENGTH_LONG).show();
 
-        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
-        userRef = mRootRef.child("User");
-        supplyRef = mRootRef.child("Supply");
-        notifyRef = mRootRef.child("Notify");
-        bloodRef = mRootRef.child("Blood");
 
-        //Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();
     }
 
     @Override

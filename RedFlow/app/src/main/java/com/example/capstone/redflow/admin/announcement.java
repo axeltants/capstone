@@ -24,11 +24,20 @@ import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
 import com.example.capstone.redflow.LoginActivity;
 import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.SendRequest;
+import com.example.capstone.redflow.ToolBox;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,13 +49,45 @@ public class announcement extends AppCompatActivity {
     private List<String> devices;
     private ProgressDialog progressDialog;
 
+    private Firebase mRootRef;
+    private Firebase notifRef;
+    private Query query;
+    private ChildEventListener listener;
+
+    private String message;
+    private String contact;
+
+    private int date;
+    private int time;
+
+    private  double datetime;
+
+    private Calendar c;
+
+    private ToolBox tools;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.announcement);
+
+        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
         editText = (EditText) findViewById(R.id.edittext_message);
         textView = (TextView) findViewById(R.id.textView_count);
+
+        tools = new ToolBox();
+
+        c = Calendar.getInstance();
+
+        date =   (c.get(Calendar.YEAR) * 10000) +
+                ((c.get(Calendar.MONTH) + 1) * 100) +
+                (c.get(Calendar.DAY_OF_MONTH));
+
+        time = tools.getCurrentTime();
+        datetime = tools.getDateTime();
+
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -81,7 +122,9 @@ public class announcement extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        editText.setText("");
                         progressDialog.dismiss();
+                        Toast.makeText(announcement.this, "Message sent.", Toast.LENGTH_SHORT).show();
                         //Toast.makeText(announcement.this, response, Toast.LENGTH_LONG).show();
                     }
                 },
@@ -110,6 +153,57 @@ public class announcement extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Sending...");
         progressDialog.show();
+
+        message = editText.getText().toString();
+
+        query = mRootRef.child("User").orderByChild("sms").equalTo("on");
+        listener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, String> map = dataSnapshot.getValue(Map.class);
+
+                notifRef = mRootRef.child("Notification").child(dataSnapshot.getKey()).push();
+                notifRef.child("content").setValue(message);
+                notifRef.child("date").setValue(date);
+                notifRef.child("time").setValue(time);
+                notifRef.child("datetime").setValue(datetime);
+
+                new SendRequest(map.get("contact"), message).execute();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        };
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                query.removeEventListener(listener);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+        query.addChildEventListener(listener);
+
         sendMultiplePush();
     }
 }

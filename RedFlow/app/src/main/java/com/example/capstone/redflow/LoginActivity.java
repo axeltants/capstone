@@ -104,17 +104,6 @@ public class LoginActivity extends AppCompatActivity {
                     if(task.isSuccessful()) {
                         progressDialog.dismiss();
                         query = userRef.orderByChild("email").equalTo(sEmail.toLowerCase());
-                        query.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                userRef.removeEventListener(this);
-                            }
-
-                            @Override
-                            public void onCancelled(FirebaseError firebaseError) {
-
-                            }
-                        });
                         query.addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -124,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if(map.get("status").equals("admin")) {
                                     Intent i = new Intent(LoginActivity.this, admin_home.class);
                                     i.putExtra("userID", userID);
+                                    query.removeEventListener(this);
                                     startActivity(i);
                                 }
                                 else {
@@ -133,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent i = new Intent(LoginActivity.this, home.class);
                                     i.putExtra("mail", sEmail);
                                     i.putExtra("userID", userID);
+                                    query.removeEventListener(this);
                                     startActivity(i);
                                     //Toast.makeText(LoginActivity.this, "Bloodtype: " + bloodType + "\n Location: " + location, Toast.LENGTH_LONG).show();
                                 }

@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -42,6 +43,8 @@ public class register extends AppCompatActivity {
     private Firebase newUser;
     private FirebaseAuth mAuth;
     private Query query;
+
+    private ValueEventListener userListenerVE;
 
     private EditText vFname;
     private EditText vLname;
@@ -595,23 +598,13 @@ public class register extends AppCompatActivity {
         }
         else {
             query = userRef.orderByChild("email").equalTo(sEmail);
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    userRef.removeEventListener(this);
-                }
 
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
-                }
-            });
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.getValue() != null) {
                         Toast.makeText(register.this, "Email already exists.", Toast.LENGTH_SHORT).show();
-
+                        query.removeEventListener(this);
                     }
                     else {
                         progressDialog.setMessage("Registering user...");
@@ -644,9 +637,10 @@ public class register extends AppCompatActivity {
                                     newUser.child("request").setValue("on");
 
                                     LoginActivity.getInstance().finish();
-                                    Intent intent = new Intent(register.this, LoginActivity.class);
+                                    Intent intent = new Intent(register.this, home.class);
+                                    intent.putExtra("userID", newUser.getKey());
+                                    intent.putExtra("mail", sEmail.toLowerCase());
                                     startActivity(intent);
-                                    Toast.makeText(register.this, "Successfully registered.", Toast.LENGTH_SHORT).show();
                                     register.this.finish();
 
                                 }

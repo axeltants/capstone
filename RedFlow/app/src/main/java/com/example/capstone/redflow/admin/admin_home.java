@@ -48,17 +48,6 @@ public class admin_home extends AppCompatActivity {
         date = tools.getCurrentDate();
 
         query = offsmsRef.orderByChild("duedate").equalTo(date);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                offsmsRef.removeEventListener(this);
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -93,7 +82,6 @@ public class admin_home extends AppCompatActivity {
 
             }
         });
-        //Toast.makeText(this, "Today is, " + tools.getCurrentDate(), Toast.LENGTH_LONG).show();
     }
 
     @Override

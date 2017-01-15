@@ -1,5 +1,6 @@
 package com.example.capstone.redflow.admin;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -33,6 +35,11 @@ public class search_result extends AppCompatActivity {
     private String searchname;
 
     private Firebase mRootRef;
+
+    private ChildEventListener userListenerCE;
+    private ChildEventListener userListenerCE2;
+    private ChildEventListener userListenerCE3;
+
     private Query query;
     private Query query2;
     private Query query3;
@@ -42,6 +49,8 @@ public class search_result extends AppCompatActivity {
     private ArrayList<String> status;
 
     private ArrayAdapter<String> adapter;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +69,16 @@ public class search_result extends AppCompatActivity {
         final ListView vResultList = (ListView) findViewById(R.id.resultlist);
         vResultList.setAdapter(adapter);
 
-        vResultList.setEmptyView(findViewById(R.id.empty));
-
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Searching...");
+        progressDialog.show();
 
+        /******************************************************************************************/
 
         query = mRootRef.child("User").orderByChild("fname").equalTo(searchname);
-        query.addChildEventListener(new ChildEventListener() {
+        userListenerCE = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
@@ -75,6 +86,7 @@ public class search_result extends AppCompatActivity {
                 userIDs.add(dataSnapshot.getKey());
                 status.add(map.get("status"));
                 adapter.notifyDataSetChanged();
+                progressDialog.dismiss();
             }
 
             @Override
@@ -96,10 +108,28 @@ public class search_result extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
+        };
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                progressDialog.dismiss();
+                if(dataSnapshot.getChildrenCount() == 0) {
+                    vResultList.setEmptyView(findViewById(R.id.empty));
+                }
+                query.removeEventListener(userListenerCE);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
         });
+        query.addChildEventListener(userListenerCE);
+
+        /******************************************************************************************/
 
         query2 = mRootRef.child("User").orderByChild("fullname").equalTo(searchname.toLowerCase());
-        query2.addChildEventListener(new ChildEventListener() {
+        userListenerCE2 = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
@@ -107,6 +137,7 @@ public class search_result extends AppCompatActivity {
                 userIDs.add(dataSnapshot.getKey());
                 status.add(map.get("status"));
                 adapter.notifyDataSetChanged();
+                progressDialog.dismiss();
             }
 
             @Override
@@ -128,10 +159,28 @@ public class search_result extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
+        };
+        query2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                progressDialog.dismiss();
+                if(dataSnapshot.getChildrenCount() == 0) {
+                    vResultList.setEmptyView(findViewById(R.id.empty));
+                }
+                query2.removeEventListener(userListenerCE2);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
         });
+        query2.addChildEventListener(userListenerCE2);
+
+        /******************************************************************************************/
 
         query3 = mRootRef.child("User").orderByChild("lname").equalTo(searchname);
-        query3.addChildEventListener(new ChildEventListener() {
+        userListenerCE3 = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
@@ -139,6 +188,7 @@ public class search_result extends AppCompatActivity {
                 userIDs.add(dataSnapshot.getKey());
                 status.add(map.get("status"));
                 adapter.notifyDataSetChanged();
+                progressDialog.dismiss();
             }
 
             @Override
@@ -160,7 +210,23 @@ public class search_result extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
+        };
+        query3.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                progressDialog.dismiss();
+                if(dataSnapshot.getChildrenCount() == 0) {
+                    vResultList.setEmptyView(findViewById(R.id.empty));
+                }
+                query3.removeEventListener(userListenerCE3);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
         });
+        query3.addChildEventListener(userListenerCE3);
 
         onClickListener();
     }

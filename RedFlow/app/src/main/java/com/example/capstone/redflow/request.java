@@ -62,9 +62,7 @@ public class request extends AppCompatActivity {
     private ValueEventListener userListenerVE;
     private ValueEventListener supplyListenerVE;
 
-    private ChildEventListener notifyListenerCE;
     private ChildEventListener userListenerCE;
-    private ChildEventListener supplyListenerCE;
 
     private Query query;
     private Query sQuery;
@@ -123,12 +121,19 @@ public class request extends AppCompatActivity {
         vLocation = (Spinner) findViewById(R.id.spinnr_location);
         vBagqty = (EditText) findViewById(R.id.edittext_bagqntty);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
+
+/**************************************************************************************************/
+
         notifyquery = notifyRef.child("count");
         //First use of notifyListenerVE.
         notifyListenerVE = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 priority = dataSnapshot.getValue(Long.class);
+                notifyquery.removeEventListener(notifyListenerVE);
             }
 
             @Override
@@ -136,18 +141,10 @@ public class request extends AppCompatActivity {
 
             }
         };
-        notifyquery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                notifyRef.removeEventListener(notifyListenerVE);
-            }
 
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
         notifyquery.addValueEventListener(notifyListenerVE);
+
+/**************************************************************************************************/
 
         quser = userRef.child(userID);
         //First use of userListenerVE.
@@ -162,6 +159,10 @@ public class request extends AppCompatActivity {
                 vBloodtype.setSelection(tools.getIndex(vBloodtype, iBloodtype));
                 vLocation.setSelection(tools.getIndex(vLocation, iLocation));
 
+                progressDialog.dismiss();
+
+                quser.removeEventListener(userListenerVE);
+
             }
 
             @Override
@@ -169,22 +170,10 @@ public class request extends AppCompatActivity {
 
             }
         };
-        quser.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userRef.removeEventListener(userListenerVE);
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
         quser.addValueEventListener(userListenerVE);
 
+/**************************************************************************************************/
 
-
-        progressDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -199,8 +188,7 @@ public class request extends AppCompatActivity {
         location = vLocation.getSelectedItem().toString();
         sBagqty = vBagqty.getText().toString();
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Requesting..");
+        progressDialog.setMessage("Requesting...");
         progressDialog.show();
 
         sQuery = supplyRef.child(bloodtype).child("count");

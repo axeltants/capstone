@@ -4,7 +4,7 @@
     android:id="@+id/search_blood_result"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.search_blood_result"
+    tools:context=".admin.search_blood_profile"
     android:background="@drawable/bg">
 
     <RelativeLayout

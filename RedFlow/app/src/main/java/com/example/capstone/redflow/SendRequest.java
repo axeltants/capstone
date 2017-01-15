@@ -3,8 +3,6 @@ package com.example.capstone.redflow;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.capstone.redflow.admin.search_blood_result;
-
 import org.json.JSONObject;
 
 import java.io.BufferedReader;

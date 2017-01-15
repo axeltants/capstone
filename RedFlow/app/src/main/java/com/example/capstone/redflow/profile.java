@@ -101,12 +101,15 @@ public class profile extends AppCompatActivity {
                         if(isChecked){
                             switchStatus.setText("SMS notification: ON");
                             mRootRef.child("User").child(userID).child("sms").setValue("on");
+                            mRootRef.child("User").child(userID).child("request").setValue("on");
                         }else{
                             switchStatus.setText("SMS notification: OFF");
                             mRootRef.child("User").child(userID).child("sms").setValue("off");
+                            mRootRef.child("User").child(userID).child("request").setValue("off");
                         }
                     }
                 });
+                mRootRef.child("User").child(userID).removeEventListener(this);
             }
 
             @Override
@@ -150,7 +153,6 @@ public class profile extends AppCompatActivity {
                 .setMessage("Do you really want to logout?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "successfully logged out", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
                         backtologin();
                     }

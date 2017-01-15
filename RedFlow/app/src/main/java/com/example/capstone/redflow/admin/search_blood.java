@@ -15,7 +15,6 @@ import com.example.capstone.redflow.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.ToolBox;
 import com.example.capstone.redflow.about;
-import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class search_blood extends AppCompatActivity {
@@ -54,7 +53,7 @@ public class search_blood extends AppCompatActivity {
             Toast.makeText(this, "Invalid serial number.", Toast.LENGTH_SHORT).show();
         }
         else {
-            Intent intent = new Intent(this, search_blood_result.class);
+            Intent intent = new Intent(this, search_blood_profile.class);
             intent.putExtra("serial_number", sSearch.toUpperCase());
             startActivity(intent);
             this.finish();

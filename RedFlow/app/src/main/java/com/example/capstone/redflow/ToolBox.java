@@ -101,4 +101,80 @@ public class ToolBox {
 
         return date;
     }
+
+    public int getCurrentTime() {
+        Calendar c = Calendar.getInstance();
+
+        int time;
+        int ampm;
+        int hour;
+
+        ampm = c.get(Calendar.AM_PM);
+        hour = c.get(Calendar.HOUR);
+
+
+        if(ampm == 1) {
+            time =   (c.get(Calendar.HOUR) * 10000) +
+                    (c.get(Calendar.MINUTE) * 100) +
+                    (c.get(Calendar.SECOND) + 12);
+        }
+        else if(hour == 0) {
+
+            time =   (240000) +
+                    (c.get(Calendar.MINUTE) * 100) +
+                    (c.get(Calendar.SECOND));
+        }
+        else {
+            time =   (c.get(Calendar.HOUR) * 10000) +
+                    (c.get(Calendar.MINUTE) * 1000) +
+                    (c.get(Calendar.SECOND));
+        }
+
+        return time;
+    }
+
+    public double getDateTime() {
+        Calendar c = Calendar.getInstance();
+
+        int date;
+        int time;
+        int ampm;
+        int hour;
+
+        double datetime;
+
+        ampm = c.get(Calendar.AM_PM);
+        hour = c.get(Calendar.HOUR);
+
+        date =   (c.get(Calendar.YEAR) * 10000) +
+                ((c.get(Calendar.MONTH) + 1) * 100) +
+                (c.get(Calendar.DAY_OF_MONTH));
+
+        if(ampm == 1) {
+            time =   (c.get(Calendar.HOUR) * 10000) +
+                    (c.get(Calendar.MINUTE) * 100) +
+                    (c.get(Calendar.SECOND) + 12);
+        }
+        else if(hour == 0) {
+
+            c.add(Calendar.DATE, -1);
+
+            time =   (240000) +
+                    (c.get(Calendar.MINUTE) * 100) +
+                    (c.get(Calendar.SECOND));
+
+            date =   (c.get(Calendar.YEAR) * 10000) +
+                    ((c.get(Calendar.MONTH) + 1) * 100) +
+                    (c.get(Calendar.DAY_OF_MONTH));
+        }
+        else {
+            time =   (c.get(Calendar.HOUR) * 10000) +
+                    (c.get(Calendar.MINUTE) * 1000) +
+                    (c.get(Calendar.SECOND));
+        }
+
+        datetime = date + (time * 0.000001);
+
+        return datetime;
+    }
 }

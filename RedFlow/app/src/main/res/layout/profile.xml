@@ -181,30 +181,12 @@
                         android:text="0912 345 6579"
                         android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/statuslabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/imgcontact"
-                        android:layout_marginTop="15dp"
-                        android:text="Account status: "
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/textview_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@id/statuslabel"
-                        android:layout_toRightOf="@id/statuslabel"
-                        android:text="Unverfied"
-                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/bloodlabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/statuslabel"
+                        android:layout_below="@id/imgcontact"
                         android:layout_marginTop="30dp"
                         android:text="bloodtype: "
                         android:textSize="16sp"

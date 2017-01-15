@@ -2,6 +2,7 @@ package com.example.capstone.redflow.admin;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -51,6 +52,9 @@ public class blood_supply_info extends AppCompatActivity {
 
     private Firebase mRootRef;
     private Firebase notifyRef;
+
+    private ChildEventListener notifyListenerCE;
+
     private Query query;
     private Query qnotify;
 
@@ -70,6 +74,8 @@ public class blood_supply_info extends AppCompatActivity {
     private int year, month, day;
 
     private int mDay, mMonth, mYear;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +101,10 @@ public class blood_supply_info extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(year, month+1, day);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
+
 
         bloodtype.setText(blood_type);
         query = mRootRef.child("Supply").child(blood_type);
@@ -107,6 +117,9 @@ public class blood_supply_info extends AppCompatActivity {
                 count = map.get("count");
                 bag_quantity.setText("Available: " + count);
                 recentlyAdded.setText(map2.get("recent"));
+                progressDialog.dismiss();
+                query.removeEventListener(this);
+                
             }
 
             @Override
@@ -187,23 +200,7 @@ public class blood_supply_info extends AppCompatActivity {
             mRootRef.child("Supply").child(blood_type).child("recent").setValue(sBag_serial.toUpperCase());
 
             qnotify = notifyRef.child(blood_type).orderByChild("priority").limitToFirst(1);
-            qnotify.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    notifyRef.removeEventListener(this);
-                    Intent intent = new Intent(blood_supply_info.this, blood_supply_info.class);
-                    intent.putExtra("blood_type", blood_type);
-                    Toast.makeText(blood_supply_info.this, "Successfully added.", Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
-                    blood_supply_info.this.finish();
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
-                }
-            });
-            qnotify.addChildEventListener(new ChildEventListener() {
+            notifyListenerCE = new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     contact = dataSnapshot.getKey();
@@ -233,7 +230,23 @@ public class blood_supply_info extends AppCompatActivity {
                 public void onCancelled(FirebaseError firebaseError) {
 
                 }
+            };
+            qnotify.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Intent intent = new Intent(blood_supply_info.this, blood_supply_info.class);
+                    intent.putExtra("blood_type", blood_type);
+                    qnotify.removeEventListener(notifyListenerCE);
+                    startActivity(intent);
+                    blood_supply_info.this.finish();
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
             });
+            qnotify.addChildEventListener(notifyListenerCE);
         }
     }
 
