@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
+import com.example.capstone.redflow.Firebasenotification.Send_Push_Notification;
 import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.SendRequest;
@@ -65,7 +66,7 @@ public class search_blood_profile extends AppCompatActivity {
     private TextView vStatus;
     private TextView vBloodtype;
 
-    private String mail;
+    String mail;
 
     private ProgressDialog progressDialog;
 
@@ -165,12 +166,13 @@ public class search_blood_profile extends AppCompatActivity {
                             Toast.makeText(search_blood_profile.this, bloodtype + " blood supply reduced by 1 bag.", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            sendSinglePush();
+                           // sendSinglePush();
                             message = "Your blood has just been donated. Thank you for saving a life.";
                             new SendRequest(contact, message).execute();
                         }
                         mRootRef.child("Supply").child(bloodtype).child("count").setValue(bloodcount-1);
                         mRootRef.child("Blood").child(bloodID).removeValue();
+                        sendSinglePush();
                         Intent intent = new Intent(search_blood_profile.this, blood_supply_info.class);
                         intent.putExtra("blood_type", bloodtype);
                         startActivity(intent);
@@ -210,6 +212,7 @@ public class search_blood_profile extends AppCompatActivity {
                 vBloodtype.setText(bloodtype);
 
                 mail = map.get("email");
+                Toast.makeText(search_blood_profile.this, mail, Toast.LENGTH_SHORT).show();
 
                 query.removeEventListener(this);
             }
@@ -248,12 +251,12 @@ public class search_blood_profile extends AppCompatActivity {
         final String image = null;
         final String email = mail;
 
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_SINGLE_PUSH,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //Toast.makeText(search_blood_profile.this, response, Toast.LENGTH_LONG).show();
+
+                        Toast.makeText(search_blood_profile.this, response, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -270,13 +273,16 @@ public class search_blood_profile extends AppCompatActivity {
 
                 if (!TextUtils.isEmpty(image))
                     params.put("image", image);
-                    params.put("email", email);
+
+                params.put("email", email);
                 return params;
             }
         };
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
+
+
 
 
     /*FOR ACTION BAR EVENTS*/
