@@ -13,6 +13,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.capstone.redflow.Firebasenotification.EndPoints;
+import com.example.capstone.redflow.Firebasenotification.MyVolley;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.SendRequest;
 import com.example.capstone.redflow.ToolBox;
@@ -26,7 +33,11 @@ import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -79,18 +90,18 @@ public class request extends AppCompatActivity {
 
     private List<String> devices;
 
-    private String mail;
-
     private int date;
     private int time;
     private double datetime;
+
+    private String mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(com.example.capstone.redflow.R.layout.request);
-
+        
         userID = getIntent().getStringExtra("userID");
         mail = getIntent().getStringExtra("mail");
 
@@ -363,8 +374,41 @@ public class request extends AppCompatActivity {
 
 
 
+    private void DeleteToken() {
+        final String email = mail;
 
-    /*FOR ACTION BAR EVENTS*/
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_DELETE_DEVICE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            //Toast.makeText(home.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                return params;
+            }
+        };
+        MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+
+
+    ///////////*FOR ACTION BAR EVENTS*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -397,6 +441,7 @@ public class request extends AppCompatActivity {
                 .show();
     }
     public void backtologin(){
+        DeleteToken();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

@@ -67,24 +67,28 @@ public class home extends AppCompatActivity {
        /* Intent intent = new Intent(this, history.class);
         startActivity(intent);*/
         Intent intent = new Intent(this, Donation_history.class);
+        intent.putExtra("mail", mail);
         startActivity(intent);
     }
 
     public void profile(View view) {
         Intent intent = new Intent(this, profile.class);
         intent.putExtra("userID", userID);
+        intent.putExtra("mail", mail);
         startActivity(intent);
     }
 
     public void notification(View view) {
         Toast.makeText(getApplicationContext(), "NOTIFICATION", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, notification.class);
+        intent.putExtra("mail", mail);
         startActivity(intent);
     }
 
     public void donor(View view) {
         Toast.makeText(getApplicationContext(), "DONOR", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, beadonor.class);
+        intent.putExtra("mail", mail);
         startActivity(intent);
     }
 

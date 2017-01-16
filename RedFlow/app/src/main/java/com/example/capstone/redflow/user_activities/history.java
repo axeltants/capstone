@@ -10,17 +10,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.capstone.redflow.Firebasenotification.EndPoints;
+import com.example.capstone.redflow.Firebasenotification.MyVolley;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.common_activities.about;
 import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class history extends AppCompatActivity {
+    private String mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.capstone.redflow.R.layout.history);
+        mail = getIntent().getStringExtra("mail");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,7 +55,42 @@ public class history extends AppCompatActivity {
 
 
 
-    /*FOR ACTION BAR EVENTS*/
+    private void DeleteToken() {
+        final String email = mail;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_DELETE_DEVICE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            //Toast.makeText(home.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                return params;
+            }
+        };
+        MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+
+
+
+    //////////////////////////////////*FOR ACTION BAR EVENTS*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -74,6 +124,7 @@ public class history extends AppCompatActivity {
                 .show();
     }
     public void backtologin(){
+        DeleteToken();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
