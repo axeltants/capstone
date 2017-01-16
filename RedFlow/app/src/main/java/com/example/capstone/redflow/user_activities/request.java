@@ -101,7 +101,7 @@ public class request extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(com.example.capstone.redflow.R.layout.request);
-        
+
         userID = getIntent().getStringExtra("userID");
         mail = getIntent().getStringExtra("mail");
 

@@ -102,7 +102,11 @@
 
         <activity android:name="com.example.axel.redflow.Send_Push_Notification" />
         <activity android:name=".notification_viewer.notification_normal" />
-        <activity android:name=".notification_viewer.notification_with_prelim"></activity>
+        <activity android:name=".notification_viewer.notification_with_prelim" />
+        <activity android:name=".admin.statistics.gender_statistics" />
+        <activity android:name=".admin.statistics.Age_statistics" />
+        <activity android:name=".admin.statistics.bloodType_statistics" />
+        <activity android:name=".admin.statistics.location_statistics"></activity>
     </application>
 
 </manifest>
