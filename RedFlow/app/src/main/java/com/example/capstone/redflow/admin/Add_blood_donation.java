@@ -26,6 +26,7 @@ import com.example.capstone.redflow.Firebasenotification.MyVolley;
 import com.example.capstone.redflow.Firebasenotification.Send_Push_Notification;
 import com.example.capstone.redflow.LoginActivity;
 import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.ToolBox;
 import com.example.capstone.redflow.about;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -56,12 +57,19 @@ public class Add_blood_donation extends AppCompatActivity {
     private int year, month, day;
     private int mYear, mMonth, mDay;
     private int bloodcount;
+    private int date;
+    private int time;
+
+    private double datetime;
 
     private ProgressDialog progressDialog;
 
     String mail;
 
     private Firebase mRootRef;
+    private Firebase historyRef;
+
+    private ToolBox tools;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +94,12 @@ public class Add_blood_donation extends AppCompatActivity {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        tools = new ToolBox();
+
+        time = tools.getCurrentTime();
+        datetime = tools.getDateTime();
+
         showDate(year, month+1, day);
     }
 
@@ -147,20 +161,27 @@ public class Add_blood_donation extends AppCompatActivity {
                             mDay = day;
                         }
 
+                        date = (mYear * 10000) + ((mMonth + 1) * 100) + (mDay);
+
                         blood.child("bloodtype").setValue(blood_type);
                         blood.child("serial").setValue(sSerial.toUpperCase());
                         blood.child("userID").setValue(userID);
-                        blood.child("donateDay").setValue(mDay);
-                        blood.child("donateMonth").setValue(mMonth+1);
-                        blood.child("donateYear").setValue(mYear);
+                        blood.child("date").setValue(date);
 
                         Intent intent = new Intent(Add_blood_donation.this, blood_supply_info.class);
                         intent.putExtra("blood_type", blood_type);
-                        Add_blood_donation.this.finish();
+
                         mRootRef.child("Supply").child(blood_type).child("count").setValue(bloodcount+1);
                         mRootRef.child("Supply").child(blood_type).child("recent").setValue(sSerial.toUpperCase());
-                        Toast.makeText(Add_blood_donation.this, "Successfully added 1 "+ blood_type +" blood bag.", Toast.LENGTH_SHORT).show();
+
+                        historyRef = mRootRef.child("History").child(userID).push();
+                        historyRef.child("content").setValue("Donated blood.");
+                        historyRef.child("date").setValue(date);
+                        historyRef.child("time").setValue(time);
+                        historyRef.child("datetime").setValue(datetime);
+
                         startActivity(intent);
+                        Add_blood_donation.this.finish();
                         user_profile_admin.getInstance().finish();
                     }
                 })

@@ -57,6 +57,7 @@ public class request extends AppCompatActivity {
     private Firebase userRef;
     private Firebase supplyRef;
     private Firebase notifyRef;
+    private Firebase historyRef;
 
     private ValueEventListener notifyListenerVE;
     private ValueEventListener userListenerVE;
@@ -98,7 +99,11 @@ public class request extends AppCompatActivity {
 
     private List<String> devices;
 
-    String mail;
+    private String mail;
+
+    private int date;
+    private int time;
+    private double datetime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +121,10 @@ public class request extends AppCompatActivity {
         notifyRef = mRootRef.child("Notify");
 
         tools = new ToolBox();
+
+        date = tools.getCurrentDate();
+        time = tools.getCurrentTime();
+        datetime = tools.getDateTime();
 
         vBloodtype = (Spinner) findViewById(R.id.spinnr_bloodtype);
         vLocation = (Spinner) findViewById(R.id.spinnr_location);
@@ -203,8 +212,15 @@ public class request extends AppCompatActivity {
                 else {
                     bagqty = Integer.parseInt(sBagqty);
 
+                    historyRef = mRootRef.child("History").child(userID).push();
+                    historyRef.child("content").setValue("Requested " + bagqty + " " + bloodtype + " blood bag.");
+                    historyRef.child("date").setValue(date);
+                    historyRef.child("time").setValue(time);
+                    historyRef.child("datetime").setValue(datetime);
+
                     message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
                     message2 = message;
+
                     if(bloodcount > bagqty) {
                         sQuery.removeEventListener(supplyListenerVE);
                         Intent intent = new Intent(request.this, proceed_to_RedCross.class);

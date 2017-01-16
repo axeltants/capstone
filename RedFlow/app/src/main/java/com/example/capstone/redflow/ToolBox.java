@@ -114,9 +114,9 @@ public class ToolBox {
 
 
         if(ampm == 1) {
-            time =   (c.get(Calendar.HOUR) * 10000) +
+            time =   ((c.get(Calendar.HOUR) + 12) * 10000) +
                     (c.get(Calendar.MINUTE) * 100) +
-                    (c.get(Calendar.SECOND) + 12);
+                    (c.get(Calendar.SECOND));
         }
         else if(hour == 0) {
 
@@ -151,9 +151,9 @@ public class ToolBox {
                 (c.get(Calendar.DAY_OF_MONTH));
 
         if(ampm == 1) {
-            time =   (c.get(Calendar.HOUR) * 10000) +
+            time =   ((c.get(Calendar.HOUR) + 12) * 10000) +
                     (c.get(Calendar.MINUTE) * 100) +
-                    (c.get(Calendar.SECOND) + 12);
+                    (c.get(Calendar.SECOND));
         }
         else if(hour == 0) {
 

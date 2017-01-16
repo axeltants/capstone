@@ -73,7 +73,7 @@ public class blood_supply_info extends AppCompatActivity {
     private TextView dateView;
     private int year, month, day;
 
-    private int mDay, mMonth, mYear;
+    private int mDay, mMonth, mYear, date;
 
     private ProgressDialog progressDialog;
 
@@ -189,9 +189,10 @@ public class blood_supply_info extends AppCompatActivity {
                 mMonth = month;
                 mDay = day;
             }
-            blood.child("donateDay").setValue(mDay);
-            blood.child("donateMonth").setValue(mMonth+1);
-            blood.child("donateYear").setValue(mYear);
+
+            date = (mYear * 10000) + ((mMonth + 1) * 100) + (mDay);
+
+            blood.child("date").setValue(date);
             blood.child("bloodtype").setValue(blood_type);
             blood.child("serial").setValue(sBag_serial.toUpperCase());
             blood.child("userID").setValue("-K_2nAZ1ynR9ZF15HvVw");

@@ -81,10 +81,7 @@ public class announcement extends AppCompatActivity {
 
         c = Calendar.getInstance();
 
-        date =   (c.get(Calendar.YEAR) * 10000) +
-                ((c.get(Calendar.MONTH) + 1) * 100) +
-                (c.get(Calendar.DAY_OF_MONTH));
-
+        date = tools.getCurrentDate();
         time = tools.getCurrentTime();
         datetime = tools.getDateTime();
 
