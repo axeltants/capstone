@@ -5,11 +5,9 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,10 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.capstone.redflow.LoginActivity;
+import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.SendRequest;
-import com.example.capstone.redflow.about;
+import com.example.capstone.redflow.common_activities.about;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -30,21 +28,8 @@ import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.Map;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class blood_supply_info extends AppCompatActivity {
 

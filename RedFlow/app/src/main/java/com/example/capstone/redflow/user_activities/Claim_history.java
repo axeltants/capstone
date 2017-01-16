@@ -1,4 +1,4 @@
-package com.example.capstone.redflow;
+package com.example.capstone.redflow.user_activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.widget.ListView;
 import com.example.capstone.redflow.Blood_history.claim_lists.claimAdapter;
 import com.example.capstone.redflow.Blood_history.claim_lists.claimGetSet;
 import com.example.capstone.redflow.Blood_history.claim_lists.claimProvider;
+import com.example.capstone.redflow.R;
 
 import java.util.List;
 

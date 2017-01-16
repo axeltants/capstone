@@ -8,18 +8,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.example.capstone.redflow.LoginActivity;
+import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.ToolBox;
-import com.example.capstone.redflow.about;
+import com.example.capstone.redflow.common_activities.about;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Map;

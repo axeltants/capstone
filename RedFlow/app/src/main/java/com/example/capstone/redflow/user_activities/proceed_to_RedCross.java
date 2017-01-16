@@ -1,11 +1,11 @@
-package com.example.capstone.redflow;
+package com.example.capstone.redflow.user_activities;
 
-import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -14,37 +14,53 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
+import com.example.capstone.redflow.R;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class zero_supply_request extends AppCompatActivity {
+public class proceed_to_RedCross extends AppCompatActivity {
+
     private String bloodtype;
-    private String qtty;
+    private int bloodcount;
+
+    private TextView vBloodcount;
     private TextView vBloodtype;
     String message2;
-    private ProgressDialog progressDialog;
-
+    private int qtty;
     String mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.zero_supply_request);
+        setContentView(R.layout.proceed_to__red_cross);
 
         bloodtype = getIntent().getStringExtra("bloodtype");
-        qtty = getIntent().getStringExtra("qtty");
+        bloodcount = getIntent().getIntExtra("bloodcount", 0);
+        qtty = getIntent().getIntExtra("qtty",0);
         mail = getIntent().getStringExtra("mail");
 
+        vBloodcount = (TextView) findViewById(R.id.edittext_bloodcount);
+        vBloodtype = (TextView) findViewById(R.id.edittext_bloodtype);
 
-        vBloodtype = (TextView) findViewById(R.id.btype);
-        vBloodtype.setText(bloodtype);
+        vBloodcount.setText(" (" + bloodcount + ") ");
+        vBloodtype.setText(" " + bloodtype + " ");
+
         message2 = "Someone is in need of " + qtty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
-        sendFilteredPush();
+        if(qtty > bloodcount){
+            sendFilteredPush();
+        }
+
+    }
+
+    public void location(View view) {
+        Intent intent = new Intent(this, redcross_location.class);
+        startActivity(intent);
+        this.finish();
     }
 
     private void sendFilteredPush() {
-        final String title = "RedFlow";
+        final String title = "RedFlow: Good Day!";
         final String message =  message2;
         final String image = null;
 
@@ -77,6 +93,5 @@ public class zero_supply_request extends AppCompatActivity {
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
-
 
 }

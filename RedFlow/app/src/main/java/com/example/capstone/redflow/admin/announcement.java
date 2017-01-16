@@ -1,7 +1,6 @@
 package com.example.capstone.redflow.admin;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,10 +17,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.example.capstone.redflow.Firebasenotification.Send_Push_Notification;
 import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
-import com.example.capstone.redflow.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.SendRequest;
 import com.example.capstone.redflow.ToolBox;
@@ -32,10 +28,6 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -111,7 +103,7 @@ public class announcement extends AppCompatActivity {
     }
 
     private void sendMultiplePush() {
-        final String title = "RedFlow";
+        final String title = "RedFlow: Announcement!";
         final String message = editText.getText().toString();
         final String image = null;
 

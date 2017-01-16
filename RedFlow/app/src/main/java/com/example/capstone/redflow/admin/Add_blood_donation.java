@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
@@ -16,18 +15,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.example.capstone.redflow.Firebasenotification.EndPoints;
-import com.example.capstone.redflow.Firebasenotification.MyVolley;
-import com.example.capstone.redflow.Firebasenotification.Send_Push_Notification;
-import com.example.capstone.redflow.LoginActivity;
+import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.ToolBox;
-import com.example.capstone.redflow.about;
+import com.example.capstone.redflow.common_activities.about;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -36,8 +27,6 @@ import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Add_blood_donation extends AppCompatActivity {
 

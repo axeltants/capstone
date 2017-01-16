@@ -1,7 +1,9 @@
-package com.example.capstone.redflow;
+package com.example.capstone.redflow.common_activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.capstone.redflow.R;
 
 public class about extends AppCompatActivity {
 

@@ -4,7 +4,7 @@
     android:id="@+id/register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.capstone.redflow.register"
+    tools:context="com.example.capstone.redflow.common_activities.register"
     android:background="@drawable/bg">
 
     <RelativeLayout

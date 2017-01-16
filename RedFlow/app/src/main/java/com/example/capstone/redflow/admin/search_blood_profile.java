@@ -19,10 +19,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
-import com.example.capstone.redflow.LoginActivity;
+import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.SendRequest;
-import com.example.capstone.redflow.about;
+import com.example.capstone.redflow.common_activities.about;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -243,7 +243,7 @@ public class search_blood_profile extends AppCompatActivity {
 
 
     private void sendSinglePush() {
-        final String title = "RedFlow";
+        final String title = "RedFlow: Thanks!";
         final String message = "Your blood has just been donated. Thank you for saving a life.";
         final String image = null;
         final String email = mail;
@@ -270,8 +270,7 @@ public class search_blood_profile extends AppCompatActivity {
 
                 if (!TextUtils.isEmpty(image))
                     params.put("image", image);
-
-                params.put("email", email);
+                    params.put("email", email);
                 return params;
             }
         };

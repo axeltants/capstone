@@ -1,8 +1,7 @@
-package com.example.capstone.redflow;
+package com.example.capstone.redflow.user_activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,15 +10,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.capstone.redflow.preliminary_bloodtest.TestActivity;
+import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.common_activities.about;
+import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class beadonor extends AppCompatActivity {
+public class history extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.example.capstone.redflow.R.layout.beadonor);
+        setContentView(com.example.capstone.redflow.R.layout.history);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -27,19 +28,16 @@ public class beadonor extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void redcross(View view) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        intent.setData(Uri.parse("http://www.redcross.org.ph/get-involved/give-blood/how-to-donate"));
+    public void blooddonation_list(View view) {
+        Intent intent = new Intent(this, Donation_history.class);
         startActivity(intent);
     }
 
-    public void health_test(View view) {
-        Toast.makeText(getApplicationContext(), "Health test", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, TestActivity.class);
+    public void bloodclaim_list(View view) {
+        Intent intent = new Intent(this, Claim_history.class);
         startActivity(intent);
     }
+
 
 
     /*FOR ACTION BAR EVENTS*/

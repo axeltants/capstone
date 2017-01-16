@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context="com.example.capstone.redflow.notification">
+    tools:context="com.example.capstone.redflow.user_activities.notification">
 
     <ListView
         android:id="@+id/notificationlist"

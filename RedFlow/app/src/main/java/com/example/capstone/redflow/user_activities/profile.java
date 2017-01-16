@@ -1,4 +1,4 @@
-package com.example.capstone.redflow;
+package com.example.capstone.redflow.user_activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,16 +11,15 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
+import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.common_activities.about;
+import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Map;
 

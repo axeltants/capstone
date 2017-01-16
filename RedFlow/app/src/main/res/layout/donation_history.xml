@@ -4,7 +4,7 @@
     android:id="@+id/blooddonation_history"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Donation_history"
+    tools:context=".user_activities.Donation_history"
     android:background="@drawable/bg">
 
     <ListView

@@ -1,4 +1,4 @@
-package com.example.capstone.redflow;
+package com.example.capstone.redflow.common_activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -19,7 +19,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.ChildEventListener;
+import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.ToolBox;
+import com.example.capstone.redflow.user_activities.home;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;

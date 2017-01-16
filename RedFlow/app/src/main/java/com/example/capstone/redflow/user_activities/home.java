@@ -1,4 +1,4 @@
-package com.example.capstone.redflow;
+package com.example.capstone.redflow.user_activities;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -18,8 +18,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
-import com.example.capstone.redflow.Firebasenotification.SharedPrefManager;
-import com.firebase.client.ChildEventListener;
+import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.common_activities.about;
+import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 

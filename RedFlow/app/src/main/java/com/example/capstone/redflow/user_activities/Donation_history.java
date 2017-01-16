@@ -1,38 +1,41 @@
-package com.example.capstone.redflow;
+package com.example.capstone.redflow.user_activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
-
-import com.example.capstone.redflow.notification_list.notificationGetSet;
-import com.example.capstone.redflow.notification_list.notiflistAdapter;
-import com.example.capstone.redflow.notification_list.notifprovider;
+import com.example.capstone.redflow.Blood_history.donation_lists.donationAdapter;
+import com.example.capstone.redflow.Blood_history.donation_lists.donationGetSet;
+import com.example.capstone.redflow.Blood_history.donation_lists.donationprovider;
+import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.common_activities.about;
+import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
-public class notification extends AppCompatActivity {
+public class Donation_history extends AppCompatActivity {
 
-    private List<notificationGetSet> notifications = notifprovider.notiflist;
+    private List<donationGetSet> donations = donationprovider.donationlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.example.capstone.redflow.R.layout.notification);
+        setContentView(R.layout.donation_history);
 
-        notiflistAdapter adapter = new notiflistAdapter(
-                this, com.example.capstone.redflow.R.layout.list_notif, notifications);
-        ListView lv = (ListView) findViewById(com.example.capstone.redflow.R.id.notificationlist);
+        donationAdapter adapter = new donationAdapter(
+                this, R.layout.donation_history_list, donations);
+        ListView lv = (ListView) findViewById(R.id.blooddonationlist);
         lv.setAdapter(adapter);
         lv.setEmptyView(findViewById(R.id.empty));
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(com.example.capstone.redflow.R.menu.actionbar, menu);

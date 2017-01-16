@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 
@@ -54,24 +55,23 @@ public class MyNotificationManager {
                 );
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
-        bigPictureStyle.setBigContentTitle("RedFlow");
+        bigPictureStyle.setBigContentTitle(title);
         bigPictureStyle.setSummaryText(Html.fromHtml(message).toString());
         bigPictureStyle.bigPicture(getBitmapFromURL(url));
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mCtx);
         Notification notification;
         notification = mBuilder.setSmallIcon(R.mipmap.ic_launcher).setTicker(title).setWhen(0)
                 .setContentIntent(resultPendingIntent)
-                .setContentTitle("RedFlow")
+                .setContentTitle(title)
                 .setStyle(bigPictureStyle)
                 .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                 .setLights(Color.RED, 3000, 3000)
                 .setSound(alarmSound)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(), R.mipmap.ic_launcher))
+                .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(), R.drawable.notif))
                 .setContentText(message)
+                .setAutoCancel(true)
                 .build();
-
-       ;
 
         NotificationManager notificationManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
         int m = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
@@ -93,20 +93,22 @@ public class MyNotificationManager {
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mCtx);
         Notification notification;
-        notification = mBuilder.setSmallIcon(R.mipmap.ic_launcher).setTicker("RedFlow").setWhen(0)
+        notification = mBuilder.setSmallIcon(R.mipmap.ic_launcher).setTicker(title).setWhen(0)
                 .setContentIntent(resultPendingIntent)
-                .setContentTitle("RedFlow")
+                .setContentTitle(title)
                 .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                 .setLights(Color.RED, 3000, 3000)
                 .setSound(alarmSound)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(), R.mipmap.ic_launcher))
+                .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(), R.drawable.notif))
                 .setContentText(message)
+                .setAutoCancel(true)
                 .build();
 
         NotificationManager notificationManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
         int m = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
         notificationManager.notify(m, notification);
+
     }
 
     //The method will return Bitmap from an image URL
@@ -124,4 +126,5 @@ public class MyNotificationManager {
             return null;
         }
     }
+
 }

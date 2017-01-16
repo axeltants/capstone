@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.capstone.redflow.LoginActivity;
+import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.ToolBox;
-import com.example.capstone.redflow.about;
+import com.example.capstone.redflow.common_activities.about;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class search_blood extends AppCompatActivity {

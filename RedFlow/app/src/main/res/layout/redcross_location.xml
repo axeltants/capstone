@@ -5,4 +5,4 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".redcross_location" />
+    tools:context=".user_activities.redcross_location" />
