@@ -2,16 +2,20 @@ package com.example.capstone.redflow.admin;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.admin.statistics.Age_statistics;
+import com.example.capstone.redflow.admin.statistics.bloodType_statistics;
+import com.example.capstone.redflow.admin.statistics.gender_statistics;
+import com.example.capstone.redflow.admin.statistics.location_statistics;
+import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.common_activities.about;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -30,26 +34,26 @@ public class statistics_home extends AppCompatActivity {
     }
 
     public void age_stat(View view) {
-        /*Intent intent = new Intent(this, statistics_home.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this, Age_statistics.class);
+        startActivity(intent);
         Toast.makeText(getApplicationContext(), "age statistics", Toast.LENGTH_SHORT).show();
     }
 
     public void bloodtype_stat(View view) {
-        /*Intent intent = new Intent(this, statistics_home.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this, bloodType_statistics.class);
+        startActivity(intent);
         Toast.makeText(getApplicationContext(), "blood type statistics", Toast.LENGTH_SHORT).show();
     }
 
     public void gender_stat(View view) {
-        /*Intent intent = new Intent(this, statistics_home.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this, gender_statistics.class);
+        startActivity(intent);
         Toast.makeText(getApplicationContext(), "gender statistics", Toast.LENGTH_SHORT).show();
     }
 
     public void province_stat(View view) {
-        /*Intent intent = new Intent(this, statistics_home.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this, location_statistics.class);
+        startActivity(intent);
         Toast.makeText(getApplicationContext(), "province statistics", Toast.LENGTH_SHORT).show();
     }
 
