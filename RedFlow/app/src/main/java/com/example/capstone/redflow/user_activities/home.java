@@ -1,8 +1,10 @@
 package com.example.capstone.redflow.user_activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,20 +32,28 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.capstone.redflow.common_activities.LoginActivity.Email;
+import static com.example.capstone.redflow.common_activities.LoginActivity.Uid;
+
 public class home extends AppCompatActivity {
 
     private String userID;
     private String mail;
     private ProgressDialog progressDialog;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(com.example.capstone.redflow.R.layout.home);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        userID = getIntent().getStringExtra("userID");
-        mail = getIntent().getStringExtra("mail");
+
+        userID = sharedpreferences.getString(Uid, "");
+        mail = sharedpreferences.getString(Email, "");
 
 
     }
@@ -157,6 +167,10 @@ public class home extends AppCompatActivity {
                 .setMessage("Do you really want to logout?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.clear();
+                        editor.commit();
                         FirebaseAuth.getInstance().signOut();
                         backtologin();
                     }

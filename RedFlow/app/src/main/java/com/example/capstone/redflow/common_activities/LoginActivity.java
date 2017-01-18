@@ -1,7 +1,9 @@
 package com.example.capstone.redflow.common_activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +65,13 @@ public class LoginActivity extends AppCompatActivity {
 
     ToolBox tools = new ToolBox();
 
+    SharedPreferences sharedpreferences;
+    Intent in;
+
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Uid = "uidKey";
+    public static final String Email = "emailKey";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide();
@@ -81,6 +90,12 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         progressDialog = new ProgressDialog(this);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        if(sharedpreferences.getString(Email, null) != null){
+            in = new Intent(LoginActivity.this,home.class);
+            startActivity(in);
+        }
     }
 
     public static LoginActivity getInstance() {
@@ -117,10 +132,15 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(i);
                                 }
                                 else {
+                                    SharedPreferences.Editor editor = sharedpreferences.edit();
+
                                     bloodType = map.get("bloodtype");
                                     location = map.get("province");
                                     sendTokenToServer();
                                     Intent i = new Intent(LoginActivity.this, home.class);
+                                    editor.putString(Uid, userID);
+                                    editor.putString(Email, sEmail);
+                                    editor.apply();
                                     i.putExtra("mail", sEmail);
                                     i.putExtra("userID", userID);
                                     query.removeEventListener(this);
