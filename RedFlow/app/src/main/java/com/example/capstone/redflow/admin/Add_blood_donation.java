@@ -15,10 +15,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.capstone.redflow.SendRequest;
 import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.ToolBox;
 import com.example.capstone.redflow.common_activities.about;
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -27,6 +29,7 @@ import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Calendar;
+import java.util.Map;
 
 public class Add_blood_donation extends AppCompatActivity {
 
@@ -35,6 +38,8 @@ public class Add_blood_donation extends AppCompatActivity {
     private String blood_type;
     private String userID;
     private String fullname;
+    private String contact;
+    private String message;
 
     private EditText vDateDonated;
     private EditText vSerial;
@@ -53,10 +58,16 @@ public class Add_blood_donation extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
 
-    String mail;
+    private String mail;
+    private String email;
 
     private Firebase mRootRef;
     private Firebase historyRef;
+    private Firebase notifRef;
+
+    private Query qnotify;
+
+    private ChildEventListener notifyListenerCE;
 
     private ToolBox tools;
 
@@ -168,6 +179,61 @@ public class Add_blood_donation extends AppCompatActivity {
                         historyRef.child("date").setValue(date);
                         historyRef.child("time").setValue(time);
                         historyRef.child("datetime").setValue(datetime);
+
+                        qnotify = mRootRef.child("Notify").child(blood_type).orderByChild("priority").limitToFirst(1);
+                        notifyListenerCE = new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                Map<String, String> map = dataSnapshot.getValue(Map.class);
+
+                                contact = dataSnapshot.getKey();
+                                message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.";
+
+                                mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
+
+                                new SendRequest(contact, message).execute();
+
+                                notifRef = mRootRef.child("Notification").child(map.get("userID")).push();
+                                notifRef.child("content").setValue(message);
+                                notifRef.child("date").setValue(date);
+                                notifRef.child("time").setValue(time);
+                                notifRef.child("datetime").setValue(datetime);
+
+                                email = map.get("email");
+                            }
+
+                            @Override
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        };
+                        qnotify.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                qnotify.removeEventListener(notifyListenerCE);
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        });
+                        qnotify.addChildEventListener(notifyListenerCE);
 
                         startActivity(intent);
                         Add_blood_donation.this.finish();

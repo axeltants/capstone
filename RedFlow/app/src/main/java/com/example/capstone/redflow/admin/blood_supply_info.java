@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.capstone.redflow.ToolBox;
 import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.SendRequest;
@@ -34,9 +35,11 @@ import java.util.Map;
 public class blood_supply_info extends AppCompatActivity {
 
     private String blood_type;
+    private String email;
 
     private Firebase mRootRef;
     private Firebase notifyRef;
+    private Firebase notifRef;
 
     private ChildEventListener notifyListenerCE;
 
@@ -59,8 +62,13 @@ public class blood_supply_info extends AppCompatActivity {
     private int year, month, day;
 
     private int mDay, mMonth, mYear, date;
+    private int time;
+
+    private double datetime;
 
     private ProgressDialog progressDialog;
+
+    private ToolBox tools;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +77,8 @@ public class blood_supply_info extends AppCompatActivity {
         setContentView(R.layout.blood_supply_info);
 
         blood_type = getIntent().getStringExtra("blood_type");
+
+        tools = new ToolBox();
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
         notifyRef = mRootRef.child("Notify");
@@ -85,6 +95,9 @@ public class blood_supply_info extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(year, month+1, day);
+
+        time = tools.getCurrentTime();
+        datetime = tools.getDateTime();
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
@@ -189,12 +202,22 @@ public class blood_supply_info extends AppCompatActivity {
             notifyListenerCE = new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    Map<String, String> map = dataSnapshot.getValue(Map.class);
+
                     contact = dataSnapshot.getKey();
-                    message = "Someone donated 1 " + blood_type + " blood bag. From RedFlow.";
+                    message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.";
 
                     mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
 
                     new SendRequest(contact, message).execute();
+
+                    notifRef = mRootRef.child("Notification").child(map.get("userID")).push();
+                    notifRef.child("content").setValue(message);
+                    notifRef.child("date").setValue(date);
+                    notifRef.child("time").setValue(time);
+                    notifRef.child("datetime").setValue(datetime);
+
+                    email = map.get("email");
                 }
 
                 @Override

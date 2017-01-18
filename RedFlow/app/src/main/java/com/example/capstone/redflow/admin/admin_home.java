@@ -18,6 +18,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Map;
@@ -28,10 +29,10 @@ public class admin_home extends AppCompatActivity {
     private Firebase mRootRef;
     private Firebase offsmsRef;
     private Query query;
+    private ChildEventListener listener;
 
     private int date;
     private String user;
-    String mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +46,9 @@ public class admin_home extends AppCompatActivity {
 
         date = tools.getCurrentDate();
 
-        query = offsmsRef.orderByChild("duedate").equalTo(date);
-        query.addChildEventListener(new ChildEventListener() {
+        query = offsmsRef.orderByChild("duedate").startAt(0).endAt(date);
+
+        listener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
@@ -56,6 +58,7 @@ public class admin_home extends AppCompatActivity {
                 user = map.get("userID");
 
                 mRootRef.child("User").child(user).child("request").setValue("on");
+
                 mRootRef.child("OffSMS").child(id).removeValue();
 
             }
@@ -79,7 +82,9 @@ public class admin_home extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
 
             }
-        });
+        };
+
+        query.addChildEventListener(listener);
     }
 
     @Override
@@ -113,6 +118,7 @@ public class admin_home extends AppCompatActivity {
     public void onBackPressed() {
         moveTaskToBack(true);
     }
+
 
 
     /*FOR ACTION BAR EVENTS*/
@@ -158,7 +164,6 @@ public class admin_home extends AppCompatActivity {
 
     public void textall(View view) {
         Intent intent = new Intent(this, announcement.class);
-        intent.putExtra("mail", mail);
         startActivity(intent);
     }
 /////////////////////////////////////////////////////

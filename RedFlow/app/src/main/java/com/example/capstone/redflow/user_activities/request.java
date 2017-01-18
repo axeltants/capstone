@@ -49,6 +49,7 @@ public class request extends AppCompatActivity {
     private Firebase supplyRef;
     private Firebase notifyRef;
     private Firebase historyRef;
+    private  Firebase notifRef;
 
     private ValueEventListener notifyListenerVE;
     private ValueEventListener userListenerVE;
@@ -229,6 +230,8 @@ public class request extends AppCompatActivity {
                                 notify = mRootRef.child("Notify").child(bloodtype).child(dataSnapshot.getValue(String.class));
                                 notify.child("priority").setValue(priority+1);
                                 notify.child("qty").setValue(bagqty);
+                                notify.child("userID").setValue(userID);
+                                notify.child("email").setValue(mail);
                                 mRootRef.child("Notify").child("count").setValue(priority+1);
                                 userquery.removeEventListener(userListenerVE);
                                 sQuery.removeEventListener(supplyListenerVE);
@@ -296,7 +299,7 @@ public class request extends AppCompatActivity {
                 user = dataSnapshot.getKey();
 
 
-                if (notif.equals("on") && province.equals(location) && !userID.equals(user)) {
+                if (notif.equals("on") && map.get("sms").equals("on") && province.equals(location) && !userID.equals(user)) {
                     int myDays = 1;
 
                     final Calendar c = Calendar.getInstance();
@@ -309,6 +312,12 @@ public class request extends AppCompatActivity {
                     offsms.child("duedate").setValue(newDate);
 
                     new SendRequest(contact, message).execute();
+
+                    notifRef = mRootRef.child("Notification").child(dataSnapshot.getKey()).push();
+                    notifRef.child("content").setValue(message);
+                    notifRef.child("date").setValue(date);
+                    notifRef.child("time").setValue(time);
+                    notifRef.child("datetime").setValue(datetime);
 
                     mRootRef.child("User").child(user).child("request").setValue("off");
                 }
