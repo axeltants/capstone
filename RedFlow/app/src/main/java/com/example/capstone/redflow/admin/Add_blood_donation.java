@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
@@ -15,6 +16,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.capstone.redflow.Firebasenotification.EndPoints;
+import com.example.capstone.redflow.Firebasenotification.MyVolley;
 import com.example.capstone.redflow.SendRequest;
 import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
@@ -29,6 +37,7 @@ import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Add_blood_donation extends AppCompatActivity {
@@ -200,6 +209,7 @@ public class Add_blood_donation extends AppCompatActivity {
                                 notifRef.child("datetime").setValue(datetime);
 
                                 email = map.get("email");
+                                sendSinglePush();
                             }
 
                             @Override
@@ -265,7 +275,44 @@ public class Add_blood_donation extends AppCompatActivity {
         });
     }
 
-    /*FOR ACTION BAR EVENTS*/
+    private void sendSinglePush() {
+        final String title = "RedFlow: Good Day!";
+        final String message2 = message;
+        final String image = null;
+        final String email2 = email;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_SINGLE_PUSH,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Toast.makeText(search_blood_profile.this, response, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("title", title);
+                params.put("message", message2);
+
+                if (!TextUtils.isEmpty(image))
+                    params.put("image", image);
+
+                params.put("email", email2);
+                return params;
+            }
+        };
+
+        MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+
+    ///////////////////*FOR ACTION BAR EVENTS*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
