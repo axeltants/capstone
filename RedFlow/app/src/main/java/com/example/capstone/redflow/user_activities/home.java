@@ -4,10 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +41,7 @@ public class home extends AppCompatActivity {
 
     private String userID;
     private String mail;
-    private ProgressDialog progressDialog;
+    private ProgressDialog progressDialog, progressDialog2;
     public static final String MyPREFERENCES = "MyPrefs" ;
 
     SharedPreferences sharedpreferences;
@@ -54,7 +56,6 @@ public class home extends AppCompatActivity {
 
         userID = sharedpreferences.getString(Uid, "");
         mail = sharedpreferences.getString(Email, "");
-
 
     }
 
@@ -146,6 +147,7 @@ public class home extends AppCompatActivity {
         };
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
+
 
     /*//////////////////////////////////////////FOR ACTION BAR EVENTS*/
     @Override

@@ -42,6 +42,7 @@
                 android:padding="6dp"
                 android:textAlignment="center"
                 android:textSize="18sp"
+                android:inputType="textEmailAddress"
                 android:theme="@style/EditTextHint" />
 
             <EditText
