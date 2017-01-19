@@ -4,7 +4,7 @@
     android:id="@+id/claim_history"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user_activities.Claim_history"
+    tools:context=".notimportant.Claim_history"
     android:background="@drawable/bg">
 
     <ListView

@@ -1,4 +1,4 @@
-package com.example.capstone.redflow.user_activities;
+package com.example.capstone.redflow.notimportant;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

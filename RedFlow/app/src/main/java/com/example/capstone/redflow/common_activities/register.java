@@ -680,24 +680,7 @@ public class register extends AppCompatActivity {
 
             }
 
-        }else{
-            final Snackbar snackBar = Snackbar.make(findViewById(R.id.register), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
-            View v = snackBar.getView();
-            TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setMaxLines(5);
-            FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)v.getLayoutParams();
-            params.gravity = Gravity.CENTER_VERTICAL;
-            v.setLayoutParams(params);
-            snackBar.setAction("Dismiss", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    snackBar.dismiss();
-                }
-            });
-            snackBar.show();
-
         }
-
     }
 
     public void login(View view) {
@@ -724,6 +707,20 @@ public class register extends AppCompatActivity {
                 Log.e("Network Checker", "Error checking internet connection", e);
             }
         }
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.register), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        View v = snackBar.getView();
+        TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setMaxLines(5);
+        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)v.getLayoutParams();
+        params.gravity = Gravity.CENTER_VERTICAL;
+        v.setLayoutParams(params);
+        snackBar.setAction("Dismiss", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackBar.dismiss();
+            }
+        });
+        snackBar.show();
         return false;
     }
 

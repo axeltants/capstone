@@ -40,7 +40,7 @@
             android:name=".user_activities.notification"
             android:parentActivityName=".user_activities.home" />
         <activity
-            android:name=".user_activities.history"
+            android:name=".notimportant.history"
             android:parentActivityName=".user_activities.home" />
         <activity
             android:name=".user_activities.proceed_to_RedCross"
@@ -72,10 +72,10 @@
             android:parentActivityName=".admin.admin_home" />
         <activity
             android:name=".user_activities.Donation_history"
-            android:parentActivityName=".user_activities.history" />
+            android:parentActivityName=".notimportant.history" />
         <activity
-            android:name=".user_activities.Claim_history"
-            android:parentActivityName=".user_activities.history" />
+            android:name=".notimportant.Claim_history"
+            android:parentActivityName=".notimportant.history" />
         <activity android:name=".admin.user_profile_admin_verifier" />
         <activity android:name=".admin.user_profile_admin" />
         <activity android:name=".admin.search_menu" />
