@@ -196,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         }else{
-            final Snackbar snackBar = Snackbar.make(findViewById(R.id.register), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+            final Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_login), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
             View v = snackBar.getView();
             TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
             textView.setMaxLines(5);
