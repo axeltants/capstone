@@ -1,8 +1,10 @@
 package com.example.capstone.redflow.user_activities;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -51,8 +53,6 @@ public class beadonor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.example.capstone.redflow.R.layout.beadonor);
         mail = getIntent().getStringExtra("mail");
-
-        isInternetAvailable();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -149,6 +149,28 @@ public class beadonor extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
+
+    private BroadcastReceiver networkStateReceiver=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo ni = manager.getActiveNetworkInfo();
+            isInternetAvailable();
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    public void onPause() {
+        unregisterReceiver(networkStateReceiver);
+        super.onPause();
+    }
+
 
 
     /////////////////////////////////*FOR ACTION BAR EVENTS*/

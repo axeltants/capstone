@@ -69,7 +69,6 @@
                     android:textSize="18sp" />
 
                 <FrameLayout
-                    android:id="@+id/button_loginf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/edittext_pass"
@@ -78,13 +77,41 @@
                     android:background="@color/colorAccent2">
 
                     <Button
-                        android:id="@+id/button_login"
+                        android:id="@+id/prelim_bttn"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:background="?android:attr/selectableItemBackground"
                         android:onClick="prelim_test"
                         android:text="Take our inapp Preliminary test"
                         android:textColor="@color/logincolor" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Want to know more about blood compatibilities? Click the button below."
+                    android:textSize="18sp"
+                    android:layout_marginTop="30dp"/>
+
+                <FrameLayout
+                    android:id="@+id/bloodcompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/edittext_pass"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:background="@color/colorAccent2"
+                    android:layout_marginBottom="30dp">
+
+                    <Button
+                        android:id="@+id/button_bloodcompat"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:onClick="bloodcompat"
+                        android:text="Blood compatibility chart"
+                        android:textColor="@color/logincolor"/>
                 </FrameLayout>
 
             </LinearLayout>

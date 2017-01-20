@@ -46,4 +46,10 @@ public class notification_with_prelim extends AppCompatActivity {
         Intent intent = new Intent(this, TestActivity.class);
         startActivity(intent);
     }
+
+    public void bloodcompat(View view) {
+        Toast.makeText(getApplicationContext(), "Blood compatibility", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, Blood_Type_Compat.class);
+        startActivity(intent);
+    }
 }

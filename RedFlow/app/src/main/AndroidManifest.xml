@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -107,7 +107,8 @@
         <activity android:name=".admin.statistics.gender_statistics" />
         <activity android:name=".admin.statistics.Age_statistics" />
         <activity android:name=".admin.statistics.bloodType_statistics" />
-        <activity android:name=".admin.statistics.location_statistics"></activity>
+        <activity android:name=".admin.statistics.location_statistics" />
+        <activity android:name=".notification_viewer.Blood_Type_Compat"></activity>
     </application>
 
 </manifest>

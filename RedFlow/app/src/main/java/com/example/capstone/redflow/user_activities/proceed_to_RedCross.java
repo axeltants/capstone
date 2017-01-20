@@ -46,7 +46,7 @@ public class proceed_to_RedCross extends AppCompatActivity {
         vBloodcount.setText(" (" + bloodcount + ") ");
         vBloodtype.setText(" " + bloodtype + " ");
 
-        message2 = "Someone is in need of " + qtty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
+        message2 = "Someone is in need of " + qtty + " bag(s) of blood type " + bloodtype + ". Your blood type is compatible with his/her blood, please help us save this person's life.";
         if(qtty > bloodcount){
             sendFilteredPush();
         }
