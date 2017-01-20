@@ -63,8 +63,11 @@ public class home extends AppCompatActivity {
         setContentView(com.example.capstone.redflow.R.layout.home);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
+        isInternetAvailable();
+
         userID = sharedpreferences.getString(Uid, "");
         mail = sharedpreferences.getString(Email, "");
+
     }
 
     @Override
@@ -181,7 +184,7 @@ public class home extends AppCompatActivity {
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
         FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)v.getLayoutParams();
-        params.gravity = Gravity.CENTER_VERTICAL;
+        params.gravity = Gravity.CENTER;
         v.setLayoutParams(params);
         snackBar.setAction("Dismiss", new View.OnClickListener() {
             @Override
@@ -199,6 +202,7 @@ public class home extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
+
 
     private BroadcastReceiver networkStateReceiver=new BroadcastReceiver() {
         @Override
@@ -220,7 +224,6 @@ public class home extends AppCompatActivity {
         unregisterReceiver(networkStateReceiver);
         super.onPause();
     }
-
 
 
     /*//////////////////////////////////////////FOR ACTION BAR EVENTS*/

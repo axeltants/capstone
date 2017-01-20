@@ -37,7 +37,7 @@
                 android:layout_height="230dp"
                 android:src="@drawable/blood_type_matching_chart"
                 android:scaleType="fitCenter"
-                android:background="@color/colorAccent2"
+                android:background="@color/colorPrimaryDark"
                 android:layout_marginBottom="15dp"
                 android:id="@+id/imageButton" />
 

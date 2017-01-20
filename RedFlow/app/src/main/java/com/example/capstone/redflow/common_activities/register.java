@@ -715,7 +715,7 @@ public class register extends AppCompatActivity {
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
         FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)v.getLayoutParams();
-        params.gravity = Gravity.CENTER_VERTICAL;
+        params.gravity = Gravity.CENTER;
         v.setLayoutParams(params);
         snackBar.setAction("Dismiss", new View.OnClickListener() {
             @Override
@@ -754,6 +754,4 @@ public class register extends AppCompatActivity {
         unregisterReceiver(networkStateReceiver);
         super.onPause();
     }
-
-
 }
