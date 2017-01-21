@@ -194,12 +194,15 @@ public class register extends AppCompatActivity {
                 View promptsView = li.inflate(R.layout.text_prompt, null);
                 TextView messageView = (TextView)promptsView.findViewById(R.id.textView1);
                 messageView.setText("E-mail adress");
-                messageView.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         context);
                 alertDialogBuilder.setView(promptsView);
                 final EditText userInput = (EditText) promptsView
                         .findViewById(R.id.editTextDialogUserInput);
+
+                sEmail = vEmail.getText().toString();
+                userInput.setText(sEmail);
+                userInput.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
                 alertDialogBuilder
                         .setCancelable(false)
@@ -239,6 +242,10 @@ public class register extends AppCompatActivity {
                 alertDialogBuilder.setView(promptsView);
                 final EditText userInput = (EditText) promptsView
                         .findViewById(R.id.editTextDialogUserInput);
+
+                sPassword = vPassword.getText().toString();
+                userInput.setText(sPassword);
+                userInput.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
                 alertDialogBuilder
                         .setCancelable(false)
@@ -280,6 +287,10 @@ public class register extends AppCompatActivity {
                 final EditText userInput = (EditText) promptsView
                         .findViewById(R.id.editTextDialogUserInput);
 
+                sFname = vFname.getText().toString();
+                userInput.setText(sFname);
+                userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+
                 alertDialogBuilder
                         .setCancelable(false)
                         .setPositiveButton("OK",
@@ -320,6 +331,10 @@ public class register extends AppCompatActivity {
                 final EditText userInput = (EditText) promptsView
                         .findViewById(R.id.editTextDialogUserInput);
 
+                sLname = vLname.getText().toString();
+                userInput.setText(sLname);
+                userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+
                 alertDialogBuilder
                         .setCancelable(false)
                         .setPositiveButton("OK",
@@ -359,6 +374,11 @@ public class register extends AppCompatActivity {
                 alertDialogBuilder.setView(promptsView);
                 final EditText userInput = (EditText) promptsView
                         .findViewById(R.id.editTextDialogUserInput);
+
+                sMname = vMname.getText().toString();
+                userInput.setText(sMname);
+                userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+
 
                 alertDialogBuilder
                         .setCancelable(false)
@@ -401,6 +421,10 @@ public class register extends AppCompatActivity {
                 final EditText userInput = (EditText) promptsView
                         .findViewById(R.id.editTextDialogUserInput);
 
+                sContact = vContact.getText().toString();
+                userInput.setText(sContact);
+                userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+
                 alertDialogBuilder
                         .setCancelable(false)
                         .setPositiveButton("OK",
@@ -441,6 +465,10 @@ public class register extends AppCompatActivity {
                 final EditText userInput = (EditText) promptsView
                         .findViewById(R.id.editTextDialogUserInput);
 
+                sNationality = vNationality.getText().toString();
+                userInput.setText(sNationality);
+                userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+
                 alertDialogBuilder
                         .setCancelable(false)
                         .setPositiveButton("OK",
@@ -480,6 +508,14 @@ public class register extends AppCompatActivity {
                 alertDialogBuilder.setView(promptsView);
                 final EditText userInput = (EditText) promptsView
                         .findViewById(R.id.editTextDialogUserInput);
+
+                sNationality = vNationality.getText().toString();
+                userInput.setText(sNationality);
+                userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                sHome = vHome.getText().toString();
+                userInput.setText(sHome);
+                userInput.setInputType(InputType.TYPE_CLASS_TEXT);
 
                 alertDialogBuilder
                         .setCancelable(false)
@@ -522,6 +558,10 @@ public class register extends AppCompatActivity {
                 final EditText userInput = (EditText) promptsView
                         .findViewById(R.id.editTextDialogUserInput);
 
+                sZip = vZip.getText().toString();
+                userInput.setText(sZip);
+                userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+
                 alertDialogBuilder
                         .setCancelable(false)
                         .setPositiveButton("OK",
@@ -548,9 +588,6 @@ public class register extends AppCompatActivity {
 
     public void setDate(View view) {
         showDialog(999);
-        Toast.makeText(getApplicationContext(), "birthdate",
-                Toast.LENGTH_SHORT)
-                .show();
     }
 
     @Override
@@ -656,8 +693,8 @@ public class register extends AppCompatActivity {
                                         newUser.child("sms").setValue("on");
                                         newUser.child("request").setValue("on");
 
-                                        LoginActivity.getInstance().finish();
-                                        Intent intent = new Intent(register.this, home.class);
+
+                                        Intent intent = new Intent(register.this, LoginActivity.class);
                                         intent.putExtra("userID", newUser.getKey());
                                         intent.putExtra("mail", sEmail.toLowerCase());
                                         startActivity(intent);

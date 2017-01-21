@@ -1,13 +1,6 @@
 package com.example.capstone.redflow;
 
-/**
- * Created by jp on 1/21/17.
- */
-
 public class History {
-    /**
-     * Created by jp on 1/21/17.
-     */
 
     private String message;
     private String date;

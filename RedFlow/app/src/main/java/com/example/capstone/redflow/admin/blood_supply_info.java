@@ -164,9 +164,6 @@ public class blood_supply_info extends AppCompatActivity {
 
     public void setDate(View view) {
         showDialog(999);
-        Toast.makeText(getApplicationContext(), "birthdate",
-                Toast.LENGTH_SHORT)
-                .show();
     }
 
     @Override
