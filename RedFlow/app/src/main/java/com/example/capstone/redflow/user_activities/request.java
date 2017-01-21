@@ -118,6 +118,8 @@ public class request extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         setContentView(com.example.capstone.redflow.R.layout.request);
 
+        getWindow().setBackgroundDrawableResource(R.drawable.bg);
+
         userID = getIntent().getStringExtra("userID");
         mail = getIntent().getStringExtra("mail");
 

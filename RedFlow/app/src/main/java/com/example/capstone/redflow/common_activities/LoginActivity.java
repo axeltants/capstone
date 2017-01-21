@@ -92,6 +92,8 @@ public class LoginActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         setContentView(com.example.capstone.redflow.R.layout.login);
 
+        getWindow().setBackgroundDrawableResource(R.drawable.bg);
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 

@@ -4,7 +4,6 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     android:gravity="center_vertical"
     tools:context="com.example.capstone.redflow.common_activities.LoginActivity">
 

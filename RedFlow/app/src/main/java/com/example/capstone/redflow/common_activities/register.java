@@ -129,6 +129,8 @@ public class register extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         setContentView(R.layout.register);
 
+        getWindow().setBackgroundDrawableResource(R.drawable.bg);
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
