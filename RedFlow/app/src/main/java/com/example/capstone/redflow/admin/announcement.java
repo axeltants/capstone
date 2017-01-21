@@ -63,8 +63,8 @@ public class announcement extends AppCompatActivity {
     private String contact;
 
     private int date;
-    private int time;
 
+    private double time;
     private  double datetime;
 
     private Calendar c;

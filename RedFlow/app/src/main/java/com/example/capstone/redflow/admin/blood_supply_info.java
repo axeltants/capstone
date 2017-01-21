@@ -83,8 +83,8 @@ public class blood_supply_info extends AppCompatActivity {
     private int year, month, day;
 
     private int mDay, mMonth, mYear, date;
-    private int time;
 
+    private double time;
     private double datetime;
 
     private ProgressDialog progressDialog;
@@ -235,7 +235,7 @@ public class blood_supply_info extends AppCompatActivity {
                         Map<String, String> map = dataSnapshot.getValue(Map.class);
 
                         contact = dataSnapshot.getKey();
-                        message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.";
+                        message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.\n\n";
 
                         mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
 

@@ -85,11 +85,11 @@ public class home extends AppCompatActivity {
     }
 
     public void history(View view) {
-        Toast.makeText(getApplicationContext(), "HISTORY", Toast.LENGTH_SHORT).show();
        /* Intent intent = new Intent(this, history.class);
         startActivity(intent);*/
         Intent intent = new Intent(this, Donation_history.class);
         intent.putExtra("mail", mail);
+        intent.putExtra("userID", userID);
         startActivity(intent);
     }
 
@@ -101,21 +101,19 @@ public class home extends AppCompatActivity {
     }
 
     public void notification(View view) {
-        Toast.makeText(getApplicationContext(), "NOTIFICATION", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, notification.class);
         intent.putExtra("mail", mail);
+        intent.putExtra("userID", userID);
         startActivity(intent);
     }
 
     public void donor(View view) {
-        Toast.makeText(getApplicationContext(), "want to be a donor?", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, beadonor.class);
         intent.putExtra("mail", mail);
         startActivity(intent);
     }
 
     public void location(View view) {
-        Toast.makeText(getApplicationContext(), "Red Cross locations", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, redcross_location.class);
         startActivity(intent);
     }

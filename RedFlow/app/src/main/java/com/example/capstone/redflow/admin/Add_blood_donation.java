@@ -61,8 +61,8 @@ public class Add_blood_donation extends AppCompatActivity {
     private int mYear, mMonth, mDay;
     private int bloodcount;
     private int date;
-    private int time;
 
+    private double time;
     private double datetime;
 
     private ProgressDialog progressDialog;
@@ -73,6 +73,7 @@ public class Add_blood_donation extends AppCompatActivity {
     private Firebase mRootRef;
     private Firebase historyRef;
     private Firebase notifRef;
+    private Firebase offsms;
 
     private Query qnotify;
 
@@ -183,6 +184,16 @@ public class Add_blood_donation extends AppCompatActivity {
                         mRootRef.child("Supply").child(blood_type).child("count").setValue(bloodcount+1);
                         mRootRef.child("Supply").child(blood_type).child("recent").setValue(sSerial.toUpperCase());
 
+                        final Calendar c = Calendar.getInstance();
+                        c.add(Calendar.DATE, 32);  // number of days to add
+                        int newDate =   (c.get(Calendar.YEAR) * 10000) +
+                                ((c.get(Calendar.MONTH) + 1) * 100) +
+                                (c.get(Calendar.DAY_OF_MONTH));
+
+                        offsms = mRootRef.child("OffSMS").push();
+                        offsms.child("userID").setValue(userID);
+                        offsms.child("duedate").setValue(newDate);
+
                         historyRef = mRootRef.child("History").child(userID).push();
                         historyRef.child("content").setValue("Donated blood.");
                         historyRef.child("date").setValue(date);
@@ -196,7 +207,7 @@ public class Add_blood_donation extends AppCompatActivity {
                                 Map<String, String> map = dataSnapshot.getValue(Map.class);
 
                                 contact = dataSnapshot.getKey();
-                                message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.";
+                                message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.\n\n";
 
                                 mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
 

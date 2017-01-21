@@ -16,6 +16,12 @@ import android.widget.TextView;
 
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.notimportant.DemoBase;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -28,6 +34,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class gender_statistics extends DemoBase implements
         OnChartValueSelectedListener {
@@ -36,12 +43,23 @@ public class gender_statistics extends DemoBase implements
 
     private Typeface tf;
 
+    int male;
+    int female;
+
+    private Firebase mRootRef;
+    private Query query;
+    private ChildEventListener listener;
+
+    ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.gender_statistics);
+
+        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
         mChart = (PieChart) findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
@@ -163,26 +181,67 @@ public class gender_statistics extends DemoBase implements
 
         float mult = range;
 
-        ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
+        male = 0;
+        female = 0;
+
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
         /*for (int i = 0; i < count; i++) {
             entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, mParties[i % mParties.length]));
         }*/
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "male"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "female"));
+        query = mRootRef.child("User").orderByChild("gender");
 
-        PieDataSet dataSet = new PieDataSet(entries, "Gender");
-        dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(5f);
+        listener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, String> map = dataSnapshot.getValue(Map.class);
 
-        // add a lot of colors
+                if(map.get("gender").equals("Male")) {
+                    male++;
+                }
+                else {
+                    female++;
+                }
+            }
 
-        ArrayList<Integer> colors = new ArrayList<Integer>();
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-        for (int c : ColorTemplate.MATERIAL_COLORS)
-            colors.add(c);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        };
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                entries.add(new PieEntry(male, "Male"));
+                entries.add(new PieEntry(female, "Female"));
+
+                PieDataSet dataSet = new PieDataSet(entries, "Gender");
+                dataSet.setSliceSpace(3f);
+                dataSet.setSelectionShift(5f);
+
+                // add a lot of colors
+
+                ArrayList<Integer> colors = new ArrayList<Integer>();
+
+                for (int c : ColorTemplate.MATERIAL_COLORS)
+                    colors.add(c);
 
         /*
         for (int c : ColorTemplate.VORDIPLOM_COLORS)
@@ -200,29 +259,42 @@ public class gender_statistics extends DemoBase implements
         for (int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);*/
 
-        colors.add(ColorTemplate.getHoloBlue());
+                colors.add(ColorTemplate.getHoloBlue());
 
-        dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
+                dataSet.setColors(colors);
+                //dataSet.setSelectionShift(0f);
 
 
-        dataSet.setValueLinePart1OffsetPercentage(80.f);
-        dataSet.setValueLinePart1Length(0.2f);
-        dataSet.setValueLinePart2Length(0.4f);
-        //dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                dataSet.setValueLinePart1OffsetPercentage(80.f);
+                dataSet.setValueLinePart1Length(0.2f);
+                dataSet.setValueLinePart2Length(0.4f);
+                //dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
 
-        PieData data = new PieData(dataSet);
-        data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.BLACK);
-        data.setValueTypeface(tf);
-        mChart.setData(data);
+                PieData data = new PieData(dataSet);
+                data.setValueFormatter(new PercentFormatter());
+                data.setValueTextSize(11f);
+                data.setValueTextColor(Color.BLACK);
+                data.setValueTypeface(tf);
+                mChart.setData(data);
 
-        // undo all highlights
-        mChart.highlightValues(null);
+                // undo all highlights
+                mChart.highlightValues(null);
 
-        mChart.invalidate();
+                mChart.invalidate();
+
+
+                query.removeEventListener(listener);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        query.addChildEventListener(listener);
+
     }
 
     private SpannableString generateCenterSpannableText() {

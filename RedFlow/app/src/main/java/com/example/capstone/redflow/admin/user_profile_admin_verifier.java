@@ -1,5 +1,6 @@
 package com.example.capstone.redflow.admin;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -40,17 +41,21 @@ public class user_profile_admin_verifier extends AppCompatActivity {
     TextView vStatus;
     Spinner vBloodtype;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.user_profile_admin_verifier);
 
-
-
         userID = getIntent().getStringExtra("userID");
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Searching...");
+        progressDialog.show();
 
         vCompleteName = (TextView) findViewById(R.id.textview_CompleteName);
         vBdate = (TextView) findViewById(R.id.textview_age);
@@ -98,6 +103,8 @@ public class user_profile_admin_verifier extends AppCompatActivity {
                 vContact.setText(map.get("contact"));
                 vStatus.setText(map.get("status"));
                 vBloodtype.setSelection(option);
+
+                progressDialog.dismiss();
             }
 
             @Override

@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
 import com.example.capstone.redflow.Firebasenotification.Send_Push_Notification;
+import com.example.capstone.redflow.ToolBox;
 import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.SendRequest;
@@ -46,11 +47,17 @@ public class search_blood_profile extends AppCompatActivity {
     private String bloodID;
 
     private int bloodcount;
+    private int date;
+
+    private double time;
+    private double datetime;
 
     private Firebase mRootRef;
     private Firebase userRef;
     private Firebase bloodRef;
     private Firebase supplyRef;
+    private Firebase notifRef;
+    private Firebase historyRef;
 
     private ChildEventListener bloodListenerCE;
 
@@ -66,9 +73,11 @@ public class search_blood_profile extends AppCompatActivity {
     private TextView vStatus;
     private TextView vBloodtype;
 
-    String mail;
+    private String mail;
 
     private ProgressDialog progressDialog;
+
+    private ToolBox tools;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +87,11 @@ public class search_blood_profile extends AppCompatActivity {
 
         serial_number = getIntent().getStringExtra("serial_number");
 
+        tools = new ToolBox();
 
+        date = tools.getCurrentDate();
+        time = tools.getCurrentTime();
+        datetime = tools.getDateTime();
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
         userRef = mRootRef.child("User");
@@ -113,8 +126,6 @@ public class search_blood_profile extends AppCompatActivity {
                 bloodID = dataSnapshot.getKey();
                 getBloodCount();
                 setProfile(userID, bloodtype);
-                progressDialog.dismiss();
-
             }
 
             @Override
@@ -142,8 +153,8 @@ public class search_blood_profile extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getChildrenCount() == 0) {
                     setContentView(R.layout.empty_searchblood_result);
-                    progressDialog.dismiss();
                 }
+                progressDialog.dismiss();
                 query.removeEventListener(bloodListenerCE);
             }
 
@@ -166,13 +177,26 @@ public class search_blood_profile extends AppCompatActivity {
                             Toast.makeText(search_blood_profile.this, bloodtype + " blood supply reduced by 1 bag.", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                           // sendSinglePush();
-                            message = "Your blood has just been donated. Thank you for saving a life.";
+                            message = "Your blood has just been donated.\nThank you for saving a life.\n\n";
                             new SendRequest(contact, message).execute();
+
+                            notifRef = mRootRef.child("Notification").child(userID).push();
+                            notifRef.child("content").setValue(message);
+                            notifRef.child("date").setValue(date);
+                            notifRef.child("time").setValue(time);
+                            notifRef.child("datetime").setValue(datetime);
+
+                            historyRef = mRootRef.child("History").child(userID).push();
+                            historyRef.child("content").setValue("Someone has received your donated blood.");
+                            historyRef.child("date").setValue(date);
+                            historyRef.child("time").setValue(time);
+                            historyRef.child("datetime").setValue(datetime);
+
+                            sendSinglePush();
                         }
                         mRootRef.child("Supply").child(bloodtype).child("count").setValue(bloodcount-1);
                         mRootRef.child("Blood").child(bloodID).removeValue();
-                        sendSinglePush();
+
                         Intent intent = new Intent(search_blood_profile.this, blood_supply_info.class);
                         intent.putExtra("blood_type", bloodtype);
                         startActivity(intent);
@@ -212,7 +236,6 @@ public class search_blood_profile extends AppCompatActivity {
                 vBloodtype.setText(bloodtype);
 
                 mail = map.get("email");
-                Toast.makeText(search_blood_profile.this, mail, Toast.LENGTH_SHORT).show();
 
                 query.removeEventListener(this);
             }
@@ -256,7 +279,7 @@ public class search_blood_profile extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
-                        Toast.makeText(search_blood_profile.this, response, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(search_blood_profile.this, response, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {

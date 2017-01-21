@@ -1,5 +1,6 @@
 package com.example.capstone.redflow.admin;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -43,6 +44,8 @@ public class user_profile_admin extends AppCompatActivity {
     private TextView vBloodtype;
     String mail;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,10 @@ public class user_profile_admin extends AppCompatActivity {
         userProf = this;
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Searching...");
+        progressDialog.show();
 
         vCompleteName = (TextView) findViewById(R.id.textview_CompleteName);
         vBdate = (TextView) findViewById(R.id.textview_age);
@@ -83,6 +90,8 @@ public class user_profile_admin extends AppCompatActivity {
                 vStatus.setText(map.get("status"));
                 vBloodtype.setText(bloodtype);
                 mail = map.get("email");
+
+                progressDialog.dismiss();
             }
 
             @Override

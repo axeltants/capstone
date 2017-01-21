@@ -14,6 +14,12 @@ import android.view.WindowManager;
 
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.notimportant.DemoBase;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -26,6 +32,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class bloodType_statistics extends DemoBase implements
         OnChartValueSelectedListener {
@@ -33,6 +40,21 @@ public class bloodType_statistics extends DemoBase implements
     private PieChart mChart;
 
     private Typeface tf;
+
+    private Firebase mRootRef;
+    private Query query;
+    private ChildEventListener listener;
+
+    private int A;
+    private int B;
+    private int O;
+    private int AB;
+    private int nA;
+    private int nB;
+    private int nO;
+    private int nAB;
+
+    ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +69,8 @@ public class bloodType_statistics extends DemoBase implements
         mChart.setExtraOffsets(5, 10, 5, 5);
 
         mChart.setDragDecelerationFrictionCoef(0.95f);
+
+        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
         tf = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
 
@@ -160,74 +184,149 @@ public class bloodType_statistics extends DemoBase implements
     private void setData(int count, float range) {
 
         float mult = range;
+        A = 0;
+        B = 0;
+        O = 0;
+        AB = 0;
+        nA = 0;
+        nB = 0;
+        nO = 0;
+        nAB = 0;
 
-        ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
+        query = mRootRef.child("User").orderByChild("bloodtype");
 
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-        /*for (int i = 0; i < count; i++) {
-            entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, mParties[i % mParties.length]));
-        }*/
+        listener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, String> map = dataSnapshot.getValue(Map.class);
 
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Type O+"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Type O-"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Type A+"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Type A-"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Type B+"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Type B-"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Type AB+"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Type AB-"));
+                switch(map.get("bloodtype")) {
+                    case "A+":   A++;
+                                break;
 
-        PieDataSet dataSet = new PieDataSet(entries, "Blood Type");
-        dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(5f);
+                    case "B+":   B++;
+                                break;
 
-        // add a lot of colors
+                    case "AB+":   AB++;
+                                break;
 
-        ArrayList<Integer> colors = new ArrayList<Integer>();
+                    case "A-":   nA++;
+                                break;
 
-        for (int c : ColorTemplate.MATERIAL_COLORS)
-            colors.add(c);
+                    case "B-":   nB++;
+                                break;
 
-        /*
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+                    case "O-":   nO++;
+                                break;
+
+                    case "AB-":   nAB++;
+                        break;
+
+                    default:   O++;
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        };
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(A > 0) {
+                    entries.add(new PieEntry(A, "Type A+"));
+                }
+                if(B > 0) {
+                    entries.add(new PieEntry(B, "Type B+"));
+                }
+                if(O > 0) {
+                    entries.add(new PieEntry(O, "Type O+"));
+                }
+                if(AB > 0) {
+                    entries.add(new PieEntry(AB, "Type AB+"));
+                }
+                if(nA > 0) {
+                    entries.add(new PieEntry(nA, "Type A-"));
+                }
+                if(nB > 0) {
+                    entries.add(new PieEntry(nB, "Type B-"));
+                }
+                if(nO > 0) {
+                    entries.add(new PieEntry(nO, "Type O-"));
+                }
+                if(nAB > 0) {
+                    entries.add(new PieEntry(nAB, "Type AB-"));
+                }
+
+
+
+
+
+
+
+
+
+                PieDataSet dataSet = new PieDataSet(entries, "Blood Type");
+                dataSet.setSliceSpace(3f);
+                dataSet.setSelectionShift(5f);
+
+                ArrayList<Integer> colors = new ArrayList<Integer>();
+
+                for (int c : ColorTemplate.MATERIAL_COLORS)
                     colors.add(c);
 
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
 
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
+                colors.add(ColorTemplate.getHoloBlue());
 
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
+                dataSet.setColors(colors);
+                //dataSet.setSelectionShift(0f);
 
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);*/
+                dataSet.setValueLinePart1OffsetPercentage(80.f);
+                dataSet.setValueLinePart1Length(0.2f);
+                dataSet.setValueLinePart2Length(0.4f);
+                //dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
 
-        colors.add(ColorTemplate.getHoloBlue());
+                PieData data = new PieData(dataSet);
+                data.setValueFormatter(new PercentFormatter());
+                data.setValueTextSize(11f);
+                data.setValueTextColor(Color.BLACK);
+                data.setValueTypeface(tf);
+                mChart.setData(data);
 
-        dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
+                // undo all highlights
+                mChart.highlightValues(null);
+
+                mChart.invalidate();
 
 
-        dataSet.setValueLinePart1OffsetPercentage(80.f);
-        dataSet.setValueLinePart1Length(0.2f);
-        dataSet.setValueLinePart2Length(0.4f);
-        //dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                query.removeEventListener(listener);
+            }
 
-        PieData data = new PieData(dataSet);
-        data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.BLACK);
-        data.setValueTypeface(tf);
-        mChart.setData(data);
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
 
-        // undo all highlights
-        mChart.highlightValues(null);
+            }
+        });
 
-        mChart.invalidate();
+        query.addChildEventListener(listener);
     }
 
     private SpannableString generateCenterSpannableText() {

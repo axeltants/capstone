@@ -7,10 +7,12 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -102,33 +104,24 @@ public class ToolBox {
         return date;
     }
 
-    public int getCurrentTime() {
+    public double getCurrentTime() {
         Calendar c = Calendar.getInstance();
 
-        int time;
+        double time;
         int ampm;
-        int hour;
 
         ampm = c.get(Calendar.AM_PM);
-        hour = c.get(Calendar.HOUR);
 
+        time =  (c.get(Calendar.HOUR) * 100000) +
+                (c.get(Calendar.MINUTE) * 1000) +
+                (c.get(Calendar.SECOND) * 10)   +
+                ampm;
 
-        if(ampm == 1) {
-            time =   ((c.get(Calendar.HOUR) + 12) * 10000) +
-                    (c.get(Calendar.MINUTE) * 100) +
-                    (c.get(Calendar.SECOND));
+        if(c.get(Calendar.HOUR) < 1) {
+            time += 1200000;
         }
-        else if(hour == 0) {
 
-            time =   (240000) +
-                    (c.get(Calendar.MINUTE) * 100) +
-                    (c.get(Calendar.SECOND));
-        }
-        else {
-            time =   (c.get(Calendar.HOUR) * 10000) +
-                    (c.get(Calendar.MINUTE) * 1000) +
-                    (c.get(Calendar.SECOND));
-        }
+        time = time * 0.0000001;
 
         return time;
     }
@@ -139,42 +132,114 @@ public class ToolBox {
         int date;
         int time;
         int ampm;
-        int hour;
 
         double datetime;
 
-        ampm = c.get(Calendar.AM_PM);
-        hour = c.get(Calendar.HOUR);
 
         date =   (c.get(Calendar.YEAR) * 10000) +
                 ((c.get(Calendar.MONTH) + 1) * 100) +
                 (c.get(Calendar.DAY_OF_MONTH));
 
-        if(ampm == 1) {
-            time =   ((c.get(Calendar.HOUR) + 12) * 10000) +
-                    (c.get(Calendar.MINUTE) * 100) +
-                    (c.get(Calendar.SECOND));
-        }
-        else if(hour == 0) {
+        ampm = c.get(Calendar.AM_PM);
 
-            c.add(Calendar.DATE, -1);
+        time =  (c.get(Calendar.HOUR) * 100000) +
+                (c.get(Calendar.MINUTE) * 1000) +
+                (c.get(Calendar.SECOND) * 10)   +
+                ampm;
 
-            time =   (240000) +
-                    (c.get(Calendar.MINUTE) * 100) +
-                    (c.get(Calendar.SECOND));
-
-            date =   (c.get(Calendar.YEAR) * 10000) +
-                    ((c.get(Calendar.MONTH) + 1) * 100) +
-                    (c.get(Calendar.DAY_OF_MONTH));
-        }
-        else {
-            time =   (c.get(Calendar.HOUR) * 10000) +
-                    (c.get(Calendar.MINUTE) * 1000) +
-                    (c.get(Calendar.SECOND));
-        }
-
-        datetime = date + (time * 0.000001);
+        datetime = date + (time * 0.0000001);
 
         return datetime;
     }
+
+    public String timeFormatter(double time) {
+        String hour;
+        String minute;
+        String period;
+        String result;
+
+        result = String.valueOf(time);
+
+        hour = result.substring(2, 4);
+        minute = result.substring(4, 6);
+        period = result.substring(result.length()-1);
+
+        if(period.equals("1")) {
+            result = hour + ":" + minute + " PM";
+        }
+        else {
+            result = hour + ":" + minute + " AM";
+        }
+
+
+        return result;
+    }
+
+    public String dateFormatter(int date) {
+        int year;
+        int month;
+        int day;
+
+        String result;
+
+        year = date / 10000;
+        date = date % (year * 10000);
+        month = date / 100;
+        date = date % (month * 100);
+        day = date;
+
+        switch(month) {
+            case 1: result = "January ";
+                    break;
+            case 2: result = "February ";
+                    break;
+
+            case 3: result = "March ";
+                    break;
+
+            case 4: result = "April ";
+                    break;
+
+            case 5: result = "May ";
+                    break;
+
+            case 6: result = "June ";
+                    break;
+
+            case 7: result = "July ";
+                    break;
+
+            case 8: result = "August ";
+                    break;
+
+            case 9: result = "September ";
+                    break;
+
+            case 10: result = "October ";
+                    break;
+
+            case 11: result = "November ";
+                    break;
+
+            case 12: result = "December ";
+                    break;
+
+            default: result = "N/A";
+        }
+
+        result = result + day + ", " + year;
+
+        return result;
+    }
+
+    public ArrayList<History> invertHistory(ArrayList<History> history, int size) {
+        ArrayList<History> result = new ArrayList<>();
+
+        for(int i = size-1; i >= 0; i--) {
+            result.add(history.get(i));
+        }
+
+        return result;
+    }
+
 }

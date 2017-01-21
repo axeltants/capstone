@@ -17,6 +17,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,14 +29,19 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.example.capstone.redflow.Blood_history.donation_lists.donationAdapter;
-import com.example.capstone.redflow.Blood_history.donation_lists.donationGetSet;
-import com.example.capstone.redflow.Blood_history.donation_lists.donationprovider;
 import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
+import com.example.capstone.redflow.History;
 import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.ToolBox;
 import com.example.capstone.redflow.common_activities.about;
 import com.example.capstone.redflow.common_activities.LoginActivity;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
@@ -43,27 +50,99 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Donation_history extends AppCompatActivity {
 
-    String mail;
+    private Firebase mRootRef;
+    private Query query;
+    private ChildEventListener listener;
 
-    private List<donationGetSet> donations = donationprovider.donationlist;
+    private String mail;
+    private String userID;
+
+    private History temp;
+    private ArrayList<History> history = new ArrayList<>();
+    private ArrayAdapter<History> adapter;
+
+    private ToolBox tools;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.donation_history);
-        mail = getIntent().getStringExtra("mail");
 
-        donationAdapter adapter = new donationAdapter(
-                this, R.layout.donation_history_list, donations);
-        ListView lv = (ListView) findViewById(R.id.blooddonationlist);
-        lv.setAdapter(adapter);
-        lv.setEmptyView(findViewById(R.id.empty));
+        mail = getIntent().getStringExtra("mail");
+        userID = getIntent().getStringExtra("userID");
+
+        tools = new ToolBox();
+
+        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+
+        query = mRootRef.child("History").child(userID).orderByChild("datetime").limitToLast(10);
+
+        listener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, String> map = dataSnapshot.getValue(Map.class);
+                Map<String, Integer> mapDate = dataSnapshot.getValue(Map.class);
+                Map<String, Double> mapTime = dataSnapshot.getValue(Map.class);
+
+                temp = new History();
+
+                temp.setMessage(map.get("content"));
+                temp.setDate(tools.dateFormatter(mapDate.get("date")));
+                temp.setTime(tools.timeFormatter(mapTime.get("time")));
+
+                history.add(temp);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        };
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                history = tools.invertHistory(history, history.size());
+                adapter = new Donation_history.CustomAdapter();
+                ListView historyList = (ListView) findViewById(R.id.blooddonationlist);
+                historyList.setAdapter(adapter);
+
+                historyList.setEmptyView(findViewById(R.id.empty));
+
+                query.removeEventListener(listener);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        query.addChildEventListener(listener);
+
+
     }
 
     @Override
@@ -168,6 +247,32 @@ public class Donation_history extends AppCompatActivity {
     public void onPause() {
         unregisterReceiver(networkStateReceiver);
         super.onPause();
+    }
+
+    private class CustomAdapter extends ArrayAdapter<History> {
+        public CustomAdapter() {
+            super(Donation_history.this, R.layout.donation_history_list, history);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View itemView = convertView;
+
+            if(itemView == null) {
+                itemView = getLayoutInflater().inflate(R.layout.donation_history_list, parent, false);
+            }
+            History currentHistory = history.get(position);
+            TextView itemContent = (TextView) itemView.findViewById(R.id.history_content);
+            TextView itemDate = (TextView) itemView.findViewById(R.id.history_date);
+            TextView itemTime = (TextView) itemView.findViewById(R.id.history_time);
+
+            itemContent.setText(currentHistory.getMessage());
+            itemDate.setText(currentHistory.getDate());
+            itemTime.setText(currentHistory.getTime());
+
+
+            return itemView;
+        }
     }
 
 

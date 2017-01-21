@@ -187,7 +187,7 @@ public class ObjectPool<T extends ObjectPool.Poolable> {
     }
 
     /**
-     * Returns the capacity of this object pool.  Note : The pool will automatically resize
+     * Returns the capacity of this object pool.  History : The pool will automatically resize
      * to contain additional objects if the user tries to add more objects than the pool's
      * capacity allows, but this comes at a performance cost.
      *

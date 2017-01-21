@@ -106,7 +106,8 @@ public class request extends AppCompatActivity {
     private List<String> devices;
 
     private int date;
-    private int time;
+
+    private double time;
     private double datetime;
 
     private String mail;
@@ -233,7 +234,7 @@ public class request extends AppCompatActivity {
                         historyRef.child("time").setValue(time);
                         historyRef.child("datetime").setValue(datetime);
 
-                        message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
+                        message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nPlease help us save this person's life.\n\n";
                         message2 = message;
 
                         if(bloodcount > bagqty) {
