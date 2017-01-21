@@ -412,7 +412,6 @@ public class register extends AppCompatActivity {
                 View promptsView = li.inflate(R.layout.text_prompt, null);
                 TextView messageView = (TextView)promptsView.findViewById(R.id.textView1);
                 messageView.setText("Contact number");
-                messageView.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         context);
@@ -423,7 +422,7 @@ public class register extends AppCompatActivity {
 
                 sContact = vContact.getText().toString();
                 userInput.setText(sContact);
-                userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+                userInput.setInputType(InputType.TYPE_CLASS_NUMBER);
 
                 alertDialogBuilder
                         .setCancelable(false)
@@ -560,7 +559,7 @@ public class register extends AppCompatActivity {
 
                 sZip = vZip.getText().toString();
                 userInput.setText(sZip);
-                userInput.setInputType(InputType.TYPE_CLASS_TEXT);
+                userInput.setInputType(InputType.TYPE_CLASS_NUMBER);
 
                 alertDialogBuilder
                         .setCancelable(false)
