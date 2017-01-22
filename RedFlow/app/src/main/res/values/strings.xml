@@ -44,15 +44,57 @@
     </string-array>
 
     <string-array name="location">
-        <item>Bohol</item>
-        <item>Cebu</item>
-        <item>Davao</item>
-        <item>Manila</item>
-        <item>Negros Occidental</item>
-        <item>Negros Oriental</item>
-        <item>Palawan</item>
-        <item>Camiguin</item>
-        <item>Masbate</item>
+        <item>AGUSAN</item>
+        <item>AKLAN</item>
+        <item>ANTIQUE</item>
+        <item>BAGUIO</item>
+        <item>BATANGAS</item>
+        <item>BENGUET</item>
+        <item>BOHOL</item>
+        <item>BUKIDNON</item>
+        <item>BULACAN</item>
+        <item>CAGAYAN</item>
+        <item>CALOOCAN</item>
+        <item>CAMARINES</item>
+        <item>CAPIZ</item>
+        <item>CATANDUANES</item>
+        <item>CAVITE</item>
+        <item>COTABATO</item>
+        <item>CEBU</item>
+        <item>DAVAO</item>
+        <item>GENERAL SANTOS</item>
+        <item>GINGOOG</item>
+        <item>GUIMARAS</item>
+        <item>ILIGAN</item>
+        <item>ILOCOS</item>
+        <item>ISABELA</item>
+        <item>ILOILO</item>
+        <item>LA UNION</item>
+        <item>LAGUNA</item>
+        <item>LEYTE</item>
+        <item>MASBATE</item>
+        <item>MANDALUYONG</item>
+        <item>MANILA</item>
+        <item>NEGROS</item>
+        <item>NUEVA ECIJA</item>
+        <item>NUEVA VIZCAYA</item>
+        <item>OLONGAPO</item>
+        <item>ORMOC</item>
+        <item>PALAWAN</item>
+        <item>PAMPANGA</item>
+        <item>PANGASINAN</item>
+        <item>PASAY</item>
+        <item>QUEZON</item>
+        <item>QUIRINO</item>
+        <item>RIZAL</item>
+        <item>SAN PABLO</item>
+        <item>SULU</item>
+        <item>SURIGAO</item>
+        <item>TANGUB</item>
+        <item>TARLAC</item>
+        <item>VALENZUELA</item>
+        <item>ZAMBALES</item>
+        <item>ZAMBOANGA</item>
     </string-array>
 
     <string-array name="urgency">

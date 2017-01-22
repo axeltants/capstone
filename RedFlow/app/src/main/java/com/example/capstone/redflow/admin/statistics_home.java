@@ -50,25 +50,21 @@ public class statistics_home extends AppCompatActivity {
     public void age_stat(View view) {
         Intent intent = new Intent(this, Age_statistics.class);
         startActivity(intent);
-        Toast.makeText(getApplicationContext(), "age statistics", Toast.LENGTH_SHORT).show();
     }
 
     public void bloodtype_stat(View view) {
         Intent intent = new Intent(this, bloodType_statistics.class);
         startActivity(intent);
-        Toast.makeText(getApplicationContext(), "blood type statistics", Toast.LENGTH_SHORT).show();
     }
 
     public void gender_stat(View view) {
         Intent intent = new Intent(this, gender_statistics.class);
         startActivity(intent);
-        Toast.makeText(getApplicationContext(), "gender statistics", Toast.LENGTH_SHORT).show();
     }
 
     public void province_stat(View view) {
         Intent intent = new Intent(this, location_statistics.class);
         startActivity(intent);
-        Toast.makeText(getApplicationContext(), "province statistics", Toast.LENGTH_SHORT).show();
     }
 
     public  boolean isInternetAvailable(){

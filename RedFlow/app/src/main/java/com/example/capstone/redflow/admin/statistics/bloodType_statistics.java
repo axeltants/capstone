@@ -277,12 +277,6 @@ public class bloodType_statistics extends DemoBase implements
 
 
 
-
-
-
-
-
-
                 PieDataSet dataSet = new PieDataSet(entries, "Blood Type");
                 dataSet.setSliceSpace(3f);
                 dataSet.setSelectionShift(5f);

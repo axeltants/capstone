@@ -14,6 +14,12 @@ import android.view.WindowManager;
 
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.notimportant.DemoBase;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -26,6 +32,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Age_statistics extends DemoBase implements
         OnChartValueSelectedListener {
@@ -34,12 +41,29 @@ public class Age_statistics extends DemoBase implements
 
     private Typeface tf;
 
+    private Firebase mRootRef;
+    private Query query;
+    private ChildEventListener listener;
+
+    private int genin;  //16-21
+    private int chuunin;    //22-27
+    private int jounin; //28-33
+    private int anbu;   //34-39
+    private int chubu;  //40-45
+    private int kage;   //46-51
+    private int sclass; //52-60
+    private int root;  //60+
+
+    ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.age_statistics);
+
+        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
         mChart = (PieChart) findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
@@ -161,71 +185,173 @@ public class Age_statistics extends DemoBase implements
 
         float mult = range;
 
-        ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
+        genin = 0;  //16-21
+        chuunin = 0;    //22-27
+        jounin = 0; //28-33
+        anbu = 0;   //34-39
+        chubu = 0;  //40-45
+        kage = 0;   //46-51
+        sclass = 0; //52-60
+        root = 0;  //60+
 
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-        /*for (int i = 0; i < count; i++) {
-            entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, mParties[i % mParties.length]));
-        }*/
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Ages 17-20"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Ages 21-30"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Ages 30-40"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Ages 41-50"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Ages 51-60"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Ages 61-70"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Ages 70+"));
+        query = mRootRef.child("User");
 
-        PieDataSet dataSet = new PieDataSet(entries, "Age");
-        dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(5f);
+        listener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, Integer> map = dataSnapshot.getValue(Map.class);
 
-        // add a lot of colors
+                switch(map.get("birthyear")) {
+                    case 2000:
+                    case 1999:
+                    case 1998:
+                    case 1997:
+                    case 1996:
+                    case 1995:  genin++;
+                                break;
+                    case 1994:
+                    case 1993:
+                    case 1992:
+                    case 1991:
+                    case 1990:
+                    case 1989:  chuunin++;
+                                break;
+                    case 1988:
+                    case 1987:
+                    case 1986:
+                    case 1985:
+                    case 1984:
+                    case 1983:  jounin++;
+                                break;
+                    case 1982:
+                    case 1981:
+                    case 1980:
+                    case 1979:
+                    case 1978:
+                    case 1977:  anbu++;
+                                break;
+                    case 1976:
+                    case 1975:
+                    case 1974:
+                    case 1973:
+                    case 1972:
+                    case 1971:  chubu++;
+                                break;
+                    case 1970:
+                    case 1969:
+                    case 1968:
+                    case 1967:
+                    case 1966:
+                    case 1965:  kage++;
+                                break;
+                    case 1964:
+                    case 1963:
+                    case 1962:
+                    case 1961:
+                    case 1960:
+                    case 1959:
+                    case 1958:
+                    case 1957:
+                    case 1956:  sclass++;
+                                break;
 
-        ArrayList<Integer> colors = new ArrayList<Integer>();
+                    default:    root++;
+                }
+            }
 
-        for (int c : ColorTemplate.MATERIAL_COLORS)
-            colors.add(c);
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-        /*
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        };
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(genin > 0) {
+                    entries.add(new PieEntry(genin, "Ages 16-21"));
+                }
+                if(chuunin > 0) {
+                    entries.add(new PieEntry(chuunin, "Ages 22-27"));
+                }
+                if(jounin > 0) {
+                    entries.add(new PieEntry(jounin, "Ages 28-33"));
+                }
+                if(anbu > 0) {
+                    entries.add(new PieEntry(anbu, "Ages 34-39"));
+                }
+                if(chubu > 0) {
+                    entries.add(new PieEntry(chubu, "Ages 40-45"));
+                }
+                if(kage > 0) {
+                    entries.add(new PieEntry(kage, "Ages 46-51"));
+                }
+                if(sclass > 0) {
+                    entries.add(new PieEntry(sclass, "Ages 52-60"));
+                }
+                if(root > 0) {
+                    entries.add(new PieEntry(root, "Ages 60+"));
+                }
+
+                PieDataSet dataSet = new PieDataSet(entries, "Age");
+                dataSet.setSliceSpace(3f);
+                dataSet.setSelectionShift(5f);
+
+
+
+                ArrayList<Integer> colors = new ArrayList<Integer>();
+
+                for (int c : ColorTemplate.MATERIAL_COLORS)
                     colors.add(c);
 
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);*/
-
-        colors.add(ColorTemplate.getHoloBlue());
-
-        dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
 
 
-        dataSet.setValueLinePart1OffsetPercentage(80.f);
-        dataSet.setValueLinePart1Length(0.2f);
-        dataSet.setValueLinePart2Length(0.4f);
-        //dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                colors.add(ColorTemplate.getHoloBlue());
 
-        PieData data = new PieData(dataSet);
-        data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.BLACK);
-        data.setValueTypeface(tf);
-        mChart.setData(data);
+                dataSet.setColors(colors);
+                //dataSet.setSelectionShift(0f);
 
-        // undo all highlights
-        mChart.highlightValues(null);
 
-        mChart.invalidate();
+                dataSet.setValueLinePart1OffsetPercentage(80.f);
+                dataSet.setValueLinePart1Length(0.2f);
+                dataSet.setValueLinePart2Length(0.4f);
+                //dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+
+                PieData data = new PieData(dataSet);
+                data.setValueFormatter(new PercentFormatter());
+                data.setValueTextSize(11f);
+                data.setValueTextColor(Color.BLACK);
+                data.setValueTypeface(tf);
+                mChart.setData(data);
+
+                // undo all highlights
+                mChart.highlightValues(null);
+
+                mChart.invalidate();
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+        query.addChildEventListener(listener);
+
     }
 
     private SpannableString generateCenterSpannableText() {
