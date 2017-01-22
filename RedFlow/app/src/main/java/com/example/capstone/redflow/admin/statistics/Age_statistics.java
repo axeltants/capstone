@@ -343,6 +343,8 @@ public class Age_statistics extends DemoBase implements
                 mChart.highlightValues(null);
 
                 mChart.invalidate();
+
+                query.removeEventListener(listener);
             }
 
             @Override
