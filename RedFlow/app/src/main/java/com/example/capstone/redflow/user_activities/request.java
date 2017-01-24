@@ -240,7 +240,10 @@ public class request extends AppCompatActivity {
                         message2 = message;
 
                         if(bloodcount > bagqty) {
+
                             sQuery.removeEventListener(supplyListenerVE);
+                            userquery.removeEventListener(userListenerVE);
+
                             Intent intent = new Intent(request.this, proceed_to_RedCross.class);
                             intent.putExtra("bloodtype", bloodtype);
                             intent.putExtra("bloodcount", bloodcount);
@@ -269,17 +272,6 @@ public class request extends AppCompatActivity {
 
                                 }
                             };
-                            userquery.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    userquery.removeEventListener(userListenerVE);
-                                }
-
-                                @Override
-                                public void onCancelled(FirebaseError firebaseError) {
-
-                                }
-                            });
                             userquery.addValueEventListener(userListenerVE);
                         }
                     }
@@ -290,17 +282,6 @@ public class request extends AppCompatActivity {
 
                 }
             };
-            sQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    sQuery.removeEventListener(supplyListenerVE);
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
-                }
-            });
             sQuery.addValueEventListener(supplyListenerVE);
         }
     }
@@ -324,7 +305,7 @@ public class request extends AppCompatActivity {
                 user = dataSnapshot.getKey();
 
 
-                if (notif.equals("on") && map.get("sms").equals("on") && province.equals(location) && !userID.equals(user)) {
+                if (notif.equals("on") && map.get("sms").equals("on") && province.toUpperCase().equals(location) && !userID.equals(user)) {
                     int myDays = 1;
 
                     final Calendar c = Calendar.getInstance();
