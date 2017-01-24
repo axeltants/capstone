@@ -272,7 +272,7 @@ public class request extends AppCompatActivity {
                             userquery.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    userRef.removeEventListener(userListenerVE);
+                                    userquery.removeEventListener(userListenerVE);
                                 }
 
                                 @Override
@@ -293,7 +293,7 @@ public class request extends AppCompatActivity {
             sQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    supplyRef.removeEventListener(supplyListenerVE);
+                    sQuery.removeEventListener(supplyListenerVE);
                 }
 
                 @Override
