@@ -325,7 +325,7 @@ public class request extends AppCompatActivity {
                     notifRef.child("time").setValue(time);
                     notifRef.child("datetime").setValue(datetime);
 
-                    mRootRef.child("User").child(user).child("request").setValue("off");
+                    //mRootRef.child("User").child(user).child("request").setValue("off");
                 }
             }
 
