@@ -232,6 +232,7 @@ public class admin_home extends AppCompatActivity {
                 .show();
     }
     public void backtologin(){
+        finish();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

@@ -2,12 +2,7 @@ package com.example.capstone.redflow;
 
 import android.widget.Spinner;
 
-import com.firebase.client.ChildEventListener;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
+import com.example.capstone.redflow.user_activities.History;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

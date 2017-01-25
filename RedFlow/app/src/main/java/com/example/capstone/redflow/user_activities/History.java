@@ -1,4 +1,4 @@
-package com.example.capstone.redflow;
+package com.example.capstone.redflow.user_activities;
 
 public class History {
 

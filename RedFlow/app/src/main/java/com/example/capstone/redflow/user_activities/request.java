@@ -207,7 +207,6 @@ public class request extends AppCompatActivity {
     }
 
     public void onSubmitButton(View view) {
-
         if(isInternetAvailable()){
 
 
@@ -265,7 +264,15 @@ public class request extends AppCompatActivity {
                                     mRootRef.child("Notify").child("count").setValue(priority+1);
                                     userquery.removeEventListener(userListenerVE);
                                     sQuery.removeEventListener(supplyListenerVE);
-                                    sendSMSRequest();
+                                    new Thread(new Runnable() {
+
+                                        @Override
+                                        public void run() {
+                                            android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                                            sendSMSRequest();
+                                        }
+
+                                    }).start();
                                 }
 
                                 @Override
@@ -465,13 +472,21 @@ public class request extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
-    private BroadcastReceiver networkStateReceiver=new BroadcastReceiver() {
+
+    private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo ni = manager.getActiveNetworkInfo();
+            final Context ctx = context;
 
-            isInternetAvailable();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                    ConnectivityManager manager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo ni = manager.getActiveNetworkInfo();
+                    isInternetAvailable();
+                }
+            }).start();
         }
     };
 

@@ -9,10 +9,10 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -20,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -30,8 +29,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
 import com.example.capstone.redflow.R;
-import com.example.capstone.redflow.common_activities.about;
 import com.example.capstone.redflow.common_activities.LoginActivity;
+import com.example.capstone.redflow.common_activities.about;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -202,12 +201,20 @@ public class home extends AppCompatActivity {
     }
 
 
-    private BroadcastReceiver networkStateReceiver=new BroadcastReceiver() {
+    private BroadcastReceiver networkStateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo ni = manager.getActiveNetworkInfo();
-            isInternetAvailable();
+            final Context ctx = context;
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                    ConnectivityManager manager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo ni = manager.getActiveNetworkInfo();
+                    isInternetAvailable();
+                }
+            }).start();
         }
     };
 

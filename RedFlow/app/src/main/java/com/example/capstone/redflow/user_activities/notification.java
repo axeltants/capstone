@@ -22,7 +22,6 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.android.volley.AuthFailureError;
@@ -32,14 +31,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
-import com.example.capstone.redflow.History;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.ToolBox;
 import com.example.capstone.redflow.common_activities.about;
 import com.example.capstone.redflow.common_activities.LoginActivity;
-import com.example.capstone.redflow.notification_list.notificationGetSet;
-import com.example.capstone.redflow.notification_list.notiflistAdapter;
-import com.example.capstone.redflow.notification_list.notifprovider;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -56,7 +51,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class notification extends AppCompatActivity {
@@ -229,12 +223,20 @@ public class notification extends AppCompatActivity {
         return activeNetworkInfo != null;
     }
 
-    private BroadcastReceiver networkStateReceiver=new BroadcastReceiver() {
+    private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo ni = manager.getActiveNetworkInfo();
-            isInternetAvailable();
+            final Context ctx = context;
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                    ConnectivityManager manager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo ni = manager.getActiveNetworkInfo();
+                    isInternetAvailable();
+                }
+            }).start();
         }
     };
 

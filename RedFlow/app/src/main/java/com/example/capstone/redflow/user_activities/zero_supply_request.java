@@ -41,7 +41,16 @@ public class zero_supply_request extends AppCompatActivity {
         vBloodtype = (TextView) findViewById(R.id.btype);
         vBloodtype.setText(bloodtype);
         message2 = "Someone is in need of " + qtty + " bag(s) of blood type " + bloodtype + ". Please help us save this person's life.";
-        sendFilteredPush();
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                sendFilteredPush();
+            }
+
+        }).start();
     }
 
     private void sendFilteredPush() {
