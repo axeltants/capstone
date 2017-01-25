@@ -1,8 +1,10 @@
-package com.example.capstone.redflow.notimportant;
+package com.example.capstone.redflow.user_activities;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -28,6 +30,7 @@ import com.example.capstone.redflow.Firebasenotification.MyVolley;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.common_activities.about;
 import com.example.capstone.redflow.common_activities.LoginActivity;
+import com.example.capstone.redflow.notimportant.Claim_history;
 import com.example.capstone.redflow.user_activities.Donation_history;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -47,7 +50,6 @@ public class history extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.capstone.redflow.R.layout.history);
-        isInternetAvailable();
         mail = getIntent().getStringExtra("mail");
     }
     @Override
@@ -86,7 +88,7 @@ public class history extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        DeleteToken();
                     }
                 }) {
 
@@ -119,12 +121,12 @@ public class history extends AppCompatActivity {
                 Log.e("Network Checker", "Error checking internet connection", e);
             }
         }
-        final Snackbar snackBar = Snackbar.make(findViewById(R.id.history), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_home), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
         View v = snackBar.getView();
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
         FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)v.getLayoutParams();
-        params.gravity = Gravity.CENTER_VERTICAL;
+        params.gravity = Gravity.CENTER;
         v.setLayoutParams(params);
         snackBar.setAction("Dismiss", new View.OnClickListener() {
             @Override
@@ -142,6 +144,37 @@ public class history extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
+
+
+    private BroadcastReceiver networkStateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final Context ctx = context;
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                    ConnectivityManager manager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo ni = manager.getActiveNetworkInfo();
+                    isInternetAvailable();
+                }
+            }).start();
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    public void onPause() {
+        unregisterReceiver(networkStateReceiver);
+        super.onPause();
+    }
+
 
 
     //////////////////////////////////*FOR ACTION BAR EVENTS*/

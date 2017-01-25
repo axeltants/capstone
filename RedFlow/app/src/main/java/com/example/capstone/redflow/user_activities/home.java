@@ -63,8 +63,6 @@ public class home extends AppCompatActivity {
         setContentView(com.example.capstone.redflow.R.layout.home);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        isInternetAvailable();
-
         userID = sharedpreferences.getString(Uid, "");
         mail = sharedpreferences.getString(Email, "");
 
