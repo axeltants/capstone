@@ -205,8 +205,16 @@ public class beadonor extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.clear();
                         editor.commit();
-                        FirebaseAuth.getInstance().signOut();
-                        backtologin();
+                        new Thread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                                FirebaseAuth.getInstance().signOut();
+                                backtologin();
+                            }
+
+                        }).start();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -218,7 +226,16 @@ public class beadonor extends AppCompatActivity {
                 .show();
     }
     public void backtologin(){
-        DeleteToken();
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                DeleteToken();
+            }
+
+        }).start();
+
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

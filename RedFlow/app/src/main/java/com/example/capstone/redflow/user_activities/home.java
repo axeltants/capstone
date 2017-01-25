@@ -142,7 +142,7 @@ public class home extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        DeleteToken();
                     }
                 }) {
 
@@ -268,7 +268,17 @@ public class home extends AppCompatActivity {
                 .show();
     }
     public void backtologin(){
-        DeleteToken();
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_FOREGROUND);
+                DeleteToken();
+            }
+
+        }).start();
+
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

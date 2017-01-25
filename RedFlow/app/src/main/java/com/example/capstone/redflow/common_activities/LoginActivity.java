@@ -158,7 +158,17 @@ public class LoginActivity extends AppCompatActivity {
 
                                         bloodType = map.get("bloodtype");
                                         location = map.get("province");
-                                        sendTokenToServer();
+
+                                        new Thread(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                android.os.Process.setThreadPriority(android.os.Process. THREAD_PRIORITY_FOREGROUND);
+                                                sendTokenToServer();
+                                            }
+
+                                        }).start();
+
                                         Intent i = new Intent(LoginActivity.this, home.class);
                                         editor.putString(Uid, userID);
                                         editor.putString(Email, sEmail);
@@ -213,7 +223,7 @@ public class LoginActivity extends AppCompatActivity {
         final String email = sEmail;
 
         if (token == null) {
-            //Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -224,7 +234,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         try {
                             JSONObject obj = new JSONObject(response);
-                            //Toast.makeText(LoginActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -234,7 +244,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        //Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        sendTokenToServer();
                     }
                 }) {
 
@@ -300,12 +311,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private BroadcastReceiver networkStateReceiver=new BroadcastReceiver() {
+    private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo ni = manager.getActiveNetworkInfo();
-            isInternetAvailable();
+            final Context ctx = context;
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                    ConnectivityManager manager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo ni = manager.getActiveNetworkInfo();
+                    isInternetAvailable();
+                }
+            }).start();
         }
     };
 
