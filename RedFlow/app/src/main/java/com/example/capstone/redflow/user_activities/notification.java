@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Process;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -166,7 +167,7 @@ public class notification extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        DeleteToken();
                     }
                 }) {
 
@@ -316,7 +317,17 @@ public class notification extends AppCompatActivity {
                 .show();
     }
     public void backtologin(){
-        DeleteToken();
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+                DeleteToken();
+            }
+
+        }).start();
+
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }

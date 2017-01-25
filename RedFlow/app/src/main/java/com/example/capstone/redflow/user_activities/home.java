@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -273,7 +274,7 @@ public class home extends AppCompatActivity {
 
             @Override
             public void run() {
-                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_FOREGROUND);
+                android.os.Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
                 DeleteToken();
             }
 

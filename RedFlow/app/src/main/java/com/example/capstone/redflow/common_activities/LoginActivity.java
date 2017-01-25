@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Process;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -163,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                             @Override
                                             public void run() {
-                                                android.os.Process.setThreadPriority(android.os.Process. THREAD_PRIORITY_FOREGROUND);
+                                                android.os.Process.setThreadPriority(Process. THREAD_PRIORITY_BACKGROUND);
                                                 sendTokenToServer();
                                             }
 
@@ -223,7 +224,7 @@ public class LoginActivity extends AppCompatActivity {
         final String email = sEmail;
 
         if (token == null) {
-            Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -234,7 +235,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         try {
                             JSONObject obj = new JSONObject(response);
-                            Toast.makeText(LoginActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(LoginActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -244,7 +245,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                         sendTokenToServer();
                     }
                 }) {
