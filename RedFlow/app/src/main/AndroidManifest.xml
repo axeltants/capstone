@@ -16,13 +16,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".common_activities.LoginActivity">
+        <activity android:name=".SplashScreen.Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".common_activities.LoginActivity" />
         <activity android:name=".user_activities.home" />
         <activity
             android:name=".common_activities.register"
@@ -108,7 +109,7 @@
         <activity android:name=".admin.statistics.Age_statistics" />
         <activity android:name=".admin.statistics.bloodType_statistics" />
         <activity android:name=".admin.statistics.location_statistics" />
-        <activity android:name=".notification_viewer.Blood_Type_Compat"></activity>
+        <activity android:name=".notification_viewer.Blood_Type_Compat" />
     </application>
 
 </manifest>
