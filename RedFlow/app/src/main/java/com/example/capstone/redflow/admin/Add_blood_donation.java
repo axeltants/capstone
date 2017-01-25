@@ -49,6 +49,7 @@ public class Add_blood_donation extends AppCompatActivity {
     private String fullname;
     private String contact;
     private String message;
+    private String messageDB;
 
     private EditText vDateDonated;
     private EditText vSerial;
@@ -204,14 +205,15 @@ public class Add_blood_donation extends AppCompatActivity {
                                 Map<String, String> map = dataSnapshot.getValue(Map.class);
 
                                 contact = dataSnapshot.getKey();
-                                message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.\n\n";
+                                messageDB = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.";
+                                message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.\n\nDon't reply.\n\n";
 
                                 mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
 
                                 new SendRequest(contact, message).execute();
 
                                 notifRef = mRootRef.child("Notification").child(map.get("userID")).push();
-                                notifRef.child("content").setValue(message);
+                                notifRef.child("content").setValue(messageDB);
                                 notifRef.child("date").setValue(date);
                                 notifRef.child("time").setValue(time);
                                 notifRef.child("datetime").setValue(datetime);

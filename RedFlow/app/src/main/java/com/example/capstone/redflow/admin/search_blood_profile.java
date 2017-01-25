@@ -42,6 +42,7 @@ public class search_blood_profile extends AppCompatActivity {
     private String userID;
     private String contact;
     private String message;
+    private String messageDB;
     private String status;
     private String bloodtype;
     private String bloodID;
@@ -177,11 +178,12 @@ public class search_blood_profile extends AppCompatActivity {
                             Toast.makeText(search_blood_profile.this, bloodtype + " blood supply reduced by 1 bag.", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            message = "Your blood has just been donated.\nThank you for saving a life.\n\n";
+                            messageDB = "Your blood has just been donated.\nThank you for saving a life.";
+                            message = "Your blood has just been donated.\nThank you for saving a life.\n\nDon't reply.\n\n";
                             new SendRequest(contact, message).execute();
 
                             notifRef = mRootRef.child("Notification").child(userID).push();
-                            notifRef.child("content").setValue(message);
+                            notifRef.child("content").setValue(messageDB);
                             notifRef.child("date").setValue(date);
                             notifRef.child("time").setValue(time);
                             notifRef.child("datetime").setValue(datetime);

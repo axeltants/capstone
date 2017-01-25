@@ -92,8 +92,8 @@ public class request extends AppCompatActivity {
     private long priority;
 
     private String contact;
+    private String messageDB;
     private String message;
-    private String message2;
     private String notif;
     private String province;
     private String userID;
@@ -236,8 +236,9 @@ public class request extends AppCompatActivity {
                         historyRef.child("time").setValue(time);
                         historyRef.child("datetime").setValue(datetime);
 
-                        message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nPlease help us save this person's life.\n\n";
-                        message2 = message;
+                        messageDB = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nHelp us save this person's life.";
+                        message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nHelp us save this person's life.\n\nDon't reply.\n\n";
+
 
                         if(bloodcount > bagqty) {
 
@@ -320,7 +321,7 @@ public class request extends AppCompatActivity {
                     new SendRequest(contact, message).execute();
 
                     notifRef = mRootRef.child("Notification").child(dataSnapshot.getKey()).push();
-                    notifRef.child("content").setValue(message);
+                    notifRef.child("content").setValue(messageDB);
                     notifRef.child("date").setValue(date);
                     notifRef.child("time").setValue(time);
                     notifRef.child("datetime").setValue(datetime);

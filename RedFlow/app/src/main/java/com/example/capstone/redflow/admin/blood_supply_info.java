@@ -66,6 +66,7 @@ public class blood_supply_info extends AppCompatActivity {
 
     private Query query;
     private Query qnotify;
+    private Query queryBlood;
 
     private TextView bloodtype;
     private TextView bag_quantity;
@@ -73,9 +74,11 @@ public class blood_supply_info extends AppCompatActivity {
     private EditText vBag_serial;
 
     private String message;
+    private String messageDB;
     private String contact;
     private String sBag_serial;
     private int count;
+    private long duplicate;
 
     private DatePicker datePicker;
     private Calendar calendar;
@@ -200,93 +203,112 @@ public class blood_supply_info extends AppCompatActivity {
     public void submit_bag(View view) {
         if(isInternetAvailable()){
             sBag_serial = vBag_serial.getText().toString();
-            Firebase blood = mRootRef.child("Blood").push();
+            duplicate = 0;
 
-            if(sBag_serial.trim().equals("")) {
-                Toast.makeText(this, "Please enter a serial number.", Toast.LENGTH_SHORT).show();
-            }
-            else if(sBag_serial.length() != 8) {
-                Toast.makeText(this, "Invalid serial number.", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                if(mYear == 0) {
-                    mYear = year;
-                    mMonth = month;
-                    mDay = day;
+            queryBlood = mRootRef.child("Blood").orderByChild("serial").equalTo(sBag_serial.toUpperCase());
+            queryBlood.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    duplicate = dataSnapshot.getChildrenCount();
+                    queryBlood.removeEventListener(this);
+                    if(duplicate == 0) {
+                        Firebase blood = mRootRef.child("Blood").push();
+
+                        if (sBag_serial.trim().equals("")) {
+                            Toast.makeText(blood_supply_info.this, "Please enter a serial number.", Toast.LENGTH_SHORT).show();
+                        } else if (sBag_serial.length() != 13) {
+                            Toast.makeText(blood_supply_info.this, "Invalid serial number.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            if (mYear == 0) {
+                                mYear = year;
+                                mMonth = month;
+                                mDay = day;
+                            }
+
+                            date = (mYear * 10000) + ((mMonth + 1) * 100) + (mDay);
+
+                            blood.child("date").setValue(date);
+                            blood.child("bloodtype").setValue(blood_type);
+                            blood.child("serial").setValue(sBag_serial.toUpperCase());
+                            blood.child("userID").setValue("-K_2nAZ1ynR9ZF15HvVw");
+
+                            mRootRef.child("Supply").child(blood_type).child("count").setValue(count + 1);
+                            mRootRef.child("Supply").child(blood_type).child("recent").setValue(sBag_serial.toUpperCase());
+
+                            qnotify = notifyRef.child(blood_type).orderByChild("priority").limitToFirst(1);
+                            notifyListenerCE = new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                    Map<String, String> map = dataSnapshot.getValue(Map.class);
+
+                                    contact = dataSnapshot.getKey();
+                                    messageDB = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.";
+                                    message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.\n\nDon't reply.\n\n";
+
+                                    mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
+
+                                    new SendRequest(contact, message).execute();
+
+                                    notifRef = mRootRef.child("Notification").child(map.get("userID")).push();
+                                    notifRef.child("content").setValue(messageDB);
+                                    notifRef.child("date").setValue(date);
+                                    notifRef.child("time").setValue(time);
+                                    notifRef.child("datetime").setValue(datetime);
+
+                                    email = map.get("email");
+
+                                    sendSinglePush();
+                                }
+
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                }
+
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(FirebaseError firebaseError) {
+
+                                }
+                            };
+                            qnotify.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    finish();
+                                    Intent intent = new Intent(blood_supply_info.this, blood_supply_info.class);
+                                    intent.putExtra("blood_type", blood_type);
+                                    qnotify.removeEventListener(notifyListenerCE);
+                                    startActivity(intent);
+                                    blood_supply_info.this.finish();
+                                }
+
+                                @Override
+                                public void onCancelled(FirebaseError firebaseError) {
+
+                                }
+                            });
+                            qnotify.addChildEventListener(notifyListenerCE);
+                        }
+                    }
+                    else {
+                        Toast.makeText(blood_supply_info.this, "Serial number already exists.", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
-                date = (mYear * 10000) + ((mMonth + 1) * 100) + (mDay);
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
 
-                blood.child("date").setValue(date);
-                blood.child("bloodtype").setValue(blood_type);
-                blood.child("serial").setValue(sBag_serial.toUpperCase());
-                blood.child("userID").setValue("-K_2nAZ1ynR9ZF15HvVw");
-
-                mRootRef.child("Supply").child(blood_type).child("count").setValue(count+1);
-                mRootRef.child("Supply").child(blood_type).child("recent").setValue(sBag_serial.toUpperCase());
-
-                qnotify = notifyRef.child(blood_type).orderByChild("priority").limitToFirst(1);
-                notifyListenerCE = new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Map<String, String> map = dataSnapshot.getValue(Map.class);
-
-                        contact = dataSnapshot.getKey();
-                        message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.\n\n";
-
-                        mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
-
-                        new SendRequest(contact, message).execute();
-
-                        notifRef = mRootRef.child("Notification").child(map.get("userID")).push();
-                        notifRef.child("content").setValue(message);
-                        notifRef.child("date").setValue(date);
-                        notifRef.child("time").setValue(time);
-                        notifRef.child("datetime").setValue(datetime);
-
-                        email = map.get("email");
-
-                        sendSinglePush();
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
-                    }
-                };
-                qnotify.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        finish();
-                        Intent intent = new Intent(blood_supply_info.this, blood_supply_info.class);
-                        intent.putExtra("blood_type", blood_type);
-                        qnotify.removeEventListener(notifyListenerCE);
-                        startActivity(intent);
-                        blood_supply_info.this.finish();
-                    }
-
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
-                    }
-                });
-                qnotify.addChildEventListener(notifyListenerCE);
-            }
+                }
+            });
         }
     }
 

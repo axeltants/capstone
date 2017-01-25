@@ -60,6 +60,7 @@ public class announcement extends AppCompatActivity {
     private ChildEventListener listener;
 
     private String message;
+    private String messageDB;
     private String contact;
 
     private int date;
@@ -158,7 +159,8 @@ public class announcement extends AppCompatActivity {
             progressDialog.setMessage("Sending...");
             progressDialog.show();
 
-            message = editText.getText().toString();
+            messageDB = editText.getText().toString();
+            message = messageDB + "\n\nDon't reply.\n\n";
 
             query = mRootRef.child("User").orderByChild("sms").equalTo("on");
             listener = new ChildEventListener() {
@@ -167,7 +169,7 @@ public class announcement extends AppCompatActivity {
                     Map<String, String> map = dataSnapshot.getValue(Map.class);
 
                     notifRef = mRootRef.child("Notification").child(dataSnapshot.getKey()).push();
-                    notifRef.child("content").setValue(message);
+                    notifRef.child("content").setValue(messageDB);
                     notifRef.child("date").setValue(date);
                     notifRef.child("time").setValue(time);
                     notifRef.child("datetime").setValue(datetime);
