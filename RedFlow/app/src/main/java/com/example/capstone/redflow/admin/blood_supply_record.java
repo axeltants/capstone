@@ -128,12 +128,20 @@ public class blood_supply_record extends AppCompatActivity {
         return activeNetworkInfo != null;
     }
 
-    private BroadcastReceiver networkStateReceiver=new BroadcastReceiver() {
+    private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo ni = manager.getActiveNetworkInfo();
-            isInternetAvailable();
+            final Context ctx = context;
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                    ConnectivityManager manager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo ni = manager.getActiveNetworkInfo();
+                    isInternetAvailable();
+                }
+            }).start();
         }
     };
 

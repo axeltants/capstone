@@ -31,7 +31,9 @@ import com.example.capstone.redflow.Firebasenotification.EndPoints;
 import com.example.capstone.redflow.Firebasenotification.MyVolley;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.SendRequest;
+import com.example.capstone.redflow.SplashScreen.Splashscreen;
 import com.example.capstone.redflow.ToolBox;
+import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -71,6 +73,7 @@ public class announcement extends AppCompatActivity {
     private Calendar c;
 
     private ToolBox tools;
+    Thread push;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +188,7 @@ public class announcement extends AppCompatActivity {
                         notifRef.child("datetime").setValue(datetime);
 
                         new SendRequest(map.get("contact"), message).execute();
+
                     }
 
                     @Override
@@ -219,7 +223,13 @@ public class announcement extends AppCompatActivity {
                     }
                 });
                 query.addChildEventListener(listener);
-                sendMultiplePush();
+                push = new Thread() {
+                    @Override
+                    public void run() {
+                        sendMultiplePush();
+                    }
+                };
+                push.start();
             }
 
         }
@@ -268,12 +278,20 @@ public class announcement extends AppCompatActivity {
         return activeNetworkInfo != null;
     }
 
-    private BroadcastReceiver networkStateReceiver=new BroadcastReceiver() {
+    private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo ni = manager.getActiveNetworkInfo();
-            isInternetAvailable();
+            final Context ctx = context;
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                    ConnectivityManager manager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo ni = manager.getActiveNetworkInfo();
+                    isInternetAvailable();
+                }
+            }).start();
         }
     };
 
@@ -288,4 +306,5 @@ public class announcement extends AppCompatActivity {
         unregisterReceiver(networkStateReceiver);
         super.onPause();
     }
+
 }

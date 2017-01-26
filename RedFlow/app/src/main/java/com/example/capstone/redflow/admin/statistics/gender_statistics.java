@@ -229,8 +229,12 @@ public class gender_statistics extends DemoBase implements
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                entries.add(new PieEntry(male, "Male"));
-                entries.add(new PieEntry(female, "Female"));
+                if(male > 0) {
+                    entries.add(new PieEntry(male, "Male"));
+                }
+                if(female > 0) {
+                    entries.add(new PieEntry(female, "Female"));
+                }
 
                 PieDataSet dataSet = new PieDataSet(entries, "Gender");
                 dataSet.setSliceSpace(3f);
