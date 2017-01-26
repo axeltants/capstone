@@ -225,6 +225,7 @@ public class request extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     bloodcount = dataSnapshot.getValue(Integer.class);
                     if(sBagqty.trim().equals("")) {
+                        progressDialog.dismiss();
                         Toast.makeText(request.this, "Please enter quantity of blood bag needed.", Toast.LENGTH_SHORT).show();
                     }
                     else {

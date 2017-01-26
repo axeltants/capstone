@@ -63,7 +63,7 @@ public class search_blood extends AppCompatActivity {
             if(sSearch.trim().equals("")) {
                 Toast.makeText(this, "Please enter a serial number.", Toast.LENGTH_SHORT).show();
             }
-            else if(sSearch.length() != 8) {
+            else if(sSearch.length() != 13) {
                 Toast.makeText(this, "Invalid serial number.", Toast.LENGTH_SHORT).show();
             }
             else {
