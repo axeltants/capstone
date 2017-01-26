@@ -46,15 +46,13 @@ public class Splashscreen extends AppCompatActivity {
         iv.clearAnimation();
         iv.startAnimation(anim);
 
-
-
         splashTread = new Thread() {
             @Override
             public void run() {
                 try {
                     int waited = 0;
                     // Splash screen pause time
-                    while (waited < 3908) {
+                    while (waited < 5508) {
                         sleep(100);
                         waited += 100;
                     }
