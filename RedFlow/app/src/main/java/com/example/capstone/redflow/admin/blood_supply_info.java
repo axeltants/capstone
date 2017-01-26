@@ -354,7 +354,7 @@ public class blood_supply_info extends AppCompatActivity {
         if(test()){
             try {
                 HttpURLConnection urlConnection = (HttpURLConnection)
-                        (new URL("http://clients3.google.com/generate_204")
+                        (new URL("https://clients3.google.com/generate_204")
                                 .openConnection());
                 urlConnection.setRequestProperty("User-Agent", "Android");
                 urlConnection.setRequestProperty("Connection", "close");
