@@ -130,7 +130,9 @@ public class LoginActivity extends AppCompatActivity {
             sPassword = tools.SHA1(vPassword.getText().toString());
 
             if(sEmail.trim().equals("") || sPassword.trim().equals("")) {
-                Toast.makeText(this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(this, "Please fill out all fields.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP, 0, 88);
+                toast.show();
             }
             else {
                 progressDialog.setMessage("Signing in...");
@@ -205,7 +207,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else {
                             progressDialog.dismiss();
-                            Toast.makeText(LoginActivity.this, "Wrong Email/Password.", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(LoginActivity.this, "Wrong Email/Password.", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.TOP, 0, 88);
+                            toast.show();
                         }
                     }
                 });

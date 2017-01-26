@@ -161,7 +161,12 @@ public class Add_blood_donation extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Firebase blood = mRootRef.child("Blood").push();
 
+                        progressDialog = new ProgressDialog(Add_blood_donation.this);
+                        progressDialog.setMessage("Sending...");
+                        progressDialog.show();
+
                         getBloodCount();
+
 
                         if(mYear == 0) {
                             mYear = year;
@@ -246,6 +251,7 @@ public class Add_blood_donation extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 qnotify.removeEventListener(notifyListenerCE);
+                                progressDialog.dismiss();
                             }
 
                             @Override

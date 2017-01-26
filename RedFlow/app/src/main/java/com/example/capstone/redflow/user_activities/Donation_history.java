@@ -1,5 +1,6 @@
 package com.example.capstone.redflow.user_activities;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -68,6 +69,8 @@ public class Donation_history extends AppCompatActivity {
 
     private ToolBox tools;
 
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,10 @@ public class Donation_history extends AppCompatActivity {
         tools = new ToolBox();
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
 
         query = mRootRef.child("History").child(userID).orderByChild("datetime").limitToLast(10);
 
@@ -129,6 +136,8 @@ public class Donation_history extends AppCompatActivity {
                 historyList.setAdapter(adapter);
 
                 historyList.setEmptyView(findViewById(R.id.empty));
+
+                progressDialog.dismiss();
 
                 query.removeEventListener(listener);
             }

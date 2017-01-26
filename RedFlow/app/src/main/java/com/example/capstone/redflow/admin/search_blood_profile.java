@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -174,8 +175,14 @@ public class search_blood_profile extends AppCompatActivity {
                 .setMessage("Are you sure you want to use the blood?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        progressDialog = new ProgressDialog(search_blood_profile.this);
+                        progressDialog.setMessage("Please wait...");
+                        progressDialog.show();
+
                         if(status.equals("Unknown")) {
-                            Toast.makeText(search_blood_profile.this, bloodtype + " blood supply reduced by 1 bag.", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(search_blood_profile.this, bloodtype + " blood supply reduced by 1 bag.", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.TOP, 0, 88);
+                            toast.show();
                         }
                         else {
                             messageDB = "Your blood has just been donated.\nThank you for saving a life.";
@@ -198,6 +205,8 @@ public class search_blood_profile extends AppCompatActivity {
                         }
                         mRootRef.child("Supply").child(bloodtype).child("count").setValue(bloodcount-1);
                         mRootRef.child("Blood").child(bloodID).removeValue();
+
+                        progressDialog.dismiss();
 
                         Intent intent = new Intent(search_blood_profile.this, blood_supply_info.class);
                         intent.putExtra("blood_type", bloodtype);

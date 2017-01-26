@@ -1,5 +1,6 @@
 package com.example.capstone.redflow.user_activities;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -58,17 +59,19 @@ public class profile extends AppCompatActivity {
 
     private Firebase mRootRef;
 
-    TextView vCompleteName;
-    TextView vBdate;
-    TextView vGender;
-    TextView vEmail;
-    TextView vNationality;
-    TextView vAddress;
-    TextView vContact;
-    TextView vBloodtype;
+    private TextView vCompleteName;
+    private TextView vBdate;
+    private TextView vGender;
+    private TextView vEmail;
+    private TextView vNationality;
+    private TextView vAddress;
+    private TextView vContact;
+    private TextView vBloodtype;
 
     private TextView switchStatus;
     private Switch mySwitch;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,10 @@ public class profile extends AppCompatActivity {
         userID = getIntent().getStringExtra("userID");
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
 
         vCompleteName = (TextView) findViewById(R.id.textview_CompleteName);
         vBdate = (TextView) findViewById(R.id.textview_age);
@@ -137,6 +144,7 @@ public class profile extends AppCompatActivity {
                         }
                     }
                 });
+                progressDialog.dismiss();
                 mRootRef.child("User").child(userID).removeEventListener(this);
             }
 

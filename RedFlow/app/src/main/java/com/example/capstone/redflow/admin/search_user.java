@@ -60,7 +60,9 @@ public class search_user extends AppCompatActivity {
             sSearch = vSearch.getText().toString();
 
             if(sSearch.trim().equals("")) {
-                Toast.makeText(this, "Please enter a name.", Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(this, "Please enter a name.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP, 0, 88);
+                toast.show();
             }
             else {
                 Intent intent = new Intent(this, search_result.class);

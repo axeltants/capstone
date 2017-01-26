@@ -300,7 +300,9 @@ public class blood_supply_info extends AppCompatActivity {
                         }
                     }
                     else {
-                        Toast.makeText(blood_supply_info.this, "Serial number already exists.", Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(blood_supply_info.this, "Serial number already exists.", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.TOP, 0, 88);
+                        toast.show();
                     }
                 }
 

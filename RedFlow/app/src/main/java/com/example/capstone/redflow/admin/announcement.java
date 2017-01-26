@@ -127,7 +127,10 @@ public class announcement extends AppCompatActivity {
                     public void onResponse(String response) {
                         editText.setText("");
                         progressDialog.dismiss();
-                        Toast.makeText(announcement.this, "Message sent.", Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(announcement.this, "Message sent.", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.TOP, 0, 110);
+                        toast.show();
+
                         //Toast.makeText(announcement.this, response, Toast.LENGTH_LONG).show();
                     }
                 },
@@ -162,54 +165,62 @@ public class announcement extends AppCompatActivity {
             messageDB = editText.getText().toString();
             message = messageDB + "\n\nDon't reply.\n\n";
 
-            query = mRootRef.child("User").orderByChild("sms").equalTo("on");
-            listener = new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Map<String, String> map = dataSnapshot.getValue(Map.class);
+            if(messageDB.trim().equals("")) {
+                progressDialog.dismiss();
+                Toast toast = Toast.makeText(announcement.this, "Message is empty.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP, 0, 88);
+                toast.show();
+            }
+            else {
+                query = mRootRef.child("User").orderByChild("sms").equalTo("on");
+                listener = new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Map<String, String> map = dataSnapshot.getValue(Map.class);
 
-                    notifRef = mRootRef.child("Notification").child(dataSnapshot.getKey()).push();
-                    notifRef.child("content").setValue(messageDB);
-                    notifRef.child("date").setValue(date);
-                    notifRef.child("time").setValue(time);
-                    notifRef.child("datetime").setValue(datetime);
+                        notifRef = mRootRef.child("Notification").child(dataSnapshot.getKey()).push();
+                        notifRef.child("content").setValue(messageDB);
+                        notifRef.child("date").setValue(date);
+                        notifRef.child("time").setValue(time);
+                        notifRef.child("datetime").setValue(datetime);
 
-                    new SendRequest(map.get("contact"), message).execute();
-                }
+                        new SendRequest(map.get("contact"), message).execute();
+                    }
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                }
+                    }
 
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                }
+                    }
 
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                }
+                    }
 
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
 
-                }
-            };
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    query.removeEventListener(listener);
-                }
+                    }
+                };
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        query.removeEventListener(listener);
+                    }
 
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
 
-                }
-            });
-            query.addChildEventListener(listener);
-            sendMultiplePush();
+                    }
+                });
+                query.addChildEventListener(listener);
+                sendMultiplePush();
+            }
 
         }
     }

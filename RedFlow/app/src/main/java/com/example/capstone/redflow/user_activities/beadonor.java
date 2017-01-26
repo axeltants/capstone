@@ -69,7 +69,6 @@ public class beadonor extends AppCompatActivity {
     }
 
     public void health_test(View view) {
-        Toast.makeText(getApplicationContext(), "Health test", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, TestActivity.class);
         startActivity(intent);
     }

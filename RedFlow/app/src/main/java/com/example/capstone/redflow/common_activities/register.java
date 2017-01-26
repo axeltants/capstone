@@ -649,10 +649,19 @@ public class register extends AppCompatActivity {
 
 
             if(sFname.trim().equals("") || sLname.trim().equals("") || sMname.trim().equals("") || sContact.trim().equals("") || sNationality.trim().equals("") || sEmail.trim().equals("") || sPassword.trim().equals("") || sHome.trim().equals("") || sProvince.trim().equals("") || sZip.trim().equals("") || sBday.trim().equals("") || sGender.trim().equals("") || sBloodtype.trim().equals("")) {
-                Toast.makeText(this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(this, "Please fill out all fields.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP, 0, 88);
+                toast.show();
             }
             else if(sContact.length() != 11) {
-                Toast.makeText(this, "Mobile number should be 11 digits long.", Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(this, "Mobile number should be 11 digits long.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP, 0, 88);
+                toast.show();
+            }
+            else if(sZip.length() != 4) {
+                Toast toast = Toast.makeText(this, "Zip number should be 4 digits long.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP, 0, 88);
+                toast.show();
             }
             else {
                 query = userRef.orderByChild("email").equalTo(sEmail);
@@ -661,7 +670,9 @@ public class register extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.getValue() != null) {
-                            Toast.makeText(register.this, "Email already exists.", Toast.LENGTH_SHORT).show();
+                            Toast toast = Toast.makeText(register.this, "Email already exists.", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.TOP, 0, 88);
+                            toast.show();
                             query.removeEventListener(this);
                         }
                         else {
@@ -672,8 +683,6 @@ public class register extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()) {
-
-                                        progressDialog.dismiss();
 
                                         newUser.child("birthday").setValue(mDay);
                                         newUser.child("birthmonth").setValue(mMonth+1);
@@ -694,6 +703,8 @@ public class register extends AppCompatActivity {
                                         newUser.child("sms").setValue("on");
                                         newUser.child("request").setValue("on");
 
+                                        progressDialog.dismiss();
+
 
                                         Intent intent = new Intent(register.this, LoginActivity.class);
                                         intent.putExtra("userID", newUser.getKey());
@@ -704,7 +715,9 @@ public class register extends AppCompatActivity {
                                     }
                                     else {
                                         progressDialog.dismiss();
-                                        Toast.makeText(register.this, "Failed to register.", Toast.LENGTH_SHORT).show();
+                                        Toast toast = Toast.makeText(register.this, "Failed to register.", Toast.LENGTH_SHORT);
+                                        toast.setGravity(Gravity.TOP, 0, 88);
+                                        toast.show();
                                     }
 
                                 }

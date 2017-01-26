@@ -1,5 +1,6 @@
 package com.example.capstone.redflow.admin;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -39,6 +40,8 @@ public class search_blood extends AppCompatActivity {
 
     ToolBox tools;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,10 @@ public class search_blood extends AppCompatActivity {
         vSearch = (EditText) findViewById(R.id.edittext_srchblood);
 
         tools = new ToolBox();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
     }
 
 
@@ -61,12 +68,19 @@ public class search_blood extends AppCompatActivity {
             sSearch = vSearch.getText().toString();
 
             if(sSearch.trim().equals("")) {
-                Toast.makeText(this, "Please enter a serial number.", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                Toast toast = Toast.makeText(this, "Please enter a serial number.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP, 0, 88);
+                toast.show();
             }
             else if(sSearch.length() != 13) {
-                Toast.makeText(this, "Invalid serial number.", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                Toast toast = Toast.makeText(this, "Invalid serial number.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP, 0, 88);
+                toast.show();
             }
             else {
+                progressDialog.dismiss();
                 Intent intent = new Intent(this, search_blood_profile.class);
                 intent.putExtra("serial_number", sSearch.toUpperCase());
                 startActivity(intent);
