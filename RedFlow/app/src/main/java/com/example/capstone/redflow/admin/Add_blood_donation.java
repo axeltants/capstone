@@ -99,6 +99,10 @@ public class Add_blood_donation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_blood_donation);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("please wait...");
+        progressDialog.show();
+
         blood_type = getIntent().getStringExtra("blood_type");
         userID = getIntent().getStringExtra("userID");
         fullname = getIntent().getStringExtra("fullname");
@@ -172,6 +176,11 @@ public class Add_blood_donation extends AppCompatActivity {
 
         if(sSerial.trim().equals("") ) {
             Toast toast = Toast.makeText(this, "Please input the serial number of the bag.", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.TOP, 0, 88);
+            toast.show();
+            progressDialog.dismiss();
+        }else if(sSerial.length() < 13){
+            Toast toast = Toast.makeText(this, "The serial number is Invalid.", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP, 0, 88);
             toast.show();
             progressDialog.dismiss();
@@ -372,12 +381,29 @@ public class Add_blood_donation extends AppCompatActivity {
                 urlConnection.connect();
                 if (urlConnection.getResponseCode() == 204 &&
                         urlConnection.getContentLength() == 0) {
-                    Log.d("Network Checker", "Successfully connected to com.example.capstone.redflow.internet");
+                    Log.d("Network Checker", "Successfully connected to internet");
+                    new Thread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                            progressDialog.dismiss();
+                        }
+
+                    }).start();
                     return true;
                 }
             } catch (IOException e) {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
-                progressDialog.dismiss();
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                                progressDialog.dismiss();
+                    }
+
+                }).start();
             }
         }
         final Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_add_blood_donation), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);

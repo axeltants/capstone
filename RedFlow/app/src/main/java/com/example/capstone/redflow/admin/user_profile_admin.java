@@ -1,14 +1,23 @@
 package com.example.capstone.redflow.admin;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +30,9 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Map;
 
 public class user_profile_admin extends AppCompatActivity {
@@ -118,6 +130,75 @@ public class user_profile_admin extends AppCompatActivity {
 
     public static user_profile_admin getInstance() {
         return userProf;
+    }
+
+    public  boolean isInternetAvailable(){
+        if(test()){
+            try {
+                HttpURLConnection urlConnection = (HttpURLConnection)
+                        (new URL("https://clients3.google.com/generate_204")
+                                .openConnection());
+                urlConnection.setRequestProperty("User-Agent", "Android");
+                urlConnection.setRequestProperty("Connection", "close");
+                urlConnection.setConnectTimeout(1500);
+                urlConnection.connect();
+                if (urlConnection.getResponseCode() == 204 &&
+                        urlConnection.getContentLength() == 0) {
+                    Log.d("Network Checker", "Successfully connected to com.example.capstone.redflow.internet");
+                    return true;
+                }
+            } catch (IOException e) {
+                Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
+            }
+        }
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_user_profile_admin), "Poor internet connection. To continue using RedFlow, please internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        View v = snackBar.getView();
+        TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setMaxLines(5);
+        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)v.getLayoutParams();
+        params.gravity = Gravity.CENTER;
+        v.setLayoutParams(params);
+        snackBar.setAction("Dismiss", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackBar.dismiss();
+            }
+        });
+        snackBar.show();
+        return false;
+    }
+
+    public boolean test(){
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+    private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                    isInternetAvailable();
+                    progressDialog.dismiss();
+                }
+            }).start();
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    public void onPause() {
+        unregisterReceiver(networkStateReceiver);
+        super.onPause();
     }
 
 

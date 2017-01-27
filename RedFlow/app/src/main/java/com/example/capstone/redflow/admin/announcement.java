@@ -261,7 +261,15 @@ public class announcement extends AppCompatActivity {
                 }
             } catch (IOException e) {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
-                progressDialog.dismiss();
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                        progressDialog.dismiss();
+                    }
+
+                }).start();
             }
         }
         final Snackbar snackBar = Snackbar.make(findViewById(R.id.announcement), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);

@@ -57,23 +57,37 @@ public class search_user extends AppCompatActivity {
     }
 
     public void search(View view) {
-        if(isInternetAvailable()){
+        new Thread(new Runnable() {
 
-            sSearch = vSearch.getText().toString();
+            @Override
+            public void run() {
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
 
-            if(sSearch.trim().equals("")) {
-                Toast toast = Toast.makeText(this, "Please enter a name.", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP, 0, 88);
-                toast.show();
+                if(isInternetAvailable()){
+
+                    sSearch = vSearch.getText().toString();
+
+                    if(sSearch.trim().equals("")) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast toast = Toast.makeText(search_user.this, "Please enter a name.", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP, 0, 88);
+                                toast.show();
+                            }
+                        });
+                    }
+                    else {
+                        Intent intent = new Intent(search_user.this, search_result.class);
+                        intent.putExtra("searchname", tools.nameFormatter(sSearch));
+                        startActivity(intent);
+                        finish();
+                    }
+
+                }
             }
-            else {
-                Intent intent = new Intent(this, search_result.class);
-                intent.putExtra("searchname", tools.nameFormatter(sSearch));
-                startActivity(intent);
-                this.finish();
-            }
 
-        }
+        }).start();
     }
 
     public  boolean isInternetAvailable(){
@@ -95,7 +109,7 @@ public class search_user extends AppCompatActivity {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
             }
         }
-        final Snackbar snackBar = Snackbar.make(findViewById(R.id.search_user), "Poor com.example.capstone.redflow.internet connection. To continue using RedFlow, please check your com.example.capstone.redflow.internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.search_user), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
         View v = snackBar.getView();
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);

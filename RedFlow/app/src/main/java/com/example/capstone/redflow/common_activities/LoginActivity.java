@@ -319,14 +319,10 @@ public class LoginActivity extends AppCompatActivity {
     private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            final Context ctx = context;
 
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-                    ConnectivityManager manager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-                    NetworkInfo ni = manager.getActiveNetworkInfo();
                     isInternetAvailable();
                 }
             }).start();
