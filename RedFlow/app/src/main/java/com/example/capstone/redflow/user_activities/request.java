@@ -202,94 +202,92 @@ public class request extends AppCompatActivity {
     }
 
     public void onSubmitButton(View view) {
-        if(isInternetAvailable()){
+        progressDialog.setMessage("Requesting...");
+        progressDialog.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                if(isInternetAvailable()){
 
 
-            bloodtype = vBloodtype.getSelectedItem().toString();
-            location = vLocation.getSelectedItem().toString();
-            sBagqty = vBagqty.getText().toString();
+                    bloodtype = vBloodtype.getSelectedItem().toString();
+                    location = vLocation.getSelectedItem().toString();
+                    sBagqty = vBagqty.getText().toString();
 
-            progressDialog.setMessage("Requesting...");
-            progressDialog.show();
+                    sQuery = supplyRef.child(bloodtype).child("count");
+                    //First use of supplyListenerVE.
+                    supplyListenerVE = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            bloodcount = dataSnapshot.getValue(Integer.class);
+                            if(sBagqty.trim().equals("")) {
+                                progressDialog.dismiss();
+                                Toast toast = Toast.makeText(request.this, "Please enter quantity of blood bag needed.", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP, 0, 88);
+                                toast.show();
+                            }
+                            else {
+                                bagqty = Integer.parseInt(sBagqty);
 
-            sQuery = supplyRef.child(bloodtype).child("count");
-            //First use of supplyListenerVE.
-            supplyListenerVE = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    bloodcount = dataSnapshot.getValue(Integer.class);
-                    if(sBagqty.trim().equals("")) {
-                        progressDialog.dismiss();
-                        Toast toast = Toast.makeText(request.this, "Please enter quantity of blood bag needed.", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.TOP, 0, 88);
-                        toast.show();
-                    }
-                    else {
-                        bagqty = Integer.parseInt(sBagqty);
+                                historyRef = mRootRef.child("History").child(userID).push();
+                                historyRef.child("content").setValue("Requested " + bagqty + " " + bloodtype + " blood bag.");
+                                historyRef.child("date").setValue(date);
+                                historyRef.child("time").setValue(time);
+                                historyRef.child("datetime").setValue(datetime);
 
-                        historyRef = mRootRef.child("History").child(userID).push();
-                        historyRef.child("content").setValue("Requested " + bagqty + " " + bloodtype + " blood bag.");
-                        historyRef.child("date").setValue(date);
-                        historyRef.child("time").setValue(time);
-                        historyRef.child("datetime").setValue(datetime);
-
-                        messageDB = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nHelp us save this person's life.";
-                        message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nHelp us save this person's life.\n\nDon't reply.\n\n";
+                                messageDB = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nHelp us save this person's life.";
+                                message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nHelp us save this person's life.\n\nDon't reply.\n\n";
 
 
-                        if(bloodcount > bagqty) {
+                                if(bloodcount > bagqty) {
 
-                            sQuery.removeEventListener(supplyListenerVE);
-                            userquery.removeEventListener(userListenerVE);
-
-                            Intent intent = new Intent(request.this, proceed_to_RedCross.class);
-                            intent.putExtra("bloodtype", bloodtype);
-                            intent.putExtra("bloodcount", bloodcount);
-                            startActivity(intent);
-                            request.this.finish();
-                        }
-                        else {
-                            userquery = userRef.child(userID).child("contact");
-                            //Second use of userListenerVE;
-                            userListenerVE = new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    notify = mRootRef.child("Notify").child(bloodtype).child(dataSnapshot.getValue(String.class));
-                                    notify.child("priority").setValue(priority+1);
-                                    notify.child("qty").setValue(bagqty);
-                                    notify.child("userID").setValue(userID);
-                                    notify.child("email").setValue(mail);
-                                    mRootRef.child("Notify").child("count").setValue(priority+1);
-                                    userquery.removeEventListener(userListenerVE);
                                     sQuery.removeEventListener(supplyListenerVE);
-                                    new Thread(new Runnable() {
+                                    userquery.removeEventListener(userListenerVE);
 
+                                    Intent intent = new Intent(request.this, proceed_to_RedCross.class);
+                                    intent.putExtra("bloodtype", bloodtype);
+                                    intent.putExtra("bloodcount", bloodcount);
+                                    startActivity(intent);
+                                    request.this.finish();
+                                }
+                                else {
+                                    userquery = userRef.child(userID).child("contact");
+                                    //Second use of userListenerVE;
+                                    userListenerVE = new ValueEventListener() {
                                         @Override
-                                        public void run() {
-                                            android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            notify = mRootRef.child("Notify").child(bloodtype).child(dataSnapshot.getValue(String.class));
+                                            notify.child("priority").setValue(priority+1);
+                                            notify.child("qty").setValue(bagqty);
+                                            notify.child("userID").setValue(userID);
+                                            notify.child("email").setValue(mail);
+                                            mRootRef.child("Notify").child("count").setValue(priority+1);
+                                            userquery.removeEventListener(userListenerVE);
+                                            sQuery.removeEventListener(supplyListenerVE);
                                             sendSMSRequest();
                                         }
 
-                                    }).start();
-                                }
+                                        @Override
+                                        public void onCancelled(FirebaseError firebaseError) {
 
-                                @Override
-                                public void onCancelled(FirebaseError firebaseError) {
-
+                                        }
+                                    };
+                                    userquery.addValueEventListener(userListenerVE);
                                 }
-                            };
-                            userquery.addValueEventListener(userListenerVE);
+                            }
                         }
-                    }
+
+                        @Override
+                        public void onCancelled(FirebaseError firebaseError) {
+
+                        }
+                    };
+                    sQuery.addValueEventListener(supplyListenerVE);
                 }
 
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
-                }
-            };
-            sQuery.addValueEventListener(supplyListenerVE);
-        }
+            }
+        }).start();
     }
 
 
@@ -447,7 +445,7 @@ public class request extends AppCompatActivity {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
             }
         }
-        final Snackbar snackBar = Snackbar.make(findViewById(R.id.request), "Poor com.example.capstone.redflow.internet connection. To continue using RedFlow, please check your com.example.capstone.redflow.internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.request), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
         View v = snackBar.getView();
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);

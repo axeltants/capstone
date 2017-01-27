@@ -12,10 +12,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.common_activities.about;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -260,7 +259,6 @@ public class search_result extends AppCompatActivity {
     public static search_result getInstance() {
         return searchResult;
     }
-
 
     /*FOR ACTION BAR EVENTS*/
     @Override

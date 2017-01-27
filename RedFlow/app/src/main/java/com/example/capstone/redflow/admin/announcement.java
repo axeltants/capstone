@@ -159,7 +159,6 @@ public class announcement extends AppCompatActivity {
     }
 
     public void announce(View view) {
-        if(isInternetAvailable()){
 
             progressDialog = new ProgressDialog(this);
             progressDialog.setMessage("Sending...");
@@ -175,64 +174,74 @@ public class announcement extends AppCompatActivity {
                 toast.show();
             }
             else {
-                query = mRootRef.child("User").orderByChild("sms").equalTo("on");
-                listener = new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Map<String, String> map = dataSnapshot.getValue(Map.class);
+                new Thread(new Runnable() {
 
-                        notifRef = mRootRef.child("Notification").child(dataSnapshot.getKey()).push();
-                        notifRef.child("content").setValue(messageDB);
-                        notifRef.child("date").setValue(date);
-                        notifRef.child("time").setValue(time);
-                        notifRef.child("datetime").setValue(datetime);
-
-                        new SendRequest(map.get("contact"), message).execute();
-
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
-                    }
-                };
-                query.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        query.removeEventListener(listener);
-                    }
-
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
-                    }
-                });
-                query.addChildEventListener(listener);
-                push = new Thread() {
                     @Override
                     public void run() {
-                        sendMultiplePush();
-                    }
-                };
-                push.start();
-            }
+                        android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                        if(isInternetAvailable()){
 
-        }
+                            query = mRootRef.child("User").orderByChild("sms").equalTo("on");
+                            listener = new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                    Map<String, String> map = dataSnapshot.getValue(Map.class);
+
+                                    notifRef = mRootRef.child("Notification").child(dataSnapshot.getKey()).push();
+                                    notifRef.child("content").setValue(messageDB);
+                                    notifRef.child("date").setValue(date);
+                                    notifRef.child("time").setValue(time);
+                                    notifRef.child("datetime").setValue(datetime);
+
+                                    new SendRequest(map.get("contact"), message).execute();
+
+                                }
+
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                }
+
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(FirebaseError firebaseError) {
+
+                                }
+                            };
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    query.removeEventListener(listener);
+                                }
+
+                                @Override
+                                public void onCancelled(FirebaseError firebaseError) {
+
+                                }
+                            });
+                            query.addChildEventListener(listener);
+                            push = new Thread() {
+                                @Override
+                                public void run() {
+                                    sendMultiplePush();
+                                }
+                            };
+                            push.start();
+
+                        }
+                    }
+
+                }).start();
+            }
     }
 
     public  boolean isInternetAvailable(){
@@ -252,9 +261,10 @@ public class announcement extends AppCompatActivity {
                 }
             } catch (IOException e) {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
+                progressDialog.dismiss();
             }
         }
-        final Snackbar snackBar = Snackbar.make(findViewById(R.id.announcement), "Poor com.example.capstone.redflow.internet connection. To continue using RedFlow, please check your com.example.capstone.redflow.internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.announcement), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
         View v = snackBar.getView();
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
@@ -281,14 +291,10 @@ public class announcement extends AppCompatActivity {
     private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            final Context ctx = context;
-
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-                    ConnectivityManager manager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-                    NetworkInfo ni = manager.getActiveNetworkInfo();
                     isInternetAvailable();
                 }
             }).start();

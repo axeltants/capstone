@@ -4,10 +4,6 @@ import android.app.Application;
 
 import com.firebase.client.Firebase;
 
-/**
- * Created by jp on 12/3/16.
- */
-
 public class RedFlow extends Application {
     @Override
     public void onCreate() {

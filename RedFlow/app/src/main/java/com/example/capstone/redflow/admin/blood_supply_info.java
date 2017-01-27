@@ -123,17 +123,9 @@ public class blood_supply_info extends AppCompatActivity {
         time = tools.getCurrentTime();
         datetime = tools.getDateTime();
 
-        if(isInternetAvailable()){
             progressDialog = new ProgressDialog(this);
             progressDialog.setMessage("Please wait...");
             progressDialog.show();
-        }else{
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Please wait...");
-            progressDialog.show();
-            progressDialog.dismiss();
-        }
-
 
 
         bloodtype.setText(blood_type);
@@ -201,117 +193,159 @@ public class blood_supply_info extends AppCompatActivity {
     }
 
     public void submit_bag(View view) {
-        if(isInternetAvailable()){
-            sBag_serial = vBag_serial.getText().toString();
-            duplicate = 0;
+        sBag_serial = vBag_serial.getText().toString();
+        duplicate = 0;
 
-            queryBlood = mRootRef.child("Blood").orderByChild("serial").equalTo(sBag_serial.toUpperCase());
-            queryBlood.addListenerForSingleValueEvent(new ValueEventListener() {
+        if(sBag_serial.trim().equals("") ) {
+            runOnUiThread(new Runnable() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    duplicate = dataSnapshot.getChildrenCount();
-                    queryBlood.removeEventListener(this);
-                    if(duplicate == 0) {
-                        Firebase blood = mRootRef.child("Blood").push();
-
-                        if (sBag_serial.trim().equals("")) {
-                            Toast.makeText(blood_supply_info.this, "Please enter a serial number.", Toast.LENGTH_SHORT).show();
-                        } else if (sBag_serial.length() != 13) {
-                            Toast.makeText(blood_supply_info.this, "Invalid serial number.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            if (mYear == 0) {
-                                mYear = year;
-                                mMonth = month;
-                                mDay = day;
-                            }
-
-                            date = (mYear * 10000) + ((mMonth + 1) * 100) + (mDay);
-
-                            blood.child("date").setValue(date);
-                            blood.child("bloodtype").setValue(blood_type);
-                            blood.child("serial").setValue(sBag_serial.toUpperCase());
-                            blood.child("userID").setValue("-K_2nAZ1ynR9ZF15HvVw");
-
-                            mRootRef.child("Supply").child(blood_type).child("count").setValue(count + 1);
-                            mRootRef.child("Supply").child(blood_type).child("recent").setValue(sBag_serial.toUpperCase());
-
-                            qnotify = notifyRef.child(blood_type).orderByChild("priority").limitToFirst(1);
-                            notifyListenerCE = new ChildEventListener() {
-                                @Override
-                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                    Map<String, String> map = dataSnapshot.getValue(Map.class);
-
-                                    contact = dataSnapshot.getKey();
-                                    messageDB = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.";
-                                    message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.\n\nDon't reply.\n\n";
-
-                                    mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
-
-                                    new SendRequest(contact, message).execute();
-
-                                    notifRef = mRootRef.child("Notification").child(map.get("userID")).push();
-                                    notifRef.child("content").setValue(messageDB);
-                                    notifRef.child("date").setValue(date);
-                                    notifRef.child("time").setValue(time);
-                                    notifRef.child("datetime").setValue(datetime);
-
-                                    email = map.get("email");
-
-                                    sendSinglePush();
-                                }
-
-                                @Override
-                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                }
-
-                                @Override
-                                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                                }
-
-                                @Override
-                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                }
-
-                                @Override
-                                public void onCancelled(FirebaseError firebaseError) {
-
-                                }
-                            };
-                            qnotify.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    finish();
-                                    Intent intent = new Intent(blood_supply_info.this, blood_supply_info.class);
-                                    intent.putExtra("blood_type", blood_type);
-                                    qnotify.removeEventListener(notifyListenerCE);
-                                    startActivity(intent);
-                                    blood_supply_info.this.finish();
-                                }
-
-                                @Override
-                                public void onCancelled(FirebaseError firebaseError) {
-
-                                }
-                            });
-                            qnotify.addChildEventListener(notifyListenerCE);
-                        }
-                    }
-                    else {
-                        Toast toast = Toast.makeText(blood_supply_info.this, "Serial number already exists.", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.TOP, 0, 88);
-                        toast.show();
-                    }
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
+                public void run() {
+                    Toast toast = Toast.makeText(blood_supply_info.this, "Please input the serial number of the bag.", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP, 0, 88);
+                    toast.show();
                 }
             });
+            progressDialog.dismiss();
+        }else{
+
+            new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                    if(isInternetAvailable()){
+                        queryBlood = mRootRef.child("Blood").orderByChild("serial").equalTo(sBag_serial.toUpperCase());
+                        queryBlood.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                duplicate = dataSnapshot.getChildrenCount();
+                                queryBlood.removeEventListener(this);
+                                if(duplicate == 0) {
+                                    Firebase blood = mRootRef.child("Blood").push();
+
+                                    if (sBag_serial.trim().equals("")) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast toast = Toast.makeText(blood_supply_info.this, "Please enter a serial number.", Toast.LENGTH_SHORT);
+                                                toast.setGravity(Gravity.TOP, 0, 88);
+                                                toast.show();
+                                            }
+                                        });
+                                    } else if (sBag_serial.length() != 13) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast toast = Toast.makeText(blood_supply_info.this, "Invalid serial number.", Toast.LENGTH_SHORT);
+                                                toast.setGravity(Gravity.TOP, 0, 88);
+                                                toast.show();
+                                            }
+                                        });
+                                    } else {
+                                        if (mYear == 0) {
+                                            mYear = year;
+                                            mMonth = month;
+                                            mDay = day;
+                                        }
+
+                                        date = (mYear * 10000) + ((mMonth + 1) * 100) + (mDay);
+
+                                        blood.child("date").setValue(date);
+                                        blood.child("bloodtype").setValue(blood_type);
+                                        blood.child("serial").setValue(sBag_serial.toUpperCase());
+                                        blood.child("userID").setValue("-K_2nAZ1ynR9ZF15HvVw");
+
+                                        mRootRef.child("Supply").child(blood_type).child("count").setValue(count + 1);
+                                        mRootRef.child("Supply").child(blood_type).child("recent").setValue(sBag_serial.toUpperCase());
+
+                                        qnotify = notifyRef.child(blood_type).orderByChild("priority").limitToFirst(1);
+                                        notifyListenerCE = new ChildEventListener() {
+                                            @Override
+                                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                                Map<String, String> map = dataSnapshot.getValue(Map.class);
+
+                                                contact = dataSnapshot.getKey();
+                                                messageDB = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.";
+                                                message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.\n\nDon't reply.\n\n";
+
+                                                mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
+
+                                                new SendRequest(contact, message).execute();
+
+                                                notifRef = mRootRef.child("Notification").child(map.get("userID")).push();
+                                                notifRef.child("content").setValue(messageDB);
+                                                notifRef.child("date").setValue(date);
+                                                notifRef.child("time").setValue(time);
+                                                notifRef.child("datetime").setValue(datetime);
+
+                                                email = map.get("email");
+
+                                                sendSinglePush();
+                                            }
+
+                                            @Override
+                                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                            }
+
+                                            @Override
+                                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                            }
+
+                                            @Override
+                                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(FirebaseError firebaseError) {
+
+                                            }
+                                        };
+                                        qnotify.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                finish();
+                                                Intent intent = new Intent(blood_supply_info.this, blood_supply_info.class);
+                                                intent.putExtra("blood_type", blood_type);
+                                                qnotify.removeEventListener(notifyListenerCE);
+                                                startActivity(intent);
+                                                blood_supply_info.this.finish();
+                                            }
+
+                                            @Override
+                                            public void onCancelled(FirebaseError firebaseError) {
+
+                                            }
+                                        });
+                                        qnotify.addChildEventListener(notifyListenerCE);
+                                    }
+                                }
+                                else {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast toast = Toast.makeText(blood_supply_info.this, "Serial number already exists.", Toast.LENGTH_SHORT);
+                                            toast.setGravity(Gravity.TOP, 0, 88);
+                                            toast.show();
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        });
+                    }
+                }
+
+            }).start();
+
         }
+
     }
 
 
@@ -365,13 +399,15 @@ public class blood_supply_info extends AppCompatActivity {
                 if (urlConnection.getResponseCode() == 204 &&
                         urlConnection.getContentLength() == 0) {
                     Log.d("Network Checker", "Successfully connected to com.example.capstone.redflow.internet");
+                    progressDialog.dismiss();
                     return true;
                 }
             } catch (IOException e) {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
+                progressDialog.dismiss();
             }
         }
-        final Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_blood_supply_info), "Poor com.example.capstone.redflow.internet connection. To continue using RedFlow, please check your com.example.capstone.redflow.internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_blood_supply_info), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
         View v = snackBar.getView();
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
@@ -388,7 +424,6 @@ public class blood_supply_info extends AppCompatActivity {
         return false;
     }
 
-
     public boolean test(){
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -396,12 +431,17 @@ public class blood_supply_info extends AppCompatActivity {
         return activeNetworkInfo != null;
     }
 
-    private BroadcastReceiver networkStateReceiver=new BroadcastReceiver() {
+    private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo ni = manager.getActiveNetworkInfo();
-            isInternetAvailable();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                    isInternetAvailable();
+                    progressDialog.dismiss();
+                }
+            }).start();
         }
     };
 
@@ -416,6 +456,8 @@ public class blood_supply_info extends AppCompatActivity {
         unregisterReceiver(networkStateReceiver);
         super.onPause();
     }
+
+
 
 
     /*FOR ACTION BAR EVENTS*/

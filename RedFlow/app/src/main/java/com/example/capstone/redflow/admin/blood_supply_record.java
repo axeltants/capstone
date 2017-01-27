@@ -104,7 +104,7 @@ public class blood_supply_record extends AppCompatActivity {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
             }
         }
-        final Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_blood_supply_record), "Poor com.example.capstone.redflow.internet connection. To continue using RedFlow, please check your com.example.capstone.redflow.internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_blood_supply_record), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
         View v = snackBar.getView();
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
@@ -131,14 +131,10 @@ public class blood_supply_record extends AppCompatActivity {
     private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            final Context ctx = context;
-
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-                    ConnectivityManager manager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-                    NetworkInfo ni = manager.getActiveNetworkInfo();
                     isInternetAvailable();
                 }
             }).start();
@@ -156,6 +152,8 @@ public class blood_supply_record extends AppCompatActivity {
         unregisterReceiver(networkStateReceiver);
         super.onPause();
     }
+
+
 
 
     /*FOR ACTION BAR EVENTS*/

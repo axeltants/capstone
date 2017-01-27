@@ -17,10 +17,6 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
-/**
- * Created by jp on 1/10/17.
- */
-
 public class SendRequest extends AsyncTask<String, Void, String> {
     private String contact;
     private String message;

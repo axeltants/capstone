@@ -1,15 +1,23 @@
 package com.example.capstone.redflow.admin;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +42,9 @@ import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -178,40 +189,51 @@ public class search_blood_profile extends AppCompatActivity {
                         progressDialog = new ProgressDialog(search_blood_profile.this);
                         progressDialog.setMessage("Please wait...");
                         progressDialog.show();
+                        new Thread(new Runnable() {
 
-                        if(status.equals("Unknown")) {
-                            Toast toast = Toast.makeText(search_blood_profile.this, bloodtype + " blood supply reduced by 1 bag.", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.TOP, 0, 88);
-                            toast.show();
-                        }
-                        else {
-                            messageDB = "Your blood has just been donated.\nThank you for saving a life.";
-                            message = "Your blood has just been donated.\nThank you for saving a life.\n\nDon't reply.\n\n";
-                            new SendRequest(contact, message).execute();
+                            @Override
+                            public void run() {
+                                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                                if(isInternetAvailable()){
 
-                            notifRef = mRootRef.child("Notification").child(userID).push();
-                            notifRef.child("content").setValue(messageDB);
-                            notifRef.child("date").setValue(date);
-                            notifRef.child("time").setValue(time);
-                            notifRef.child("datetime").setValue(datetime);
 
-                            historyRef = mRootRef.child("History").child(userID).push();
-                            historyRef.child("content").setValue("Someone has received your donated blood.");
-                            historyRef.child("date").setValue(date);
-                            historyRef.child("time").setValue(time);
-                            historyRef.child("datetime").setValue(datetime);
+                                    if(status.equals("Unknown")) {
+                                        Toast toast = Toast.makeText(search_blood_profile.this, bloodtype + " blood supply reduced by 1 bag.", Toast.LENGTH_SHORT);
+                                        toast.setGravity(Gravity.TOP, 0, 88);
+                                        toast.show();
+                                    }
+                                    else {
+                                        messageDB = "Your blood has just been donated.\nThank you for saving a life.";
+                                        message = "Your blood has just been donated.\nThank you for saving a life.\n\nDon't reply.\n\n";
+                                        new SendRequest(contact, message).execute();
 
-                            sendSinglePush();
-                        }
-                        mRootRef.child("Supply").child(bloodtype).child("count").setValue(bloodcount-1);
-                        mRootRef.child("Blood").child(bloodID).removeValue();
+                                        notifRef = mRootRef.child("Notification").child(userID).push();
+                                        notifRef.child("content").setValue(messageDB);
+                                        notifRef.child("date").setValue(date);
+                                        notifRef.child("time").setValue(time);
+                                        notifRef.child("datetime").setValue(datetime);
 
-                        progressDialog.dismiss();
+                                        historyRef = mRootRef.child("History").child(userID).push();
+                                        historyRef.child("content").setValue("Someone has received your donated blood.");
+                                        historyRef.child("date").setValue(date);
+                                        historyRef.child("time").setValue(time);
+                                        historyRef.child("datetime").setValue(datetime);
 
-                        Intent intent = new Intent(search_blood_profile.this, blood_supply_info.class);
-                        intent.putExtra("blood_type", bloodtype);
-                        startActivity(intent);
-                        search_blood_profile.this.finish();
+                                        sendSinglePush();
+                                    }
+                                    mRootRef.child("Supply").child(bloodtype).child("count").setValue(bloodcount-1);
+                                    mRootRef.child("Blood").child(bloodID).removeValue();
+
+                                    progressDialog.dismiss();
+
+                                    Intent intent = new Intent(search_blood_profile.this, blood_supply_info.class);
+                                    intent.putExtra("blood_type", bloodtype);
+                                    startActivity(intent);
+                                    search_blood_profile.this.finish();
+                                }
+                            }
+
+                        }).start();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -317,6 +339,76 @@ public class search_blood_profile extends AppCompatActivity {
     }
 
 
+
+    public  boolean isInternetAvailable(){
+        if(test()){
+            try {
+                HttpURLConnection urlConnection = (HttpURLConnection)
+                        (new URL("https://clients3.google.com/generate_204")
+                                .openConnection());
+                urlConnection.setRequestProperty("User-Agent", "Android");
+                urlConnection.setRequestProperty("Connection", "close");
+                urlConnection.setConnectTimeout(1500);
+                urlConnection.connect();
+                if (urlConnection.getResponseCode() == 204 &&
+                        urlConnection.getContentLength() == 0) {
+                    Log.d("Network Checker", "Successfully connected to com.example.capstone.redflow.internet");
+                    progressDialog.dismiss();
+                    return true;
+                }
+            } catch (IOException e) {
+                Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
+                progressDialog.dismiss();
+            }
+        }
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.search_blood_result), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        View v = snackBar.getView();
+        TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setMaxLines(5);
+        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)v.getLayoutParams();
+        params.gravity = Gravity.CENTER;
+        v.setLayoutParams(params);
+        snackBar.setAction("Dismiss", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackBar.dismiss();
+            }
+        });
+        snackBar.show();
+        return false;
+    }
+
+    public boolean test(){
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+    private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                    isInternetAvailable();
+                }
+            }).start();
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    public void onPause() {
+        unregisterReceiver(networkStateReceiver);
+        super.onPause();
+    }
 
 
     /*FOR ACTION BAR EVENTS*/

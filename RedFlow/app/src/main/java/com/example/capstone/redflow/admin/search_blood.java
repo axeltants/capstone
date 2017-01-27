@@ -64,29 +64,46 @@ public class search_blood extends AppCompatActivity {
     }
 
     public void search_blood(View view) {
-        if(isInternetAvailable()){
-            sSearch = vSearch.getText().toString();
+        new Thread(new Runnable() {
 
-            if(sSearch.trim().equals("")) {
-                progressDialog.dismiss();
-                Toast toast = Toast.makeText(this, "Please enter a serial number.", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP, 0, 88);
-                toast.show();
+            @Override
+            public void run() {
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                if(isInternetAvailable()){
+                    sSearch = vSearch.getText().toString();
+
+                    if(sSearch.trim().equals("")) {
+                        progressDialog.dismiss();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast toast = Toast.makeText(search_blood.this, "Please enter a serial number.", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP, 0, 88);
+                                toast.show();
+                            }
+                        });
+                    }
+                    else if(sSearch.length() != 13) {
+                        progressDialog.dismiss();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast toast = Toast.makeText(search_blood.this, "Invalid serial number.", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP, 0, 88);
+                                toast.show();
+                            }
+                        });
+                    }
+                    else {
+                        progressDialog.dismiss();
+                        Intent intent = new Intent(search_blood.this, search_blood_profile.class);
+                        intent.putExtra("serial_number", sSearch.toUpperCase());
+                        startActivity(intent);
+                    }
+                }
             }
-            else if(sSearch.length() != 13) {
-                progressDialog.dismiss();
-                Toast toast = Toast.makeText(this, "Invalid serial number.", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP, 0, 88);
-                toast.show();
-            }
-            else {
-                progressDialog.dismiss();
-                Intent intent = new Intent(this, search_blood_profile.class);
-                intent.putExtra("serial_number", sSearch.toUpperCase());
-                startActivity(intent);
-                this.finish();
-            }
-        }
+
+        }).start();
     }
 
     public  boolean isInternetAvailable(){
@@ -102,13 +119,15 @@ public class search_blood extends AppCompatActivity {
                 if (urlConnection.getResponseCode() == 204 &&
                         urlConnection.getContentLength() == 0) {
                     Log.d("Network Checker", "Successfully connected to com.example.capstone.redflow.internet");
+                    progressDialog.dismiss();
                     return true;
                 }
             } catch (IOException e) {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
+                progressDialog.dismiss();
             }
         }
-        final Snackbar snackBar = Snackbar.make(findViewById(R.id.search_blood), "Poor com.example.capstone.redflow.internet connection. To continue using RedFlow, please check your com.example.capstone.redflow.internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.search_blood), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
         View v = snackBar.getView();
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
@@ -135,14 +154,10 @@ public class search_blood extends AppCompatActivity {
     private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            final Context ctx = context;
-
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-                    ConnectivityManager manager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-                    NetworkInfo ni = manager.getActiveNetworkInfo();
                     isInternetAvailable();
                 }
             }).start();

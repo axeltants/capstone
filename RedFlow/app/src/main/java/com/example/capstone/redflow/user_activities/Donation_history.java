@@ -239,7 +239,6 @@ public class Donation_history extends AppCompatActivity {
     private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            final Context ctx = context;
 
             new Thread(new Runnable() {
                 @Override

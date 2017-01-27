@@ -10,10 +10,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * Created by jp on 12/3/16.
- */
-
 public class ToolBox {
 
     public int getIndex(Spinner spinner, String myString)
