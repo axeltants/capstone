@@ -247,14 +247,14 @@ public class announcement extends AppCompatActivity {
                 urlConnection.connect();
                 if (urlConnection.getResponseCode() == 204 &&
                         urlConnection.getContentLength() == 0) {
-                    Log.d("Network Checker", "Successfully connected to internet");
+                    Log.d("Network Checker", "Successfully connected to com.example.capstone.redflow.internet");
                     return true;
                 }
             } catch (IOException e) {
-                Log.e("Network Checker", "Error checking internet connection", e);
+                Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
             }
         }
-        final Snackbar snackBar = Snackbar.make(findViewById(R.id.announcement), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.announcement), "Poor com.example.capstone.redflow.internet connection. To continue using RedFlow, please check your com.example.capstone.redflow.internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
         View v = snackBar.getView();
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);

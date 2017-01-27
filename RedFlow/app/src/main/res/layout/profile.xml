@@ -65,7 +65,7 @@
                         android:layout_alignBottom="@+id/imgname"
                         android:layout_marginBottom="15dp"
                         android:layout_toEndOf="@+id/imgname"
-                        android:text="Brown, Joe L."
+                        android:text="Name."
                         android:textSize="18sp" />
 
                     <TextView
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/agelabel"
                         android:layout_toRightOf="@+id/agelabel"
-                        android:text=" 30"
+                        android:text="birth date"
                         android:textSize="18sp" />
 
                     <ImageView
@@ -103,7 +103,7 @@
                         android:layout_above="@+id/imgemail"
                         android:layout_marginBottom="15dp"
                         android:layout_toEndOf="@+id/imggender"
-                        android:text="Male"
+                        android:text="Gender"
                         android:textSize="18sp" />
 
                     <ImageView
@@ -121,7 +121,7 @@
                         android:layout_alignBottom="@+id/imgemail"
                         android:layout_marginBottom="13dp"
                         android:layout_toEndOf="@+id/imgemail"
-                        android:text=" joebrown@gmail.com"
+                        android:text=" email"
                         android:textSize="18sp" />
 
                     <TextView
@@ -141,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/nationalitylabel"
                         android:layout_toEndOf="@+id/nationalitylabel"
-                        android:text=" Filipino"
+                        android:text=" nationality"
                         android:textSize="18sp" />
 
                     <ImageView
@@ -160,7 +160,7 @@
                         android:layout_below="@+id/nationalitylabel"
                         android:layout_marginTop="30dp"
                         android:layout_toEndOf="@+id/imgaddress"
-                        android:text="Cebu, Mandaue, 6002"
+                        android:text="Address"
                         android:textSize="18sp" />
 
                     <ImageView
@@ -178,7 +178,7 @@
                         android:layout_alignBottom="@+id/imgcontact"
                         android:layout_marginBottom="15dp"
                         android:layout_toEndOf="@+id/imgcontact"
-                        android:text="0912 345 6579"
+                        android:text="contact number"
                         android:textSize="18sp" />
 
 
@@ -198,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@id/bloodlabel"
                         android:layout_toRightOf="@id/bloodlabel"
-                        android:text="O+"
+                        android:text=" blood type"
                         android:textSize="32sp" />
                     <TextView
                         android:layout_width="wrap_content"
