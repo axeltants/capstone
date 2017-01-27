@@ -53,6 +53,29 @@
                     android:layout_height="180dp"
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
+                    android:src="@drawable/dmmand"
+                    android:onClick="demmand"/>
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/province"
+                    android:onClick="province_stat"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/f3"
+                android:layout_below="@+id/f2"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/gender"
                     android:onClick="gender_stat"/>
                 <ImageButton
@@ -61,7 +84,8 @@
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
                     android:src="@drawable/province"
-                    android:onClick="province_stat"/>
+                    android:onClick="province_stat"
+                    android:visibility="invisible"/>
 
             </LinearLayout>
         </RelativeLayout>

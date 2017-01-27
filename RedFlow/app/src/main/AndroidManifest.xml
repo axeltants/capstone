@@ -110,6 +110,7 @@
         <activity android:name=".admin.statistics.bloodType_statistics" />
         <activity android:name=".admin.statistics.location_statistics" />
         <activity android:name=".notification_viewer.Blood_Type_Compat" />
+        <activity android:name=".admin.statistics.blood_demmand_statistics"></activity>
     </application>
 
 </manifest>

@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.admin.statistics.Age_statistics;
 import com.example.capstone.redflow.admin.statistics.bloodType_statistics;
+import com.example.capstone.redflow.admin.statistics.blood_demmand_statistics;
 import com.example.capstone.redflow.admin.statistics.gender_statistics;
 import com.example.capstone.redflow.admin.statistics.location_statistics;
 import com.example.capstone.redflow.common_activities.LoginActivity;
@@ -64,6 +65,11 @@ public class statistics_home extends AppCompatActivity {
 
     public void province_stat(View view) {
         Intent intent = new Intent(this, location_statistics.class);
+        startActivity(intent);
+    }
+
+    public void demmand(View view) {
+        Intent intent = new Intent(this, blood_demmand_statistics.class);
         startActivity(intent);
     }
 
