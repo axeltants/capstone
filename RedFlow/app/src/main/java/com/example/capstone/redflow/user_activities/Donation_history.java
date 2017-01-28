@@ -193,76 +193,6 @@ public class Donation_history extends AppCompatActivity {
     }
 
 
-    public  boolean isInternetAvailable(){
-        if(test()){
-            try {
-                HttpURLConnection urlConnection = (HttpURLConnection)
-                        (new URL("https://clients3.google.com/generate_204")
-                                .openConnection());
-                urlConnection.setRequestProperty("User-Agent", "Android");
-                urlConnection.setRequestProperty("Connection", "close");
-                urlConnection.setConnectTimeout(1500);
-                urlConnection.connect();
-                if (urlConnection.getResponseCode() == 204 &&
-                        urlConnection.getContentLength() == 0) {
-                    Log.d("Network Checker", "Successfully connected to com.example.capstone.redflow.internet");
-                    return true;
-                }
-            } catch (IOException e) {
-                Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
-            }
-        }
-        final Snackbar snackBar = Snackbar.make(findViewById(R.id.blooddonation_history), "Poor com.example.capstone.redflow.internet connection. To continue using RedFlow, please check your com.example.capstone.redflow.internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
-        View v = snackBar.getView();
-        TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setMaxLines(5);
-        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)v.getLayoutParams();
-        params.gravity = Gravity.CENTER;
-        v.setLayoutParams(params);
-        snackBar.setAction("Dismiss", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                snackBar.dismiss();
-            }
-        });
-        snackBar.show();
-        return false;
-    }
-
-    public boolean test(){
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null;
-    }
-
-    private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-                    isInternetAvailable();
-                    progressDialog.dismiss();
-                }
-            }).start();
-        }
-    };
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
-    }
-
-    @Override
-    public void onPause() {
-        unregisterReceiver(networkStateReceiver);
-        super.onPause();
-    }
-
     private class CustomAdapter extends ArrayAdapter<History> {
         public CustomAdapter() {
             super(Donation_history.this, R.layout.donation_history_list, history);
@@ -290,6 +220,76 @@ public class Donation_history extends AppCompatActivity {
     }
 
 
+    public  boolean isInternetAvailable(){
+        if(test()){
+            try {
+                HttpURLConnection urlConnection = (HttpURLConnection)
+                        (new URL("https://clients3.google.com/generate_204")
+                                .openConnection());
+                urlConnection.setRequestProperty("User-Agent", "Android");
+                urlConnection.setRequestProperty("Connection", "close");
+                urlConnection.setConnectTimeout(1500);
+                urlConnection.connect();
+                if (urlConnection.getResponseCode() == 204 &&
+                        urlConnection.getContentLength() == 0) {
+                    Log.d("Network Checker", "Successfully connected to com.example.capstone.redflow.internet");
+                    return true;
+                }
+            } catch (IOException e) {
+                Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
+            }
+        }
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.blooddonation_history), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        View v = snackBar.getView();
+        TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setMaxLines(5);
+        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)v.getLayoutParams();
+        params.gravity = Gravity.CENTER;
+        v.setLayoutParams(params);
+        snackBar.setAction("Dismiss", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackBar.dismiss();
+            }
+        });
+        snackBar.show();
+        return false;
+    }
+
+    public boolean test(){
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+    private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                    isInternetAvailable();
+                    progressDialog.dismiss();
+                }
+            }).start();
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    public void onPause() {
+        unregisterReceiver(networkStateReceiver);
+        super.onPause();
+    }
+
+
     /////////////////*FOR ACTION BAR EVENTS*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -310,12 +310,22 @@ public class Donation_history extends AppCompatActivity {
                 .setMessage("Do you really want to logout?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.clear();
-                        editor.commit();
-                        FirebaseAuth.getInstance().signOut();
-                        backtologin();
+                        new Thread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                if(isInternetAvailable()){
+                                    SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                                    editor.clear();
+                                    editor.commit();
+                                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                                    FirebaseAuth.getInstance().signOut();
+                                    backtologin();
+                                }
+                            }
+
+                        }).start();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

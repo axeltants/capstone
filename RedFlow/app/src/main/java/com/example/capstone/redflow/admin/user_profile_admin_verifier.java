@@ -66,7 +66,7 @@ public class user_profile_admin_verifier extends AppCompatActivity {
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Searching...");
+        progressDialog.setMessage("please wait...");
         progressDialog.show();
 
         vCompleteName = (TextView) findViewById(R.id.textview_CompleteName);
@@ -181,10 +181,12 @@ public class user_profile_admin_verifier extends AppCompatActivity {
                 if (urlConnection.getResponseCode() == 204 &&
                         urlConnection.getContentLength() == 0) {
                     Log.d("Network Checker", "Successfully connected to com.example.capstone.redflow.internet");
+                    progressDialog.dismiss();
                     return true;
                 }
             } catch (IOException e) {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
+                progressDialog.dismiss();
             }
         }
         final Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_user_profile_admin), "Poor internet connection. To continue using RedFlow, please internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
@@ -219,7 +221,6 @@ public class user_profile_admin_verifier extends AppCompatActivity {
                 public void run() {
                     android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
                     isInternetAvailable();
-                    progressDialog.dismiss();
                 }
             }).start();
         }

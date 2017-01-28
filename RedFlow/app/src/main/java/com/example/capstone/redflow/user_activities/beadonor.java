@@ -1,5 +1,6 @@
 package com.example.capstone.redflow.user_activities;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -45,6 +46,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class beadonor extends AppCompatActivity {
+    private ProgressDialog progressDialog;
 
     private String mail;
 
@@ -125,7 +127,7 @@ public class beadonor extends AppCompatActivity {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
             }
         }
-        final Snackbar snackBar = Snackbar.make(findViewById(R.id.beadonor), "Poor com.example.capstone.redflow.internet connection. To continue using RedFlow, please check your com.example.capstone.redflow.internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.beadonor), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
         View v = snackBar.getView();
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
@@ -152,7 +154,6 @@ public class beadonor extends AppCompatActivity {
     private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -177,6 +178,8 @@ public class beadonor extends AppCompatActivity {
 
 
 
+
+
     /////////////////////////////////*FOR ACTION BAR EVENTS*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -197,19 +200,20 @@ public class beadonor extends AppCompatActivity {
                 .setMessage("Do you really want to logout?")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
-                        editor.clear();
-                        editor.commit();
-                        new Thread(new Runnable() {
 
+                        new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-                                FirebaseAuth.getInstance().signOut();
-                                backtologin();
+                                if(isInternetAvailable()){
+                                    SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                                    editor.clear();
+                                    editor.commit();
+                                    android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                                    FirebaseAuth.getInstance().signOut();
+                                    backtologin();
+                                }
                             }
-
                         }).start();
                     }
                 })

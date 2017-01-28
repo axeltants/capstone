@@ -629,111 +629,154 @@ public class register extends AppCompatActivity {
     }
 
     public void recorduser(View view) {
-        if(isInternetAvailable()){
 
-            newUser = userRef.push();
+        new Thread(new Runnable() {
 
-            sFname = vFname.getText().toString();
-            sLname = vLname.getText().toString();
-            sMname = vMname.getText().toString();
-            sContact = vContact.getText().toString();
-            sNationality = vNationality.getText().toString();
-            sEmail = vEmail.getText().toString();
-            sPassword = vPassword.getText().toString();
-            sHome = vHome.getText().toString();
-            sProvince = vProvince.getSelectedItem().toString();
-            sZip = vZip.getText().toString();
-            sBday = vBday.getText().toString();
-            sGender = vGender.getSelectedItem().toString();
-            sBloodtype = vBloodtype.getSelectedItem().toString();
+            @Override
+            public void run() {
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
 
+                if(isInternetAvailable()){
 
-            if(sFname.trim().equals("") || sLname.trim().equals("") || sMname.trim().equals("") || sContact.trim().equals("") || sNationality.trim().equals("") || sEmail.trim().equals("") || sPassword.trim().equals("") || sHome.trim().equals("") || sProvince.trim().equals("") || sZip.trim().equals("") || sBday.trim().equals("") || sGender.trim().equals("") || sBloodtype.trim().equals("")) {
-                Toast toast = Toast.makeText(this, "Please fill out all fields.", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP, 0, 88);
-                toast.show();
-            }
-            else if(sContact.length() != 11) {
-                Toast toast = Toast.makeText(this, "Mobile number should be 11 digits long.", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP, 0, 88);
-                toast.show();
-            }
-            else if(sZip.length() != 4) {
-                Toast toast = Toast.makeText(this, "Zip number should be 4 digits long.", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP, 0, 88);
-                toast.show();
-            }
-            else {
-                query = userRef.orderByChild("email").equalTo(sEmail);
+                    newUser = userRef.push();
 
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.getValue() != null) {
-                            Toast toast = Toast.makeText(register.this, "Email already exists.", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.TOP, 0, 88);
-                            toast.show();
-                            query.removeEventListener(this);
-                        }
-                        else {
-                            progressDialog.setMessage("Registering user...");
-                            progressDialog.show();
-                            query.removeEventListener(this);
-                            mAuth.createUserWithEmailAndPassword(sEmail, tools.SHA1(sPassword)).addOnCompleteListener(register.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful()) {
-
-                                        newUser.child("birthday").setValue(mDay);
-                                        newUser.child("birthmonth").setValue(mMonth+1);
-                                        newUser.child("birthyear").setValue(mYear);
-                                        newUser.child("fname").setValue(tools.nameFormatter(sFname));
-                                        newUser.child("lname").setValue(tools.nameFormatter(sLname));
-                                        newUser.child("mname").setValue(tools.nameFormatter(sMname));
-                                        newUser.child("contact").setValue(sContact);
-                                        newUser.child("nationality").setValue(tools.nameFormatter(sNationality));
-                                        newUser.child("email").setValue(sEmail.toLowerCase());
-                                        newUser.child("home").setValue(sHome);
-                                        newUser.child("province").setValue(sProvince);
-                                        newUser.child("zip").setValue(sZip);
-                                        newUser.child("gender").setValue(sGender);
-                                        newUser.child("bloodtype").setValue(sBloodtype);
-                                        newUser.child("status").setValue("Unverified");
-                                        newUser.child("fullname").setValue(sFname.toLowerCase() + " " + sLname.toLowerCase());
-                                        newUser.child("sms").setValue("on");
-                                        newUser.child("request").setValue("on");
-
-                                        progressDialog.dismiss();
+                    sFname = vFname.getText().toString();
+                    sLname = vLname.getText().toString();
+                    sMname = vMname.getText().toString();
+                    sContact = vContact.getText().toString();
+                    sNationality = vNationality.getText().toString();
+                    sEmail = vEmail.getText().toString();
+                    sPassword = vPassword.getText().toString();
+                    sHome = vHome.getText().toString();
+                    sProvince = vProvince.getSelectedItem().toString();
+                    sZip = vZip.getText().toString();
+                    sBday = vBday.getText().toString();
+                    sGender = vGender.getSelectedItem().toString();
+                    sBloodtype = vBloodtype.getSelectedItem().toString();
 
 
-                                        Intent intent = new Intent(register.this, LoginActivity.class);
-                                        intent.putExtra("userID", newUser.getKey());
-                                        intent.putExtra("mail", sEmail.toLowerCase());
-                                        startActivity(intent);
-                                        register.this.finish();
+                    if(sFname.trim().equals("") || sLname.trim().equals("") || sMname.trim().equals("") || sContact.trim().equals("") || sNationality.trim().equals("") || sEmail.trim().equals("") || sPassword.trim().equals("") || sHome.trim().equals("") || sProvince.trim().equals("") || sZip.trim().equals("") || sBday.trim().equals("") || sGender.trim().equals("") || sBloodtype.trim().equals("")) {
 
-                                    }
-                                    else {
-                                        progressDialog.dismiss();
-                                        Toast toast = Toast.makeText(register.this, "Failed to register.", Toast.LENGTH_SHORT);
-                                        toast.setGravity(Gravity.TOP, 0, 88);
-                                        toast.show();
-                                    }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast toast = Toast.makeText(register.this, "Please fill out all fields.", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP, 0, 88);
+                                toast.show();
+                            }
+                        });
+                    }
+                    else if(sContact.length() != 11) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast toast = Toast.makeText(register.this, "Mobile number should be 11 digits long.", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP, 0, 88);
+                                toast.show();
+                            }
+                        });
 
+                    }
+                    else if(sZip.length() != 4) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast toast = Toast.makeText(register.this, "Zip number should be 4 digits long.", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP, 0, 88);
+                                toast.show();
+                            }
+                        });
+                    }
+                    else {
+                        query = userRef.orderByChild("email").equalTo(sEmail);
+
+                        query.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.getValue() != null) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast toast = Toast.makeText(register.this, "Email already exists.", Toast.LENGTH_SHORT);
+                                            toast.setGravity(Gravity.TOP, 0, 88);
+                                            toast.show();
+                                        }
+                                    });
+                                    query.removeEventListener(this);
                                 }
-                            });
-                        }
+                                else {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            progressDialog.setMessage("Registering user...");
+                                            progressDialog.show();
+                                        }
+                                    });
+                                    query.removeEventListener(this);
+                                    mAuth.createUserWithEmailAndPassword(sEmail, tools.SHA1(sPassword)).addOnCompleteListener(register.this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if(task.isSuccessful()) {
+
+                                                newUser.child("birthday").setValue(mDay);
+                                                newUser.child("birthmonth").setValue(mMonth+1);
+                                                newUser.child("birthyear").setValue(mYear);
+                                                newUser.child("fname").setValue(tools.nameFormatter(sFname));
+                                                newUser.child("lname").setValue(tools.nameFormatter(sLname));
+                                                newUser.child("mname").setValue(tools.nameFormatter(sMname));
+                                                newUser.child("contact").setValue(sContact);
+                                                newUser.child("nationality").setValue(tools.nameFormatter(sNationality));
+                                                newUser.child("email").setValue(sEmail.toLowerCase());
+                                                newUser.child("home").setValue(sHome);
+                                                newUser.child("province").setValue(sProvince);
+                                                newUser.child("zip").setValue(sZip);
+                                                newUser.child("gender").setValue(sGender);
+                                                newUser.child("bloodtype").setValue(sBloodtype);
+                                                newUser.child("status").setValue("Unverified");
+                                                newUser.child("fullname").setValue(sFname.toLowerCase() + " " + sLname.toLowerCase());
+                                                newUser.child("sms").setValue("on");
+                                                newUser.child("request").setValue("on");
+
+                                                progressDialog.dismiss();
+
+
+                                                Intent intent = new Intent(register.this, LoginActivity.class);
+                                                intent.putExtra("userID", newUser.getKey());
+                                                intent.putExtra("mail", sEmail.toLowerCase());
+                                                startActivity(intent);
+                                                register.this.finish();
+
+                                            }
+                                            else {
+                                                progressDialog.dismiss();
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast toast = Toast.makeText(register.this, "Failed to register.", Toast.LENGTH_SHORT);
+                                                        toast.setGravity(Gravity.TOP, 0, 88);
+                                                        toast.show();
+                                                    }
+                                                });
+                                            }
+
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        });
+
                     }
 
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
-                    }
-                });
+                }
 
             }
 
-        }
+        }).start();
     }
 
     public void login(View view) {
@@ -761,7 +804,7 @@ public class register extends AppCompatActivity {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
             }
         }
-        final Snackbar snackBar = Snackbar.make(findViewById(R.id.register), "Poor com.example.capstone.redflow.internet connection. To continue using RedFlow, please check your com.example.capstone.redflow.internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
+        final Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_login), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
         View v = snackBar.getView();
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
@@ -785,12 +828,16 @@ public class register extends AppCompatActivity {
         return activeNetworkInfo != null;
     }
 
-    private BroadcastReceiver networkStateReceiver=new BroadcastReceiver() {
+
+    private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo ni = manager.getActiveNetworkInfo();
-            isInternetAvailable();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    isInternetAvailable();
+                }
+            }).start();
         }
     };
 
