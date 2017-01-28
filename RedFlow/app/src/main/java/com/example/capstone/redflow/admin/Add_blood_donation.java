@@ -75,6 +75,8 @@ public class Add_blood_donation extends AppCompatActivity {
     private int bloodcount;
     private int date;
 
+    private long duplicate;
+
     private double time;
     private double datetime;
 
@@ -173,6 +175,8 @@ public class Add_blood_donation extends AppCompatActivity {
         progressDialog.setMessage("Sending...");
         progressDialog.show();
         sSerial = vSerial.getText().toString();
+
+        duplicate = 0;
 
         if(sSerial.trim().equals("") ) {
             Toast toast = Toast.makeText(this, "Please input the serial number of the bag.", Toast.LENGTH_SHORT);
