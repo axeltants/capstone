@@ -124,12 +124,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void signin(View view) {
 
-        if(isInternetAvailable()){
-
             sEmail = vEmail.getText().toString();
             sPassword = tools.SHA1(vPassword.getText().toString());
 
-            if(sEmail.trim().equals("") || sPassword.trim().equals("")) {
+        if(sEmail.trim().equals("") || sPassword.trim().equals("")) {
                 Toast toast = Toast.makeText(this, "Please fill out all fields.", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.TOP, 0, 88);
                 toast.show();
@@ -141,80 +139,95 @@ public class LoginActivity extends AppCompatActivity {
                 mAuth.signInWithEmailAndPassword(sEmail, sPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            progressDialog.dismiss();
-                            query = userRef.orderByChild("email").equalTo(sEmail.toLowerCase());
-                            query.addChildEventListener(new ChildEventListener() {
-                                @Override
-                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                    Map<String, String> map = dataSnapshot.getValue(Map.class);
-                                    userID = dataSnapshot.getKey().toString();
+                        final Task task2 = task;
+                        new Thread(new Runnable() {
 
-                                    if(map.get("status").equals("admin")) {
-                                        Intent i = new Intent(LoginActivity.this, admin_home.class);
-                                        i.putExtra("userID", userID);
-                                        query.removeEventListener(this);
-                                        startActivity(i);
-                                    }
-                                    else {
-                                        SharedPreferences.Editor editor = sharedpreferences.edit();
-
-                                        bloodType = map.get("bloodtype");
-                                        location = map.get("province");
-
-                                        new Thread(new Runnable() {
-
+                            @Override
+                            public void run() {
+                                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                                if(isInternetAvailable()){
+                                    if(task2.isSuccessful()) {
+                                        progressDialog.dismiss();
+                                        query = userRef.orderByChild("email").equalTo(sEmail.toLowerCase());
+                                        query.addChildEventListener(new ChildEventListener() {
                                             @Override
-                                            public void run() {
-                                                android.os.Process.setThreadPriority(Process. THREAD_PRIORITY_BACKGROUND);
-                                                sendTokenToServer();
+                                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                                Map<String, String> map = dataSnapshot.getValue(Map.class);
+                                                userID = dataSnapshot.getKey().toString();
+
+                                                if(map.get("status").equals("admin")) {
+                                                    Intent i = new Intent(LoginActivity.this, admin_home.class);
+                                                    i.putExtra("userID", userID);
+                                                    query.removeEventListener(this);
+                                                    startActivity(i);
+                                                }
+                                                else {
+                                                    SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                                                    bloodType = map.get("bloodtype");
+                                                    location = map.get("province");
+
+                                                    new Thread(new Runnable() {
+
+                                                        @Override
+                                                        public void run() {
+                                                            android.os.Process.setThreadPriority(Process. THREAD_PRIORITY_BACKGROUND);
+                                                            sendTokenToServer();
+                                                        }
+
+                                                    }).start();
+
+                                                    Intent i = new Intent(LoginActivity.this, home.class);
+                                                    editor.putString(Uid, userID);
+                                                    editor.putString(Email, sEmail);
+                                                    editor.apply();
+                                                    i.putExtra("mail", sEmail);
+                                                    i.putExtra("userID", userID);
+                                                    query.removeEventListener(this);
+                                                    startActivity(i);
+                                                    //Toast.makeText(LoginActivity.this, "Bloodtype: " + bloodType + "\n Location: " + location, Toast.LENGTH_LONG).show();
+                                                }
                                             }
 
-                                        }).start();
+                                            @Override
+                                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                                        Intent i = new Intent(LoginActivity.this, home.class);
-                                        editor.putString(Uid, userID);
-                                        editor.putString(Email, sEmail);
-                                        editor.apply();
-                                        i.putExtra("mail", sEmail);
-                                        i.putExtra("userID", userID);
-                                        query.removeEventListener(this);
-                                        startActivity(i);
-                                        //Toast.makeText(LoginActivity.this, "Bloodtype: " + bloodType + "\n Location: " + location, Toast.LENGTH_LONG).show();
+                                            }
+
+                                            @Override
+                                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                            }
+
+                                            @Override
+                                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(FirebaseError firebaseError) {
+
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                progressDialog.dismiss();
+                                                Toast toast = Toast.makeText(LoginActivity.this, "Wrong Email/Password.", Toast.LENGTH_SHORT);
+                                                toast.setGravity(Gravity.TOP, 0, 88);
+                                                toast.show();
+                                            }
+                                        });
                                     }
                                 }
+                            }
 
-                                @Override
-                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                }
-
-                                @Override
-                                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                                }
-
-                                @Override
-                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                }
-
-                                @Override
-                                public void onCancelled(FirebaseError firebaseError) {
-
-                                }
-                            });
-                        }
-                        else {
-                            progressDialog.dismiss();
-                            Toast toast = Toast.makeText(LoginActivity.this, "Wrong Email/Password.", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.TOP, 0, 88);
-                            toast.show();
-                        }
+                        }).start();
                     }
                 });
             }
-        }
     }
 
     public void register(View view) {
@@ -289,6 +302,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             } catch (IOException e) {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
+                progressDialog.dismiss();
             }
         }
         final Snackbar snackBar = Snackbar.make(findViewById(R.id.activity_login), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
