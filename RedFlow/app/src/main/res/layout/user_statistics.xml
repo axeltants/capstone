@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_blood_demmand_statistics"
+    android:id="@+id/user_statistics"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".admin.statistics.blood_demmand_statistics"
+    tools:context="com.example.capstone.redflow.admin.statistics.user_statistics"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Demand of Blood Statistics"
+        android:text="User Status Statistics"
         android:gravity="center"
         android:textSize="32sp"
         android:fontFamily="sans-serif-smallcaps"

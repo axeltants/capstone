@@ -26,6 +26,7 @@ import com.example.capstone.redflow.admin.statistics.bloodType_statistics;
 import com.example.capstone.redflow.admin.statistics.blood_demmand_statistics;
 import com.example.capstone.redflow.admin.statistics.gender_statistics;
 import com.example.capstone.redflow.admin.statistics.location_statistics;
+import com.example.capstone.redflow.admin.statistics.user_statistics;
 import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.common_activities.about;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,6 +71,11 @@ public class statistics_home extends AppCompatActivity {
 
     public void demmand(View view) {
         Intent intent = new Intent(this, blood_demmand_statistics.class);
+        startActivity(intent);
+    }
+
+    public void user_stat(View view) {
+        Intent intent = new Intent(this, user_statistics.class);
         startActivity(intent);
     }
 
@@ -144,7 +150,6 @@ public class statistics_home extends AppCompatActivity {
 
 
 
-
     /*FOR ACTION BAR EVENTS*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -185,5 +190,6 @@ public class statistics_home extends AppCompatActivity {
         Intent intent = new Intent(this, about.class);
         startActivity(intent);
     }
+
 /////////////////////////////////////////////////////
 }
