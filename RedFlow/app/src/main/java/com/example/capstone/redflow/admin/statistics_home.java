@@ -18,12 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.admin.statistics.Age_statistics;
 import com.example.capstone.redflow.admin.statistics.bloodType_statistics;
-import com.example.capstone.redflow.admin.statistics.blood_demmand_statistics;
+import com.example.capstone.redflow.admin.statistics.blood_demand_statistics;
 import com.example.capstone.redflow.admin.statistics.gender_statistics;
 import com.example.capstone.redflow.admin.statistics.location_statistics;
 import com.example.capstone.redflow.admin.statistics.user_statistics;
@@ -70,7 +69,7 @@ public class statistics_home extends AppCompatActivity {
     }
 
     public void demmand(View view) {
-        Intent intent = new Intent(this, blood_demmand_statistics.class);
+        Intent intent = new Intent(this, blood_demand_statistics.class);
         startActivity(intent);
     }
 

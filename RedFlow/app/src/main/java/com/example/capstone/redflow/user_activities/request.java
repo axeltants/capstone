@@ -64,7 +64,7 @@ public class request extends AppCompatActivity {
     private Firebase supplyRef;
     private Firebase notifyRef;
     private Firebase historyRef;
-    private  Firebase notifRef;
+    private Firebase notifRef;
 
     private ValueEventListener notifyListenerVE;
     private ValueEventListener userListenerVE;
@@ -77,6 +77,7 @@ public class request extends AppCompatActivity {
     private Query notifyquery;
     private Query quser;
     private Query userquery;
+    private Query demandQuery;
 
     private ProgressDialog progressDialog;
 
@@ -110,6 +111,8 @@ public class request extends AppCompatActivity {
 
     private double time;
     private double datetime;
+
+    private long demandctr;
 
     private String mail;
 
@@ -207,7 +210,7 @@ public class request extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
                 if(isInternetAvailable()){
 
 
@@ -235,6 +238,22 @@ public class request extends AppCompatActivity {
                                 historyRef.child("date").setValue(date);
                                 historyRef.child("time").setValue(time);
                                 historyRef.child("datetime").setValue(datetime);
+
+                                demandQuery = mRootRef.child("Demand").child(bloodtype);
+                                demandQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                        mRootRef.child("Demand").child(bloodtype).setValue(dataSnapshot.getValue(Long.class) + bagqty);
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(FirebaseError firebaseError) {
+
+                                    }
+                                });
+
 
                                 messageDB = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nHelp us save this person's life.";
                                 message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nHelp us save this person's life.\n\nDon't reply.\n\n";

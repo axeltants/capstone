@@ -213,12 +213,6 @@ public class search_blood_profile extends AppCompatActivity {
                                         notifRef.child("time").setValue(time);
                                         notifRef.child("datetime").setValue(datetime);
 
-                                        historyRef = mRootRef.child("History").child(userID).push();
-                                        historyRef.child("content").setValue("Someone has received your donated blood.");
-                                        historyRef.child("date").setValue(date);
-                                        historyRef.child("time").setValue(time);
-                                        historyRef.child("datetime").setValue(datetime);
-
                                         sendSinglePush();
                                     }
                                     mRootRef.child("Supply").child(bloodtype).child("count").setValue(bloodcount-1);

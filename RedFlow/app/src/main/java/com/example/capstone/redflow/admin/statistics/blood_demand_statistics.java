@@ -34,8 +34,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class user_statistics extends DemoBase implements OnChartValueSelectedListener {
-
+public class blood_demand_statistics extends DemoBase implements OnChartValueSelectedListener {
 
     private PieChart mChart;
 
@@ -43,9 +42,16 @@ public class user_statistics extends DemoBase implements OnChartValueSelectedLis
 
     private Firebase mRootRef;
     private Query query;
-    private ChildEventListener listener;
+    private ValueEventListener listener;
 
-    private int verified, unverified, unknown;
+    private int A;
+    private int B;
+    private int O;
+    private int AB;
+    private int nA;
+    private int nB;
+    private int nO;
+    private int nAB;
 
     ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
@@ -54,7 +60,7 @@ public class user_statistics extends DemoBase implements OnChartValueSelectedLis
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.user_statistics);
+        setContentView(R.layout.blood_demmand_statistics);
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
@@ -119,61 +125,58 @@ public class user_statistics extends DemoBase implements OnChartValueSelectedLis
 
         float mult = range;
 
-        unknown = 0;
-        verified = 0;
-        unverified = 0;
+        A = 0;
+        B = 0;
+        O = 0;
+        AB = 0;
+        nA = 0;
+        nB = 0;
+        nO = 0;
+        nAB = 0;
 
-        query = mRootRef.child("User").orderByChild("status");
-        listener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Map<String, String> map = dataSnapshot.getValue(Map.class);
-                switch(map.get("status").toLowerCase()) {
-                    case "verified":    verified++;
-                                        break;
-
-                    case "unverified":  unverified++;
-                                        break;
-
-                    default:    unknown++;
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        };
-
+        query = mRootRef.child("Demand");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(verified > 0) {
-                    entries.add(new PieEntry(verified, "Verified"));
+                Map<String, Integer> map = dataSnapshot.getValue(Map.class);
+
+                A = map.get("A+");
+                B = map.get("B+");
+                O = map.get("O+");
+                AB = map.get("AB+");
+                nA = map.get("A-");
+                nB = map.get("B-");
+                nO = map.get("O-");
+                nAB = map.get("AB-");
+
+                if(A > 0) {
+                    entries.add(new PieEntry(A, "Type A+"));
                 }
-                if(unverified > 0) {
-                    entries.add(new PieEntry(unverified, "Unverified"));
+                if(B > 0) {
+                    entries.add(new PieEntry(B, "Type B+"));
                 }
+                if(O > 0) {
+                    entries.add(new PieEntry(O, "Type O+"));
+                }
+                if(AB > 0) {
+                    entries.add(new PieEntry(AB, "Type AB+"));
+                }
+                if(nA > 0) {
+                    entries.add(new PieEntry(nA, "Type A-"));
+                }
+                if(nB > 0) {
+                    entries.add(new PieEntry(nB, "Type B-"));
+                }
+                if(nO > 0) {
+                    entries.add(new PieEntry(nO, "Type O-"));
+                }
+                if(nAB > 0) {
+                    entries.add(new PieEntry(nAB, "Type AB-"));
+                }
+
                 PieDataSet dataSet = new PieDataSet(entries, "Gender");
                 dataSet.setSliceSpace(3f);
                 dataSet.setSelectionShift(5f);
-
-                // add a lot of colors
 
                 ArrayList<Integer> colors = new ArrayList<Integer>();
 
@@ -204,8 +207,6 @@ public class user_statistics extends DemoBase implements OnChartValueSelectedLis
                 mChart.highlightValues(null);
 
                 mChart.invalidate();
-
-                query.removeEventListener(listener);
             }
 
             @Override
@@ -213,8 +214,6 @@ public class user_statistics extends DemoBase implements OnChartValueSelectedLis
 
             }
         });
-        query.addChildEventListener(listener);
-
     }
 
     private SpannableString generateCenterSpannableText() {
@@ -244,4 +243,3 @@ public class user_statistics extends DemoBase implements OnChartValueSelectedLis
         Log.i("PieChart", "nothing selected");
     }
 }
-
