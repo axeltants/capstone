@@ -96,10 +96,17 @@ public class ToolBox {
     }
 
     public double getCurrentTime() {
+
         Calendar c = Calendar.getInstance();
 
-        double time;
+        int day;
+        int time;
         int ampm;
+
+        String temp;
+
+        double datetime;
+
 
         ampm = c.get(Calendar.AM_PM);
 
@@ -112,9 +119,14 @@ public class ToolBox {
             time += 1200000;
         }
 
-        time = time * 0.0000001;
+        day = ampm;
+        datetime = day + (time * 0.0000001);
 
-        return time;
+        temp = String.format("%.7f", datetime);
+
+        datetime = Double.parseDouble(temp);
+
+        return datetime;
     }
 
     public double getDateTime() {
@@ -137,6 +149,10 @@ public class ToolBox {
                 (c.get(Calendar.MINUTE) * 1000) +
                 (c.get(Calendar.SECOND) * 10)   +
                 ampm;
+
+        if(c.get(Calendar.HOUR) < 1) {
+            time += 1200000;
+        }
 
         datetime = date + (time * 0.0000001);
 
