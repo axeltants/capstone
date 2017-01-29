@@ -68,7 +68,7 @@ public class zero_supply_request extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        sendFilteredPush();
                     }
                 }) {
             @Override
