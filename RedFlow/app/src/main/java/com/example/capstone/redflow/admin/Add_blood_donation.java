@@ -379,7 +379,7 @@ public class Add_blood_donation extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        sendSinglePush();
                     }
                 }) {
             @Override

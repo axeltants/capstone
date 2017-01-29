@@ -319,7 +319,7 @@ public class search_blood_profile extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        sendSinglePush();
                     }
                 }) {
             @Override
