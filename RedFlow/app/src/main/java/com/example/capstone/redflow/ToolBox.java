@@ -233,4 +233,20 @@ public class ToolBox {
         return result;
     }
 
+    public int isSerialValid(String serial){
+        int result;
+        String checkpoint1, checkpoint2;
+
+        checkpoint1 = Character.toString(serial.charAt(4));
+        checkpoint2 = Character.toString(serial.charAt(11));
+
+        if(checkpoint1.equals("-") && checkpoint2.equals("-") && serial.matches("[0-9, -]+") && serial.length() == 13) {
+            result = 1;
+        }
+        else {
+            result = 0;
+        }
+
+        return result;
+    }
 }

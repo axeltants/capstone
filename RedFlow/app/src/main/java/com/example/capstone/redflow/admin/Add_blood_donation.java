@@ -91,6 +91,7 @@ public class Add_blood_donation extends AppCompatActivity {
     private Firebase offsms;
 
     private Query qnotify;
+    private Query queryBlood;
 
     private ChildEventListener notifyListenerCE;
 
@@ -172,22 +173,22 @@ public class Add_blood_donation extends AppCompatActivity {
 
     public void add_donation_now(View view) {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Sending...");
+        progressDialog.setMessage("Please wait...");
         progressDialog.show();
         sSerial = vSerial.getText().toString();
 
         duplicate = 0;
 
         if(sSerial.trim().equals("") ) {
-            Toast toast = Toast.makeText(this, "Please input the serial number of the bag.", Toast.LENGTH_SHORT);
+            progressDialog.dismiss();
+            Toast toast = Toast.makeText(this, "Please enter a serial number.", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP, 0, 88);
             toast.show();
+        }else if(tools.isSerialValid(sSerial) == 0){
             progressDialog.dismiss();
-        }else if(sSerial.length() < 13){
-            Toast toast = Toast.makeText(this, "The serial number is Invalid.", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, "Invalid serial number.", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP, 0, 88);
             toast.show();
-            progressDialog.dismiss();
         }else{
 
             new AlertDialog.Builder(this)
@@ -203,95 +204,125 @@ public class Add_blood_donation extends AppCompatActivity {
                                     android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
                                     if(isInternetAvailable()){
 
-                                        Firebase blood = mRootRef.child("Blood").push();
-
-                                        getBloodCount();
-
-
-                                        if(mYear == 0) {
-                                            mYear = year;
-                                            mMonth = month;
-                                            mDay = day;
-                                        }
-
-                                        date = (mYear * 10000) + ((mMonth + 1) * 100) + (mDay);
-
-                                        blood.child("bloodtype").setValue(blood_type);
-                                        blood.child("serial").setValue(sSerial.toUpperCase());
-                                        blood.child("userID").setValue(userID);
-                                        blood.child("date").setValue(date);
-
-                                        Intent intent = new Intent(Add_blood_donation.this, blood_supply_info.class);
-                                        intent.putExtra("blood_type", blood_type);
-
-                                        mRootRef.child("Supply").child(blood_type).child("count").setValue(bloodcount+1);
-                                        mRootRef.child("Supply").child(blood_type).child("recent").setValue(sSerial.toUpperCase());
-
-                                        final Calendar c = Calendar.getInstance();
-                                        c.add(Calendar.DATE, 32);  // number of days to add
-                                        int newDate =   (c.get(Calendar.YEAR) * 10000) +
-                                                ((c.get(Calendar.MONTH) + 1) * 100) +
-                                                (c.get(Calendar.DAY_OF_MONTH));
-
-                                        offsms = mRootRef.child("OffSMS").push();
-                                        offsms.child("userID").setValue(userID);
-                                        offsms.child("duedate").setValue(newDate);
-
-                                        historyRef = mRootRef.child("History").child(userID).push();
-                                        historyRef.child("content").setValue("Donated blood.");
-                                        historyRef.child("date").setValue(date);
-                                        historyRef.child("time").setValue(time);
-                                        historyRef.child("datetime").setValue(datetime);
-
-                                        qnotify = mRootRef.child("Notify").child(blood_type).orderByChild("priority").limitToFirst(1);
-                                        notifyListenerCE = new ChildEventListener() {
-                                            @Override
-                                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                                Map<String, String> map = dataSnapshot.getValue(Map.class);
-
-                                                contact = dataSnapshot.getKey();
-                                                messageDB = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.";
-                                                message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.\n\nDon't reply.\n\n";
-
-                                                mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
-
-                                                new SendRequest(contact, message).execute();
-
-                                                notifRef = mRootRef.child("Notification").child(map.get("userID")).push();
-                                                notifRef.child("content").setValue(messageDB);
-                                                notifRef.child("date").setValue(date);
-                                                notifRef.child("time").setValue(time);
-                                                notifRef.child("datetime").setValue(datetime);
-
-                                                email = map.get("email");
-                                                sendSinglePush();
-                                            }
-
-                                            @Override
-                                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                            }
-
-                                            @Override
-                                            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                                            }
-
-                                            @Override
-                                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                            }
-
-                                            @Override
-                                            public void onCancelled(FirebaseError firebaseError) {
-
-                                            }
-                                        };
-                                        qnotify.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        queryBlood = mRootRef.child("Blood").orderByChild("serial").equalTo(sSerial.toUpperCase());
+                                        queryBlood.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                                qnotify.removeEventListener(notifyListenerCE);
-                                                progressDialog.dismiss();
+                                                duplicate = dataSnapshot.getChildrenCount();
+                                                if(duplicate == 0) {
+                                                    Firebase blood = mRootRef.child("Blood").push();
+
+                                                    getBloodCount();
+
+
+                                                    if(mYear == 0) {
+                                                        mYear = year;
+                                                        mMonth = month;
+                                                        mDay = day;
+                                                    }
+
+                                                    date = (mYear * 10000) + ((mMonth + 1) * 100) + (mDay);
+
+                                                    blood.child("bloodtype").setValue(blood_type);
+                                                    blood.child("serial").setValue(sSerial.toUpperCase());
+                                                    blood.child("userID").setValue(userID);
+                                                    blood.child("date").setValue(date);
+
+                                                    Intent intent = new Intent(Add_blood_donation.this, blood_supply_info.class);
+                                                    intent.putExtra("blood_type", blood_type);
+
+                                                    mRootRef.child("Supply").child(blood_type).child("count").setValue(bloodcount+1);
+                                                    mRootRef.child("Supply").child(blood_type).child("added").setValue(sSerial.toUpperCase());
+
+                                                    final Calendar c = Calendar.getInstance();
+                                                    c.add(Calendar.DATE, 32);  // number of days to add
+                                                    int newDate =   (c.get(Calendar.YEAR) * 10000) +
+                                                            ((c.get(Calendar.MONTH) + 1) * 100) +
+                                                            (c.get(Calendar.DAY_OF_MONTH));
+
+                                                    offsms = mRootRef.child("OffSMS").push();
+                                                    offsms.child("userID").setValue(userID);
+                                                    offsms.child("duedate").setValue(newDate);
+
+                                                    mRootRef.child("User").child(userID).child("request").setValue("off");
+
+                                                    historyRef = mRootRef.child("History").child(userID).push();
+                                                    historyRef.child("content").setValue("Donated blood.");
+                                                    historyRef.child("date").setValue(date);
+                                                    historyRef.child("time").setValue(time);
+                                                    historyRef.child("datetime").setValue(datetime);
+
+                                                    qnotify = mRootRef.child("Notify").child(blood_type).orderByChild("priority").limitToFirst(1);
+                                                    notifyListenerCE = new ChildEventListener() {
+                                                        @Override
+                                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                                            Map<String, String> map = dataSnapshot.getValue(Map.class);
+
+                                                            contact = dataSnapshot.getKey();
+                                                            messageDB = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.";
+                                                            message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.\n\nDon't reply.\n\n";
+
+                                                            mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
+
+                                                            new SendRequest(contact, message).execute();
+
+                                                            notifRef = mRootRef.child("Notification").child(map.get("userID")).push();
+                                                            notifRef.child("content").setValue(messageDB);
+                                                            notifRef.child("date").setValue(date);
+                                                            notifRef.child("time").setValue(time);
+                                                            notifRef.child("datetime").setValue(datetime);
+
+                                                            email = map.get("email");
+                                                            sendSinglePush();
+                                                        }
+
+                                                        @Override
+                                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(FirebaseError firebaseError) {
+
+                                                        }
+                                                    };
+                                                    qnotify.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                                            qnotify.removeEventListener(notifyListenerCE);
+                                                            progressDialog.dismiss();
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(FirebaseError firebaseError) {
+
+                                                        }
+                                                    });
+                                                    qnotify.addChildEventListener(notifyListenerCE);
+                                                    startActivity(intent);
+                                                    Add_blood_donation.this.finish();
+                                                    user_profile_admin.getInstance().finish();
+                                                }
+                                                else {
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast toast = Toast.makeText(Add_blood_donation.this, "Serial number already exists.", Toast.LENGTH_SHORT);
+                                                            toast.setGravity(Gravity.TOP, 0, 88);
+                                                            toast.show();
+                                                        }
+                                                    });
+                                                }
                                             }
 
                                             @Override
@@ -299,11 +330,6 @@ public class Add_blood_donation extends AppCompatActivity {
 
                                             }
                                         });
-                                        qnotify.addChildEventListener(notifyListenerCE);
-                                        startActivity(intent);
-                                        Add_blood_donation.this.finish();
-                                        user_profile_admin.getInstance().finish();
-
                                     }
                                 }
 

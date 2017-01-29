@@ -744,6 +744,9 @@ public class register extends AppCompatActivity {
                                                 intent.putExtra("userID", newUser.getKey());
                                                 intent.putExtra("mail", sEmail.toLowerCase());
                                                 startActivity(intent);
+                                                Toast toast = Toast.makeText(register.this, "Successfully registered.", Toast.LENGTH_SHORT);
+                                                toast.setGravity(Gravity.TOP, 0, 88);
+                                                toast.show();
                                                 register.this.finish();
 
                                             }

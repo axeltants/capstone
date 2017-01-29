@@ -222,6 +222,7 @@ public class search_blood_profile extends AppCompatActivity {
                                         sendSinglePush();
                                     }
                                     mRootRef.child("Supply").child(bloodtype).child("count").setValue(bloodcount-1);
+                                    mRootRef.child("Supply").child(bloodtype).child("removed").setValue(serial_number);
                                     mRootRef.child("Blood").child(bloodID).removeValue();
 
                                     progressDialog.dismiss();

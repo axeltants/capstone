@@ -83,7 +83,7 @@ public class search_blood extends AppCompatActivity {
                             }
                         });
                     }
-                    else if(sSearch.length() != 13) {
+                    else if(tools.isSerialValid(sSearch) == 0) {
                         progressDialog.dismiss();
                         runOnUiThread(new Runnable() {
                             @Override

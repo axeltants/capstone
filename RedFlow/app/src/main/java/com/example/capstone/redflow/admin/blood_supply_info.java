@@ -71,6 +71,7 @@ public class blood_supply_info extends AppCompatActivity {
     private TextView bloodtype;
     private TextView bag_quantity;
     private TextView recentlyAdded;
+    private TextView recentlyDonated;
     private EditText vBag_serial;
 
     private String message;
@@ -110,6 +111,7 @@ public class blood_supply_info extends AppCompatActivity {
         bloodtype = (TextView) findViewById(R.id.bloodtype);
         bag_quantity = (TextView) findViewById(R.id.bag_quantity);
         recentlyAdded = (TextView) findViewById(R.id.recently_added);
+        recentlyDonated = (TextView) findViewById(R.id.recently_donated);
         vBag_serial = (EditText) findViewById(R.id.bag_serial);
 
         dateView = (TextView) findViewById(R.id.edittext_date_donated);
@@ -123,10 +125,9 @@ public class blood_supply_info extends AppCompatActivity {
         time = tools.getCurrentTime();
         datetime = tools.getDateTime();
 
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Please wait...");
-            progressDialog.show();
-
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
 
         bloodtype.setText(blood_type);
         query = mRootRef.child("Supply").child(blood_type);
@@ -138,7 +139,8 @@ public class blood_supply_info extends AppCompatActivity {
 
                 count = map.get("count");
                 bag_quantity.setText("Available: " + count);
-                recentlyAdded.setText(map2.get("recent"));
+                recentlyAdded.setText(map2.get("added"));
+                recentlyDonated.setText(map2.get("removed"));
                 progressDialog.dismiss();
                 query.removeEventListener(this);
                 
@@ -196,6 +198,10 @@ public class blood_supply_info extends AppCompatActivity {
         sBag_serial = vBag_serial.getText().toString();
         duplicate = 0;
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
+
         if(sBag_serial.trim().equals("") ) {
             runOnUiThread(new Runnable() {
                 @Override
@@ -221,6 +227,8 @@ public class blood_supply_info extends AppCompatActivity {
                                 duplicate = dataSnapshot.getChildrenCount();
                                 queryBlood.removeEventListener(this);
                                 if(duplicate == 0) {
+                                    progressDialog.dismiss();
+
                                     Firebase blood = mRootRef.child("Blood").push();
 
                                     if (sBag_serial.trim().equals("")) {
@@ -232,7 +240,7 @@ public class blood_supply_info extends AppCompatActivity {
                                                 toast.show();
                                             }
                                         });
-                                    } else if (sBag_serial.length() != 13) {
+                                    } else if (tools.isSerialValid(sBag_serial) == 0) {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
@@ -256,7 +264,7 @@ public class blood_supply_info extends AppCompatActivity {
                                         blood.child("userID").setValue("-K_2nAZ1ynR9ZF15HvVw");
 
                                         mRootRef.child("Supply").child(blood_type).child("count").setValue(count + 1);
-                                        mRootRef.child("Supply").child(blood_type).child("recent").setValue(sBag_serial.toUpperCase());
+                                        mRootRef.child("Supply").child(blood_type).child("added").setValue(sBag_serial.toUpperCase());
 
                                         qnotify = notifyRef.child(blood_type).orderByChild("priority").limitToFirst(1);
                                         notifyListenerCE = new ChildEventListener() {
@@ -326,6 +334,7 @@ public class blood_supply_info extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
+                                            progressDialog.dismiss();
                                             Toast toast = Toast.makeText(blood_supply_info.this, "Serial number already exists.", Toast.LENGTH_SHORT);
                                             toast.setGravity(Gravity.TOP, 0, 88);
                                             toast.show();
