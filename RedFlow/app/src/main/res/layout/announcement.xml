@@ -26,45 +26,142 @@
             android:layout_marginTop="15dp"
             android:textColor="@color/colorAccent2"/>
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/container"
-            android:padding="16dp"
-            android:layout_below="@id/msstitle">
-            <EditText
-                android:id="@+id/edittext_message"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:theme="@style/EditTextHint"
-                android:background="@drawable/rectangle_textedit"
-                android:padding="16dp"
-                android:textSize="16sp"
-                android:hint="message here.."
-                android:textAlignment="center"
-                android:maxLength="300"/>
-            <TextView
-                android:id="@+id/textView_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"/>
+            android:paddingTop="70dp">
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent2"
-                android:layout_marginTop="15dp"
-                android:layout_below="@+id/edittext_message">
-                <Button
-                    android:id="@+id/rgister"
+                android:id="@+id/container"
+                android:padding="16dp"
+                android:layout_below="@id/msstitle">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:onClick="announce"
-                    android:text="Send"
-                    android:textColor="@color/logincolor" />
-            </FrameLayout>
-        </RelativeLayout>
+                    android:layout_marginBottom="30dp"
+                    android:orientation="vertical"
+                    android:id="@+id/cont"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Recepient"
+                            android:textColor="@color/colorAccent2"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="15dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="15dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Location:"
+                                android:textColor="@color/colorAccent2"
+                                android:textSize="16sp"
+                                android:textStyle="bold"/>
+
+                            <Spinner
+                                android:id="@+id/spinnr_province"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/locationannouncement"
+                                android:spinnerMode="dialog"
+                                android:textAlignment="center"
+                                android:background="@android:drawable/btn_dropdown"
+                                android:backgroundTint="@color/logincolor"
+                                android:paddingStart="45dp"
+                                android:layout_marginLeft="27dp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="15dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Blood Type:"
+                                android:textColor="@color/colorAccent2"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:layout_marginRight="8dp"/>
+
+                            <Spinner
+                                android:id="@+id/spinnr_bloodtype"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:drawable/btn_dropdown"
+                                android:backgroundTint="@color/logincolor"
+                                android:entries="@array/bloodtypeannounce"
+                                android:spinnerMode="dialog"
+                                android:textAlignment="center"
+                                android:paddingStart="45dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <EditText
+                    android:layout_below="@+id/cont"
+                    android:id="@+id/edittext_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:theme="@style/EditTextHint"
+                    android:background="@drawable/rectangle_textedit"
+                    android:padding="16dp"
+                    android:textSize="16sp"
+                    android:hint="message here.."
+                    android:textAlignment="center"
+                    android:maxLength="300"/>
+                <TextView
+                    android:id="@+id/textView_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_below="@id/cont"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent2"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/edittext_message">
+                    <Button
+                        android:id="@+id/rgister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:onClick="announce"
+                        android:text="Send"
+                        android:textColor="@color/logincolor" />
+                </FrameLayout>
+            </RelativeLayout>
+
+        </ScrollView>
+
 
     </RelativeLayout>
 

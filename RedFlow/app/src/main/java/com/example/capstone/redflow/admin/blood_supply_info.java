@@ -100,6 +100,7 @@ public class blood_supply_info extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.blood_supply_info);
+        getWindow().setBackgroundDrawableResource(R.drawable.bg);
 
         blood_type = getIntent().getStringExtra("blood_type");
 

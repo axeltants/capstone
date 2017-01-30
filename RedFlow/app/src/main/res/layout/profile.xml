@@ -50,7 +50,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="75dp">
+                    android:paddingLeft="75dp"
+                    android:id="@+id/cont">
 
                     <ImageView
                         android:id="@+id/imgname"
@@ -225,6 +226,14 @@
                         android:background="@color/switchh"/>
 
                 </RelativeLayout>
+               <Button
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="50dp"
+                   android:background="@color/colorPrimaryDark"
+                   android:text="edit profile"
+                   android:onClick="editprof"
+                   android:textColor="@color/colorAccent2"/>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

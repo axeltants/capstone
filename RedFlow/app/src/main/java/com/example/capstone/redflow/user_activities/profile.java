@@ -23,6 +23,7 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -166,6 +167,10 @@ public class profile extends AppCompatActivity {
     public static profile getinstance(){return prof;}
 
     public void switchhh(View view) {
+    }
+
+    public void editprof(View view) {
+        Toast.makeText(profile.this, "edit profile", Toast.LENGTH_LONG).show();
     }
 
 
