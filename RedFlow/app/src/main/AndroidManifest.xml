@@ -111,7 +111,8 @@
         <activity android:name=".admin.statistics.location_statistics" />
         <activity android:name=".notification_viewer.Blood_Type_Compat" />
         <activity android:name=".admin.statistics.blood_demand_statistics" />
-        <activity android:name=".admin.statistics.user_statistics"></activity>
+        <activity android:name=".admin.statistics.user_statistics" />
+        <activity android:name=".user_activities.EditProfile"></activity>
     </application>
 
 </manifest>
