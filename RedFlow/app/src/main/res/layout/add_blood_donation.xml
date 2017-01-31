@@ -85,7 +85,8 @@
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:theme="@style/EditTextHint" />
+        android:theme="@style/EditTextHint"
+        android:maxLength="13"/>
 
     <FrameLayout
         android:layout_width="match_parent"

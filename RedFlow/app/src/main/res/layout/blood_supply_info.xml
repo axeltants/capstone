@@ -110,7 +110,8 @@
                     android:layout_marginTop="35dp"
                     android:textAlignment="center"
                     android:id="@+id/bag_serial"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:maxLength="13"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
