@@ -87,6 +87,4 @@ public class zero_supply_request extends AppCompatActivity {
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
-
-
 }

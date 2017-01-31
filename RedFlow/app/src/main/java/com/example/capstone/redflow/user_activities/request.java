@@ -312,7 +312,7 @@ public class request extends AppCompatActivity {
 
     public void sendSMSRequest() {
 
-        query = userRef.orderByChild("bloodtype").equalTo(bloodtype);
+        query = userRef.orderByChild("bloodtype").equalTo(bloodtype).limitToFirst(250);
         //First use of userListenerCE;
         userListenerCE = new ChildEventListener() {
             @Override

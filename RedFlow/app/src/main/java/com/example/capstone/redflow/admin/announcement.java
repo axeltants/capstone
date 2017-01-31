@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +54,10 @@ public class announcement extends AppCompatActivity {
 
     private EditText editText;
     private TextView textView;
+    private Spinner vLocation;
+
     private List<String> devices;
+
     private ProgressDialog progressDialog;
 
     private Firebase mRootRef;
@@ -63,7 +67,7 @@ public class announcement extends AppCompatActivity {
 
     private String message;
     private String messageDB;
-    private String contact;
+    private String sLocation;
 
     private int date;
 
@@ -85,6 +89,7 @@ public class announcement extends AppCompatActivity {
 
         editText = (EditText) findViewById(R.id.edittext_message);
         textView = (TextView) findViewById(R.id.textView_count);
+        vLocation = (Spinner) findViewById(R.id.spinnr_province);
 
         tools = new ToolBox();
 
@@ -164,6 +169,7 @@ public class announcement extends AppCompatActivity {
             progressDialog.setMessage("Sending...");
             progressDialog.show();
 
+            sLocation = vLocation.getSelectedItem().toString();
             messageDB = editText.getText().toString();
             message = messageDB + "\n\nDon't reply.\n\n";
 
@@ -187,13 +193,15 @@ public class announcement extends AppCompatActivity {
                                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                                     Map<String, String> map = dataSnapshot.getValue(Map.class);
 
-                                    notifRef = mRootRef.child("Notification").child(dataSnapshot.getKey()).push();
-                                    notifRef.child("content").setValue(messageDB);
-                                    notifRef.child("date").setValue(date);
-                                    notifRef.child("time").setValue(time);
-                                    notifRef.child("datetime").setValue(datetime);
+                                    if(sLocation.equals(map.get("province")) || sLocation.equals("ALL")) {
+                                        notifRef = mRootRef.child("Notification").child(dataSnapshot.getKey()).push();
+                                        notifRef.child("content").setValue(messageDB);
+                                        notifRef.child("date").setValue(date);
+                                        notifRef.child("time").setValue(time);
+                                        notifRef.child("datetime").setValue(datetime);
 
-                                    new SendRequest(map.get("contact"), message).execute();
+                                        new SendRequest(map.get("contact"), message).execute();
+                                    }
 
                                 }
 
