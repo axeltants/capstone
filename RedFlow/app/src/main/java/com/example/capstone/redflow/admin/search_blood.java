@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -57,6 +60,42 @@ public class search_blood extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
+
+        vSearch.setRawInputType(Configuration.KEYBOARD_12KEY);
+        vSearch.addTextChangedListener(new TextWatcher() {
+
+            boolean hyphenExists;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (s.length() >= 4 && s.length() < 10 ) {
+                    hyphenExists = true;
+                    Log.d("TAG", "true" );
+                }else if(s.length() >= 11 ){
+                    hyphenExists = true;
+                } else {
+                    hyphenExists = false;
+                    Log.d("TAG", "false" );
+                }
+
+                Log.d("TAG", "beforeTextChanged " + s.toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                Log.d("TAG", "onTextChanged " + s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 4 || s.length() == 11) {
+                    if (!hyphenExists)
+                        s.append('-');
+                }
+                Log.d("TAG", "afterTextChanged " + s.toString());
+            }
+        });
     }
 
 

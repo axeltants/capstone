@@ -36,7 +36,8 @@
         android:hint="enter serial number..."
         android:theme="@style/EditTextHint"
         android:textAlignment="center"
-        android:id="@+id/edittext_srchblood"/>
+        android:id="@+id/edittext_srchblood"
+        android:maxLength="13"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
