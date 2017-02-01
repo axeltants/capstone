@@ -31,10 +31,14 @@ import java.net.URL;
 
 public class search_menu extends AppCompatActivity {
 
+    private String turf;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_menu);
+
+        turf = getIntent().getStringExtra("turf");
     }
 
     @Override
@@ -45,11 +49,13 @@ public class search_menu extends AppCompatActivity {
 
     public void searchuser(View view) {
         Intent intent = new Intent(this, search_user.class);
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 
     public void searchbloodsupply(View view) {
         Intent intent = new Intent(this, search_blood.class);
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 

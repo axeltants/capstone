@@ -34,11 +34,12 @@ import java.net.URL;
 
 public class search_blood extends AppCompatActivity {
 
-    EditText vSearch;
+    private EditText vSearch;
 
-    String sSearch;
+    private String sSearch;
+    private String turf;
 
-    ToolBox tools;
+    private ToolBox tools;
 
     private ProgressDialog progressDialog;
 
@@ -46,6 +47,8 @@ public class search_blood extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_blood);
+
+        turf = getIntent().getStringExtra("turf");
 
         vSearch = (EditText) findViewById(R.id.edittext_srchblood);
 
@@ -98,6 +101,7 @@ public class search_blood extends AppCompatActivity {
                         progressDialog.dismiss();
                         Intent intent = new Intent(search_blood.this, search_blood_profile.class);
                         intent.putExtra("serial_number", sSearch.toUpperCase());
+                        intent.putExtra("turf", turf);
                         startActivity(intent);
                     }
                 }

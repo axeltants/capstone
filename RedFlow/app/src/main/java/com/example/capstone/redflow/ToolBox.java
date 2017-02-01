@@ -251,12 +251,12 @@ public class ToolBox {
 
     public int isSerialValid(String serial){
         int result;
-        String checkpoint1, checkpoint2;
+        String checkpoint1, checkpoint2, checkpoint3;
 
         checkpoint1 = Character.toString(serial.charAt(4));
         checkpoint2 = Character.toString(serial.charAt(11));
-
-        if(checkpoint1.equals("-") && checkpoint2.equals("-") && serial.matches("[0-9, -]+") && serial.length() == 13) {
+        checkpoint3 = serial.substring(0, 4) + serial.substring(5, 11);
+        if(checkpoint1.equals("-") && checkpoint2.equals("-") && checkpoint3.matches("[0-9]+") && serial.length() == 13) {
             result = 1;
         }
         else {

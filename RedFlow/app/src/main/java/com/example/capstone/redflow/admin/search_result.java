@@ -32,6 +32,7 @@ public class search_result extends AppCompatActivity {
     private static search_result searchResult;
 
     private String searchname;
+    private String turf;
 
     private Firebase mRootRef;
 
@@ -58,6 +59,7 @@ public class search_result extends AppCompatActivity {
 
         searchResult = this;
 
+        turf = getIntent().getStringExtra("turf");
         searchname = getIntent().getStringExtra("searchname");
 
         result_list = new ArrayList<String>();
@@ -243,6 +245,7 @@ public class search_result extends AppCompatActivity {
                 else {
                     Intent i = new Intent(search_result.this, user_profile_admin.class);
                     i.putExtra("userID", userIDs.get(position));
+                    i.putExtra("turf", turf);
                     startActivity(i);
                 }
 

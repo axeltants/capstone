@@ -42,6 +42,7 @@ public class user_profile_admin extends AppCompatActivity {
     private String userID;
     private String bloodtype;
     private String fullname;
+    private String turf;
 
     private Firebase mRootRef;
 
@@ -64,6 +65,7 @@ public class user_profile_admin extends AppCompatActivity {
         setContentView(R.layout.user_profile_admin);
 
         userID = getIntent().getStringExtra("userID");
+        turf = getIntent().getStringExtra("turf");
 
         userProf = this;
 
@@ -125,6 +127,7 @@ public class user_profile_admin extends AppCompatActivity {
         intent.putExtra("userID", userID);
         intent.putExtra("fullname", fullname);
         intent.putExtra("mail", mail);
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 

@@ -30,57 +30,69 @@ import java.net.URL;
 
 public class blood_supply_record extends AppCompatActivity {
 
+    private String turf;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.blood_supply_record);
+
+        turf = getIntent().getStringExtra("turf");
     }
 
     public void oplus(View view) {
         Intent intent = new Intent(this, blood_supply_info.class);
         intent.putExtra("blood_type", "O+");
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 
     public void ominus(View view) {
         Intent intent = new Intent(this, blood_supply_info.class);
         intent.putExtra("blood_type", "O-");
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 
     public void aplus(View view) {
         Intent intent = new Intent(this, blood_supply_info.class);
         intent.putExtra("blood_type", "A+");
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 
     public void aminus(View view) {
         Intent intent = new Intent(this, blood_supply_info.class);
         intent.putExtra("blood_type", "A-");
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 
     public void bplus(View view) {
         Intent intent = new Intent(this, blood_supply_info.class);
         intent.putExtra("blood_type", "B+");
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 
     public void bminus(View view) {
         Intent intent = new Intent(this, blood_supply_info.class);
         intent.putExtra("blood_type", "B-");
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 
     public void abplus(View view) {
         Intent intent = new Intent(this, blood_supply_info.class);
         intent.putExtra("blood_type", "AB+");
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 
     public void abminus(View view) {
         Intent intent = new Intent(this, blood_supply_info.class);
         intent.putExtra("blood_type", "AB-");
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 

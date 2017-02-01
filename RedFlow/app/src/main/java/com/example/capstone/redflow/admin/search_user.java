@@ -33,16 +33,19 @@ import java.net.URL;
 
 public class search_user extends AppCompatActivity {
 
-    EditText vSearch;
+    private EditText vSearch;
 
-    String sSearch;
+    private String sSearch;
+    private String turf;
 
-    ToolBox tools;
+    private ToolBox tools;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_user);
+
+        turf = getIntent().getStringExtra("turf");
 
         vSearch = (EditText) findViewById(R.id.edittext_srchusr);
 
@@ -80,6 +83,7 @@ public class search_user extends AppCompatActivity {
                     else {
                         Intent intent = new Intent(search_user.this, search_result.class);
                         intent.putExtra("searchname", tools.nameFormatter(sSearch));
+                        intent.putExtra("turf", turf);
                         startActivity(intent);
                         finish();
                     }

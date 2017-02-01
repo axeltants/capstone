@@ -87,6 +87,7 @@ public class search_blood_profile extends AppCompatActivity {
     private TextView vBloodtype;
 
     private String mail;
+    private String turf;
 
     private ProgressDialog progressDialog;
 
@@ -97,7 +98,7 @@ public class search_blood_profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
 
-
+        turf = getIntent().getStringExtra("turf");
         serial_number = getIntent().getStringExtra("serial_number");
 
         tools = new ToolBox();
@@ -115,7 +116,7 @@ public class search_blood_profile extends AppCompatActivity {
         progressDialog.setMessage("Searching...");
         progressDialog.show();
 
-        query = bloodRef.orderByChild("serial").equalTo(serial_number);
+        query = bloodRef.child(turf).orderByChild("serial").equalTo(serial_number);
         bloodListenerCE = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -215,14 +216,15 @@ public class search_blood_profile extends AppCompatActivity {
 
                                         sendSinglePush();
                                     }
-                                    mRootRef.child("Supply").child(bloodtype).child("count").setValue(bloodcount-1);
-                                    mRootRef.child("Supply").child(bloodtype).child("removed").setValue(serial_number);
-                                    mRootRef.child("Blood").child(bloodID).removeValue();
+                                    mRootRef.child("Supply").child(turf).child(bloodtype).child("count").setValue(bloodcount-1);
+                                    mRootRef.child("Supply").child(turf).child(bloodtype).child("removed").setValue(serial_number);
+                                    mRootRef.child("Blood").child(turf).child(bloodID).removeValue();
 
                                     progressDialog.dismiss();
 
                                     Intent intent = new Intent(search_blood_profile.this, blood_supply_info.class);
                                     intent.putExtra("blood_type", bloodtype);
+                                    intent.putExtra("turf", turf);
                                     startActivity(intent);
                                     search_blood_profile.this.finish();
                                 }
@@ -279,7 +281,7 @@ public class search_blood_profile extends AppCompatActivity {
     public void getBloodCount() {
         final Query query;
 
-        query = supplyRef.child(bloodtype).child("count");
+        query = supplyRef.child(turf).child(bloodtype).child("count");
 
         query.addValueEventListener(new ValueEventListener() {
             @Override

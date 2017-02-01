@@ -77,6 +77,7 @@ public class blood_supply_info extends AppCompatActivity {
     private TextView recentlyDonated;
     private EditText vBag_serial;
 
+    private String turf;
     private String message;
     private String messageDB;
     private String contact;
@@ -105,6 +106,7 @@ public class blood_supply_info extends AppCompatActivity {
         setContentView(R.layout.blood_supply_info);
         getWindow().setBackgroundDrawableResource(R.drawable.bg);
 
+        turf = getIntent().getStringExtra("turf");
         blood_type = getIntent().getStringExtra("blood_type");
 
         tools = new ToolBox();
@@ -135,7 +137,7 @@ public class blood_supply_info extends AppCompatActivity {
         progressDialog.show();
 
         bloodtype.setText(blood_type);
-        query = mRootRef.child("Supply").child(blood_type);
+        query = mRootRef.child("Supply").child(turf).child(blood_type);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -269,7 +271,7 @@ public class blood_supply_info extends AppCompatActivity {
                                 if(duplicate == 0) {
                                     progressDialog.dismiss();
 
-                                    Firebase blood = mRootRef.child("Blood").push();
+                                    Firebase blood = mRootRef.child("Blood").child(turf).push();
 
                                     if (sBag_serial.trim().equals("")) {
                                         runOnUiThread(new Runnable() {
@@ -303,10 +305,10 @@ public class blood_supply_info extends AppCompatActivity {
                                         blood.child("serial").setValue(sBag_serial.toUpperCase());
                                         blood.child("userID").setValue("-K_2nAZ1ynR9ZF15HvVw");
 
-                                        mRootRef.child("Supply").child(blood_type).child("count").setValue(count + 1);
-                                        mRootRef.child("Supply").child(blood_type).child("added").setValue(sBag_serial.toUpperCase());
+                                        mRootRef.child("Supply").child(turf).child(blood_type).child("count").setValue(count + 1);
+                                        mRootRef.child("Supply").child(turf).child(blood_type).child("added").setValue(sBag_serial.toUpperCase());
 
-                                        qnotify = notifyRef.child(blood_type).orderByChild("priority").limitToFirst(1);
+                                        qnotify = notifyRef.child(turf).child(blood_type).orderByChild("datetime").limitToFirst(1);
                                         notifyListenerCE = new ChildEventListener() {
                                             @Override
                                             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -316,7 +318,7 @@ public class blood_supply_info extends AppCompatActivity {
                                                 messageDB = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.";
                                                 message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.\n\nDon't reply.\n\n";
 
-                                                mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
+                                                mRootRef.child("Notify").child(turf).child(blood_type).child(contact).removeValue();
 
                                                 new SendRequest(contact, message).execute();
 
@@ -357,6 +359,7 @@ public class blood_supply_info extends AppCompatActivity {
                                                 finish();
                                                 Intent intent = new Intent(blood_supply_info.this, blood_supply_info.class);
                                                 intent.putExtra("blood_type", blood_type);
+                                                intent.putExtra("turf", turf);
                                                 qnotify.removeEventListener(notifyListenerCE);
                                                 startActivity(intent);
                                                 blood_supply_info.this.finish();

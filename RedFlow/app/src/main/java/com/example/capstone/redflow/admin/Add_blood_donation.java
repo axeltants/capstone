@@ -88,6 +88,7 @@ public class Add_blood_donation extends AppCompatActivity {
 
     private String mail;
     private String email;
+    private String turf;
 
     private Firebase mRootRef;
     private Firebase historyRef;
@@ -115,6 +116,7 @@ public class Add_blood_donation extends AppCompatActivity {
         userID = getIntent().getStringExtra("userID");
         fullname = getIntent().getStringExtra("fullname");
         mail = getIntent().getStringExtra("mail");
+        turf = getIntent().getStringExtra("turf");
 
         vDateDonated = (EditText) findViewById(R.id.iedittext_date_donated);
         vSerial = (EditText) findViewById(R.id.eddittext_donation_serial);
@@ -246,13 +248,13 @@ public class Add_blood_donation extends AppCompatActivity {
                                     android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
                                     if(isInternetAvailable()){
 
-                                        queryBlood = mRootRef.child("Blood").orderByChild("serial").equalTo(sSerial.toUpperCase());
+                                        queryBlood = mRootRef.child("Blood").child(turf).orderByChild("serial").equalTo(sSerial.toUpperCase());
                                         queryBlood.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 duplicate = dataSnapshot.getChildrenCount();
                                                 if(duplicate == 0) {
-                                                    Firebase blood = mRootRef.child("Blood").push();
+                                                    Firebase blood = mRootRef.child("Blood").child(turf).push();
 
                                                     getBloodCount();
 
@@ -271,10 +273,11 @@ public class Add_blood_donation extends AppCompatActivity {
                                                     blood.child("date").setValue(date);
 
                                                     Intent intent = new Intent(Add_blood_donation.this, blood_supply_info.class);
+                                                    intent.putExtra("turf", turf);
                                                     intent.putExtra("blood_type", blood_type);
 
-                                                    mRootRef.child("Supply").child(blood_type).child("count").setValue(bloodcount+1);
-                                                    mRootRef.child("Supply").child(blood_type).child("added").setValue(sSerial.toUpperCase());
+                                                    mRootRef.child("Supply").child(turf).child(blood_type).child("count").setValue(bloodcount+1);
+                                                    mRootRef.child("Supply").child(turf).child(blood_type).child("added").setValue(sSerial.toUpperCase());
 
                                                     final Calendar c = Calendar.getInstance();
                                                     c.add(Calendar.DATE, 32);  // number of days to add
@@ -294,7 +297,7 @@ public class Add_blood_donation extends AppCompatActivity {
                                                     historyRef.child("time").setValue(time);
                                                     historyRef.child("datetime").setValue(datetime);
 
-                                                    qnotify = mRootRef.child("Notify").child(blood_type).orderByChild("priority").limitToFirst(1);
+                                                    qnotify = mRootRef.child("Notify").child(turf).child(blood_type).orderByChild("datetime").limitToFirst(1);
                                                     notifyListenerCE = new ChildEventListener() {
                                                         @Override
                                                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -304,7 +307,7 @@ public class Add_blood_donation extends AppCompatActivity {
                                                             messageDB = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.";
                                                             message = "Someone donated " + blood_type + " blood bag.\nNote: This is first come first serve.\n\nDon't reply.\n\n";
 
-                                                            mRootRef.child("Notify").child(blood_type).child(contact).removeValue();
+                                                            mRootRef.child("Notify").child(turf).child(blood_type).child(contact).removeValue();
 
                                                             new SendRequest(contact, message).execute();
 
@@ -391,7 +394,7 @@ public class Add_blood_donation extends AppCompatActivity {
     public void getBloodCount() {
         Query query;
 
-        query = mRootRef.child("Supply").child(blood_type).child("count");
+        query = mRootRef.child("Supply").child(turf).child(blood_type).child("count");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

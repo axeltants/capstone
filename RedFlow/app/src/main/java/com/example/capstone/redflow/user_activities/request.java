@@ -143,28 +143,12 @@ public class request extends AppCompatActivity {
         vLocation = (Spinner) findViewById(R.id.spinnr_location);
         vBagqty = (EditText) findViewById(R.id.edittext_bagqntty);
 
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Please wait...");
-            progressDialog.show();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
 
-/**************************************************************************************************/
 
-        notifyquery = notifyRef.child("count");
-        //First use of notifyListenerVE.
-        notifyListenerVE = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                priority = dataSnapshot.getValue(Long.class);
-                notifyquery.removeEventListener(notifyListenerVE);
-            }
 
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        };
-
-        notifyquery.addValueEventListener(notifyListenerVE);
 
 /**************************************************************************************************/
 
@@ -181,7 +165,7 @@ public class request extends AppCompatActivity {
                 vBloodtype.setSelection(tools.getIndex(vBloodtype, iBloodtype));
                 vLocation.setSelection(tools.getIndex(vLocation, iLocation));
 
-                    progressDialog.dismiss();
+                progressDialog.dismiss();
 
                 quser.removeEventListener(userListenerVE);
 
@@ -218,7 +202,7 @@ public class request extends AppCompatActivity {
                     location = vLocation.getSelectedItem().toString();
                     sBagqty = vBagqty.getText().toString();
 
-                    sQuery = supplyRef.child(bloodtype).child("count");
+                    sQuery = supplyRef.child(location).child(bloodtype).child("count");
                     //First use of supplyListenerVE.
                     supplyListenerVE = new ValueEventListener() {
                         @Override
@@ -276,12 +260,11 @@ public class request extends AppCompatActivity {
                                     userListenerVE = new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
-                                            notify = mRootRef.child("Notify").child(bloodtype).child(dataSnapshot.getValue(String.class));
-                                            notify.child("priority").setValue(priority+1);
+                                            notify = mRootRef.child("Notify").child(location).child(bloodtype).child(dataSnapshot.getValue(String.class));
+                                            notify.child("datetime").setValue(datetime);
                                             notify.child("qty").setValue(bagqty);
                                             notify.child("userID").setValue(userID);
                                             notify.child("email").setValue(mail);
-                                            mRootRef.child("Notify").child("count").setValue(priority+1);
                                             userquery.removeEventListener(userListenerVE);
                                             sQuery.removeEventListener(supplyListenerVE);
                                             sendSMSRequest();

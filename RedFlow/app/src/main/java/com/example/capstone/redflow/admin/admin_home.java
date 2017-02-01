@@ -34,6 +34,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class admin_home extends AppCompatActivity {
@@ -45,13 +46,17 @@ public class admin_home extends AppCompatActivity {
     private ChildEventListener listener;
 
     private int date;
+
     private String user;
+    private String turf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.admin_home);
+
+        turf = getIntent().getStringExtra("turf");
 
         tools = new ToolBox();
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
@@ -98,6 +103,7 @@ public class admin_home extends AppCompatActivity {
         };
 
         query.addChildEventListener(listener);
+
     }
 
     @Override
@@ -118,12 +124,14 @@ public class admin_home extends AppCompatActivity {
 
     public void blood_supply_records(View view) {
         Intent intent = new Intent(this,  blood_supply_record.class);
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 
 
     public void search(View view) {
         Intent intent = new Intent(this, search_menu.class);
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 
