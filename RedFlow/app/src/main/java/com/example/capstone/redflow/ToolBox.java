@@ -2,7 +2,7 @@ package com.example.capstone.redflow;
 
 import android.widget.Spinner;
 
-import com.example.capstone.redflow.user_activities.History;
+import com.example.capstone.redflow.History;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
