@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,8 @@ public class home extends AppCompatActivity {
     private Firebase mRootRef;
     private Query query;
 
+    private ImageButton notifbttn;
+
     SharedPreferences sharedpreferences;
 
     @Override
@@ -71,6 +74,8 @@ public class home extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         setContentView(com.example.capstone.redflow.R.layout.home);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        notifbttn = (ImageButton) findViewById(R.id.button_exclamation);
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
@@ -89,9 +94,11 @@ public class home extends AppCompatActivity {
 
                 if(status.equals("off")) {
 
-                    //change icon here.
+                    notifbttn.setImageResource(R.drawable.exclamation);
 
                     Toast.makeText(home.this, "You have unread messages.", Toast.LENGTH_SHORT).show(); //remove toast after.
+                }else{
+                    notifbttn.setImageResource(R.drawable.newnotif);
                 }
             }
 
