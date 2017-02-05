@@ -737,6 +737,8 @@ public class register extends AppCompatActivity {
                                                 newUser.child("sms").setValue("on");
                                                 newUser.child("request").setValue("on");
 
+                                                mRootRef.child("Unread").child(newUser.getKey()).setValue("off");
+
                                                 progressDialog.dismiss();
 
 
