@@ -47,6 +47,8 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.util.Calendar;
 
+import static java.lang.String.valueOf;
+
 public class register extends AppCompatActivity {
 
     private static register reg;
@@ -120,6 +122,8 @@ public class register extends AppCompatActivity {
     private TextView dateView;
     private int year, month, day;
 
+    private int agelimit;
+
     private int mDay, mMonth, mYear;
 
 
@@ -181,6 +185,7 @@ public class register extends AppCompatActivity {
         dateView = (TextView) findViewById(R.id.edittext_bday);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
+
 
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -616,6 +621,8 @@ public class register extends AppCompatActivity {
                     mDay = arg3;
 
                     showDate(arg1, arg2+1, arg3);
+//////////////////////////////////////////////////////////////////////////////////////////
+                    agelimit = year - arg1;
                 }
             };
 
@@ -682,6 +689,15 @@ public class register extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast toast = Toast.makeText(register.this, "Zip number should be 4 digits long.", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.TOP, 0, 88);
+                                toast.show();
+                            }
+                        });
+                    }else if(agelimit < 16){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast toast = Toast.makeText(register.this, "You must be at least 16 years old to use RedFlow.", Toast.LENGTH_SHORT);
                                 toast.setGravity(Gravity.TOP, 0, 88);
                                 toast.show();
                             }
