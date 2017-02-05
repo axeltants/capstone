@@ -96,7 +96,7 @@ public class home extends AppCompatActivity {
 
                     notifbttn.setImageResource(R.drawable.exclamation);
 
-                    Toast.makeText(home.this, "You have unread messages.", Toast.LENGTH_SHORT).show(); //remove toast after.
+                    Toast.makeText(home.this, "You have new notification.", Toast.LENGTH_SHORT).show(); //remove toast after.
                 }else{
                     notifbttn.setImageResource(R.drawable.newnotif);
                 }

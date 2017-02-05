@@ -280,7 +280,7 @@ public class Add_blood_donation extends AppCompatActivity {
                                                     mRootRef.child("Supply").child(turf).child(blood_type).child("added").setValue(sSerial.toUpperCase());
 
                                                     final Calendar c = Calendar.getInstance();
-                                                    c.add(Calendar.DATE, 32);  // number of days to add
+                                                    c.add(Calendar.DATE, 90);  // number of days to add
                                                     int newDate =   (c.get(Calendar.YEAR) * 10000) +
                                                             ((c.get(Calendar.MONTH) + 1) * 100) +
                                                             (c.get(Calendar.DAY_OF_MONTH));
