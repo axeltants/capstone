@@ -213,6 +213,7 @@ public class search_blood_profile extends AppCompatActivity {
                                         notifRef.child("date").setValue(date);
                                         notifRef.child("time").setValue(time);
                                         notifRef.child("datetime").setValue(datetime);
+                                        mRootRef.child("Unread").child(userID).setValue("on");
 
                                         sendSinglePush();
                                     }

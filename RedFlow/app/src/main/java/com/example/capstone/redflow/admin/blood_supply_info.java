@@ -327,6 +327,7 @@ public class blood_supply_info extends AppCompatActivity {
                                                 notifRef.child("date").setValue(date);
                                                 notifRef.child("time").setValue(time);
                                                 notifRef.child("datetime").setValue(datetime);
+                                                mRootRef.child("Unread").child(map.get("userID")).setValue("on");
 
                                                 email = map.get("email");
 

@@ -89,6 +89,8 @@ public class notification extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
 
+        mRootRef.child("Unread").child(userID).setValue("off");
+
         query = mRootRef.child("Notification").child(userID).orderByChild("datetime").limitToLast(10);
 
         listener = new ChildEventListener() {

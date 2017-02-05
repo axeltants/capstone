@@ -330,6 +330,7 @@ public class request extends AppCompatActivity {
                     notifRef.child("date").setValue(date);
                     notifRef.child("time").setValue(time);
                     notifRef.child("datetime").setValue(datetime);
+                    mRootRef.child("Unread").child(dataSnapshot.getKey()).setValue("on");
 
                     //mRootRef.child("User").child(user).child("request").setValue("off");
                 }

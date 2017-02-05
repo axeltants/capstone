@@ -199,6 +199,7 @@ public class announcement extends AppCompatActivity {
                                         notifRef.child("date").setValue(date);
                                         notifRef.child("time").setValue(time);
                                         notifRef.child("datetime").setValue(datetime);
+                                        mRootRef.child("Unread").child(dataSnapshot.getKey()).setValue("on");
 
                                         new SendRequest(map.get("contact"), message).execute();
                                     }

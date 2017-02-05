@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -32,7 +33,11 @@ import com.example.capstone.redflow.Firebasenotification.MyVolley;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.common_activities.about;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
@@ -51,8 +56,12 @@ public class home extends AppCompatActivity {
 
     private String userID;
     private String mail;
+    private String status;
     private ProgressDialog progressDialog;
     public static final String MyPREFERENCES = "MyPrefs" ;
+
+    private Firebase mRootRef;
+    private Query query;
 
     SharedPreferences sharedpreferences;
 
@@ -63,12 +72,34 @@ public class home extends AppCompatActivity {
         setContentView(com.example.capstone.redflow.R.layout.home);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
+        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+
         userID = sharedpreferences.getString(Uid, "");
         mail = sharedpreferences.getString(Email, "");
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
+
+        query = mRootRef.child("Unread").child(userID);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                status = dataSnapshot.getValue(String.class);
+
+                if(status.equals("off")) {
+
+                    //change icon here.
+
+                    Toast.makeText(home.this, "You have unread messages.", Toast.LENGTH_SHORT).show(); //remove toast after.
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
 
     }
 
