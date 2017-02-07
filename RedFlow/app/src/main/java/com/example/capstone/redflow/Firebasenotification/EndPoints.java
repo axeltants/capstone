@@ -11,4 +11,5 @@ public class EndPoints {
     public static final String URL_SEND_MULTIPLE_PUSH = "https://pushnotification.000webhostapp.com/sendMultiplePush.php";
     public static final String URL_SEND_FILTERED_PUSH = "https://pushnotification.000webhostapp.com/sendFilteredPush.php";
     public static final String URL_FETCH_DEVICES = "https://pushnotification.000webhostapp.com/GetRegisteredDevices.php";
+    public static final String URL_SEND_LOCATION_PUSH = "https://pushnotification.000webhostapp.com/sendLocationPush.php";
 }

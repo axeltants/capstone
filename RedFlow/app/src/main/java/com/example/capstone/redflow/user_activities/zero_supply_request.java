@@ -23,8 +23,9 @@ public class zero_supply_request extends AppCompatActivity {
     private String bloodtype;
     private String qtty;
     private TextView vBloodtype;
-    String message2;
+    private String message2;
     private ProgressDialog progressDialog;
+    private String location;
 
     String mail;
 
@@ -36,7 +37,7 @@ public class zero_supply_request extends AppCompatActivity {
         bloodtype = getIntent().getStringExtra("bloodtype");
         qtty = getIntent().getStringExtra("qtty");
         mail = getIntent().getStringExtra("mail");
-
+        location = getIntent().getStringExtra("location");
 
         vBloodtype = (TextView) findViewById(R.id.btype);
         vBloodtype.setText(bloodtype);
@@ -57,6 +58,7 @@ public class zero_supply_request extends AppCompatActivity {
         final String title = "RedFlow: Good Day!";
         final String message =  message2;
         final String image = null;
+        final String loc = location;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_FILTERED_PUSH,
                 new Response.Listener<String>() {
@@ -78,6 +80,7 @@ public class zero_supply_request extends AppCompatActivity {
                 params.put("message", message);
                 params.put("bloodType", bloodtype);
                 params.put("email", mail);
+                params.put("loc", location);
 
                 if (!TextUtils.isEmpty(image))
                     params.put("image", image);

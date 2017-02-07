@@ -148,8 +148,6 @@ public class request extends AppCompatActivity {
         progressDialog.show();
 
 
-
-
 /**************************************************************************************************/
 
         quser = userRef.child(userID);
@@ -189,13 +187,19 @@ public class request extends AppCompatActivity {
     }
 
     public void onSubmitButton(View view) {
-        progressDialog.setMessage("Requesting...");
-        progressDialog.show();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
-                if(isInternetAvailable()){
+                if (isInternetAvailable()) {
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.setMessage("Requesting...");
+                            progressDialog.show();
+                        }
+                    });
 
 
                     bloodtype = vBloodtype.getSelectedItem().toString();
@@ -208,13 +212,17 @@ public class request extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             bloodcount = dataSnapshot.getValue(Integer.class);
-                            if(sBagqty.trim().equals("")) {
+                            if (sBagqty.trim().equals("")) {
                                 progressDialog.dismiss();
-                                Toast toast = Toast.makeText(request.this, "Please enter quantity of blood bag needed.", Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.TOP, 0, 88);
-                                toast.show();
-                            }
-                            else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast toast = Toast.makeText(request.this, "Please enter quantity of blood bag needed.", Toast.LENGTH_SHORT);
+                                        toast.setGravity(Gravity.TOP, 0, 88);
+                                        toast.show();
+                                    }
+                                });
+                            } else {
                                 bagqty = Integer.parseInt(sBagqty);
 
                                 historyRef = mRootRef.child("History").child(userID).push();
@@ -243,7 +251,7 @@ public class request extends AppCompatActivity {
                                 message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nHelp us save this person's life.\n\nDon't reply.\n\n";
 
 
-                                if(bloodcount > bagqty) {
+                                if (bloodcount > bagqty) {
 
                                     sQuery.removeEventListener(supplyListenerVE);
                                     userquery.removeEventListener(userListenerVE);
@@ -253,8 +261,7 @@ public class request extends AppCompatActivity {
                                     intent.putExtra("bloodcount", bloodcount);
                                     startActivity(intent);
                                     request.this.finish();
-                                }
-                                else {
+                                } else {
                                     userquery = userRef.child(userID).child("contact");
                                     //Second use of userListenerVE;
                                     userListenerVE = new ValueEventListener() {
@@ -316,7 +323,7 @@ public class request extends AppCompatActivity {
 
                     final Calendar c = Calendar.getInstance();
                     c.add(Calendar.DATE, myDays);  // number of days to add
-                    int newDate =   (c.get(Calendar.YEAR) * 10000) +
+                    int newDate = (c.get(Calendar.YEAR) * 10000) +
                             ((c.get(Calendar.MONTH) + 1) * 100) +
                             (c.get(Calendar.DAY_OF_MONTH));
 
@@ -359,24 +366,25 @@ public class request extends AppCompatActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(bloodcount == 0) {
+                if (bloodcount == 0) {
                     progressDialog.dismiss();
                     Intent intent = new Intent(request.this, zero_supply_request.class);
                     intent.putExtra("bloodtype", bloodtype);
                     intent.putExtra("qtty", sBagqty);
                     intent.putExtra("mail", mail);
+                    intent.putExtra("location", location);
 
                     query.removeEventListener(userListenerCE);
 
                     startActivity(intent);
                     request.this.finish();
-                }
-                else {
+                } else {
                     Intent intent = new Intent(request.this, proceed_to_RedCross.class);
                     intent.putExtra("bloodtype", bloodtype);
                     intent.putExtra("qtty", bagqty);
                     intent.putExtra("bloodcount", bloodcount);
                     intent.putExtra("mail", mail);
+                    intent.putExtra("location", location);
 
                     query.removeEventListener(userListenerCE);
 
@@ -393,7 +401,6 @@ public class request extends AppCompatActivity {
         });
         query.addChildEventListener(userListenerCE);
     }
-
 
 
     private void DeleteToken() {
@@ -429,8 +436,8 @@ public class request extends AppCompatActivity {
     }
 
 
-    public  boolean isInternetAvailable(){
-        if(test()){
+    public boolean isInternetAvailable() {
+        if (test()) {
             try {
                 HttpURLConnection urlConnection = (HttpURLConnection)
                         (new URL("https://clients3.google.com/generate_204")
@@ -446,13 +453,14 @@ public class request extends AppCompatActivity {
                 }
             } catch (IOException e) {
                 Log.e("Network Checker", "Error checking com.example.capstone.redflow.internet connection", e);
+                progressDialog.dismiss();
             }
         }
         final Snackbar snackBar = Snackbar.make(findViewById(R.id.request), "Poor internet connection. To continue using RedFlow, please check your internet connection or turn on your wifi/data..", Snackbar.LENGTH_INDEFINITE);
         View v = snackBar.getView();
         TextView textView = (TextView) v.findViewById(android.support.design.R.id.snackbar_text);
         textView.setMaxLines(5);
-        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)v.getLayoutParams();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) v.getLayoutParams();
         params.gravity = Gravity.CENTER;
         v.setLayoutParams(params);
         snackBar.setAction("Dismiss", new View.OnClickListener() {
@@ -462,17 +470,18 @@ public class request extends AppCompatActivity {
             }
         });
         snackBar.show();
+        progressDialog.dismiss();
         return false;
     }
 
-    public boolean test(){
+    public boolean test() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
 
-    private BroadcastReceiver networkStateReceiver =new BroadcastReceiver() {
+    private BroadcastReceiver networkStateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             new Thread(new Runnable() {
@@ -480,7 +489,6 @@ public class request extends AppCompatActivity {
                 public void run() {
                     android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
                     isInternetAvailable();
-                    progressDialog.dismiss();
                 }
             }).start();
         }
@@ -499,7 +507,6 @@ public class request extends AppCompatActivity {
     }
 
 
-
     ///////////*FOR ACTION BAR EVENTS*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -514,7 +521,8 @@ public class request extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    private void Logout(){
+
+    private void Logout() {
         new AlertDialog.Builder(this)
                 .setTitle("Logout")
                 .setMessage("Do you really want to logout?")
@@ -524,7 +532,7 @@ public class request extends AppCompatActivity {
 
                             @Override
                             public void run() {
-                                if(isInternetAvailable()){
+                                if (isInternetAvailable()) {
                                     SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedpreferences.edit();
                                     editor.clear();
@@ -546,7 +554,8 @@ public class request extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
-    public void backtologin(){
+
+    public void backtologin() {
 
         new Thread(new Runnable() {
 
@@ -561,7 +570,8 @@ public class request extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
-    public void about(){
+
+    public void about() {
         Intent intent = new Intent(this, about.class);
         startActivity(intent);
     }

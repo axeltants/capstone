@@ -123,29 +123,26 @@ public class announcement extends AppCompatActivity {
         });
 
     }
-
-    private void sendMultiplePush() {
+    private void sendLocationPush() {
         final String title = "RedFlow: Announcement!";
         final String message = editText.getText().toString();
         final String image = null;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_MULTIPLE_PUSH,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_LOCATION_PUSH,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        editText.setText("");
                         progressDialog.dismiss();
                         Toast toast = Toast.makeText(announcement.this, "Message sent.", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.TOP, 0, 110);
                         toast.show();
-
-                        //Toast.makeText(announcement.this, response, Toast.LENGTH_LONG).show();
+                        Toast.makeText(announcement.this, response, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        sendMultiplePush();
+                        sendLocationPush();
                     }
                 }) {
             @Override
@@ -153,6 +150,7 @@ public class announcement extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("title", title);
                 params.put("message", message);
+                params.put("loc", vLocation.getSelectedItem().toString());
 
                 if (!TextUtils.isEmpty(image))
                     params.put("image", image);
@@ -162,7 +160,6 @@ public class announcement extends AppCompatActivity {
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
-
     public void announce(View view) {
 
             progressDialog = new ProgressDialog(this);
@@ -241,7 +238,7 @@ public class announcement extends AppCompatActivity {
                             push = new Thread() {
                                 @Override
                                 public void run() {
-                                    sendMultiplePush();
+                                    sendLocationPush();
                                 }
                             };
                             push.start();

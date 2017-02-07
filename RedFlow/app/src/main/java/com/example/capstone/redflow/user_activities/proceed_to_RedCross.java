@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -23,6 +24,7 @@ public class proceed_to_RedCross extends AppCompatActivity {
 
     private String bloodtype;
     private int bloodcount;
+    private  String location;
 
     private TextView vBloodcount;
     private TextView vBloodtype;
@@ -37,6 +39,7 @@ public class proceed_to_RedCross extends AppCompatActivity {
 
         bloodtype = getIntent().getStringExtra("bloodtype");
         bloodcount = getIntent().getIntExtra("bloodcount", 0);
+        location = getIntent().getStringExtra("location");
         qtty = getIntent().getIntExtra("qtty",0);
         mail = getIntent().getStringExtra("mail");
 
@@ -60,6 +63,7 @@ public class proceed_to_RedCross extends AppCompatActivity {
             }).start();
 
         }
+        Toast.makeText(proceed_to_RedCross.this, location, Toast.LENGTH_LONG).show();
 
     }
 
@@ -94,6 +98,7 @@ public class proceed_to_RedCross extends AppCompatActivity {
                 params.put("message", message);
                 params.put("bloodType", bloodtype);
                 params.put("email", mail);
+                params.put("location", location);
 
                 if (!TextUtils.isEmpty(image))
                     params.put("image", image);
