@@ -136,7 +136,7 @@ public class announcement extends AppCompatActivity {
                         Toast toast = Toast.makeText(announcement.this, "Message sent.", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.TOP, 0, 110);
                         toast.show();
-                        Toast.makeText(announcement.this, response, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(announcement.this, response, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -150,7 +150,7 @@ public class announcement extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("title", title);
                 params.put("message", message);
-                params.put("loc", vLocation.getSelectedItem().toString());
+                params.put("location", vLocation.getSelectedItem().toString());
 
                 if (!TextUtils.isEmpty(image))
                     params.put("image", image);
