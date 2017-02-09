@@ -37,20 +37,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
-                <EditText
-                    android:id="@+id/edittext_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/rectangle_textedit"
-                    android:hint="Current Password"
-                    android:inputType="textPassword"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:textAlignment="center"
-                    android:theme="@style/EditTextHint" />
-
                 <EditText
                     android:id="@+id/edittext_passwordNew"
                     android:layout_width="match_parent"
@@ -174,13 +160,6 @@
                     android:textAlignment="center"
                     android:theme="@style/EditTextHint"
                     android:maxLength="4"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Birthdate"
-                    android:textStyle="bold"
-                    android:textSize="16sp"/>
-
 
                 <Spinner
                     android:id="@+id/spinnr_gender"
@@ -192,6 +171,21 @@
                     android:paddingStart="45dp"
                     android:spinnerMode="dropdown"
                     android:textAlignment="center" />
+
+                <EditText
+                    android:id="@+id/edittext_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rectangle_textedit"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAlignment="center"
+                    android:theme="@style/EditTextHint"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
