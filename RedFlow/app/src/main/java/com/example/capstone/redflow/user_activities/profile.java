@@ -171,8 +171,9 @@ public class profile extends AppCompatActivity {
 
     public void editprof(View view) {
         Intent intent = new Intent(this, EditProfile.class);
+        intent.putExtra("userID", userID);
+        intent.putExtra("mail", mail);
         startActivity(intent);
-        Toast.makeText(profile.this, "edit profile", Toast.LENGTH_LONG).show();
     }
 
 
