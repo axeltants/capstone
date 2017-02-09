@@ -84,7 +84,6 @@ public class EditProfile extends AppCompatActivity {
     private EditText vZip;
     private EditText vBday;
     private Spinner vGender;
-    private Spinner vBloodtype;
 
     private String sFname;
     private String sLname;
@@ -96,7 +95,6 @@ public class EditProfile extends AppCompatActivity {
     private String sZip;
     private String sBday;
     private String sGender;
-    private String sBloodtype;
     private String sEmailOld;
     private String sPasswordOld;
     private String sPasswordNew;
@@ -170,7 +168,6 @@ public class EditProfile extends AppCompatActivity {
         vProvince = (Spinner) findViewById(R.id.spinnr_province);
         vZip = (EditText) findViewById(R.id.edittext_zip);
         vGender = (Spinner) findViewById(R.id.spinnr_gender);
-        vBloodtype = (Spinner) findViewById(R.id.spinnr_bloodtype);
         vPasswordNew = (EditText) findViewById(R.id.edittext_passwordNew);
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
@@ -581,7 +578,6 @@ public class EditProfile extends AppCompatActivity {
                 vProvince.setSelection(tools.getIndex(vProvince, map.get("province")));
                 vZip.setText(map.get("zip"));
                 vGender.setSelection(tools.getIndex(vGender, map.get("gender")));
-                vBloodtype.setSelection(tools.getIndex(vBloodtype, map.get("bloodtype")));
 
                 sEmailOld = map.get("email");
                 mYear = map2.get("birthyear");
@@ -625,10 +621,9 @@ public class EditProfile extends AppCompatActivity {
                     sProvince = vProvince.getSelectedItem().toString();
                     sZip = vZip.getText().toString();
                     sGender = vGender.getSelectedItem().toString();
-                    sBloodtype = vBloodtype.getSelectedItem().toString();
 
 
-                    if(sFname.trim().equals("") || sLname.trim().equals("") || sMname.trim().equals("") || sContact.trim().equals("") || sNationality.trim().equals("") || sHome.trim().equals("") || sProvince.trim().equals("") || sZip.trim().equals("") || sGender.trim().equals("") || sBloodtype.trim().equals("")) {
+                    if(sFname.trim().equals("") || sLname.trim().equals("") || sMname.trim().equals("") || sContact.trim().equals("") || sNationality.trim().equals("") || sHome.trim().equals("") || sProvince.trim().equals("") || sZip.trim().equals("") || sGender.trim().equals("")) {
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -699,7 +694,6 @@ public class EditProfile extends AppCompatActivity {
                                                 newUser.child("province").setValue(sProvince);
                                                 newUser.child("zip").setValue(sZip);
                                                 newUser.child("gender").setValue(sGender);
-                                                newUser.child("bloodtype").setValue(sBloodtype);
                                                 newUser.child("fullname").setValue(sFname.toLowerCase() + " " + sLname.toLowerCase());
                                                 if(!sPasswordNew.isEmpty()) {
                                                     user.updatePassword(tools.SHA1(sPasswordNew))
