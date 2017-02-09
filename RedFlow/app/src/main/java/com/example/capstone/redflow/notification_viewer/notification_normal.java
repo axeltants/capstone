@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.preliminary_bloodtest.TestActivity;
+import com.firebase.client.Firebase;
 
 import java.util.Calendar;
 
@@ -18,9 +19,11 @@ import static com.example.capstone.redflow.common_activities.LoginActivity.Uid;
 
 public class notification_normal extends AppCompatActivity {
 
-    TextView title;
-    TextView content;
-    TextView date;
+    private Firebase mRootRef;
+
+    private TextView title;
+    private TextView content;
+    private TextView date;
 
     private String notiftitle;
     private String notifcontent;
@@ -34,6 +37,8 @@ public class notification_normal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notification_normal);
+
+        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         uid = sharedpreferences.getString(Uid, ""); // MAU NI NGA VARIABLE GAMITA TER.
@@ -51,6 +56,9 @@ public class notification_normal extends AppCompatActivity {
         title.setText(notiftitle);
         content.setText(notifcontent);
         date.setText(notifdate);
+
+        mRootRef.child("Unread").child(uid).setValue("off");
+
     }
 
     public void prelim_test(View view) {
