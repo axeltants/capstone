@@ -1,9 +1,5 @@
 package com.example.capstone.redflow.Firebasenotification;
 
-/**
- * Created by Belal on 03/11/16.
- */
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -26,10 +22,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
 
-
-/**
- * Created by Ravi on 31/03/15.
- */
 
 public class MyNotificationManager {
 

@@ -1,7 +1,7 @@
 package com.example.capstone.redflow.Firebasenotification;
 
 /**
- * Created by Belal on 04/11/16.
+ * Created by axel on 01/11/17.
  */
 
 public class EndPoints {

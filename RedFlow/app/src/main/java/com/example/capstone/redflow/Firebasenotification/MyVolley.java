@@ -6,10 +6,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-/**
- * Created by Belal on 13/10/16.
- */
-
 public class MyVolley {
 
     private static MyVolley mInstance;

@@ -50,6 +50,9 @@ public class gender_statistics extends DemoBase implements
     private Query query;
     private ChildEventListener listener;
 
+    private TextView Vmale;
+    private TextView Vfemale;
+
     ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
     @Override
@@ -109,6 +112,9 @@ public class gender_statistics extends DemoBase implements
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setEnabled(false);
+
+        Vmale = (TextView) findViewById(R.id.male);
+        Vfemale = (TextView) findViewById(R.id.female);
     }
 
     @Override
@@ -203,6 +209,9 @@ public class gender_statistics extends DemoBase implements
                 else {
                     female++;
                 }
+
+                Vmale.setText(String.valueOf(male));
+                Vfemale.setText(String.valueOf(female));
             }
 
             @Override

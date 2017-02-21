@@ -11,6 +11,7 @@ import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.notimportant.DemoBase;
@@ -52,6 +53,15 @@ public class blood_demand_statistics extends DemoBase implements OnChartValueSel
     private int nB;
     private int nO;
     private int nAB;
+
+    private TextView ap;
+    private TextView am;
+    private TextView op;
+    private TextView om;
+    private TextView bp;
+    private TextView bm;
+    private TextView abp;
+    private TextView abm;
 
     ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
@@ -112,6 +122,16 @@ public class blood_demand_statistics extends DemoBase implements OnChartValueSel
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setEnabled(false);
+
+        op = (TextView) findViewById(R.id.oplus);
+        om = (TextView) findViewById(R.id.ominus);
+        ap = (TextView) findViewById(R.id.aplus);
+        am = (TextView) findViewById(R.id.aminus);
+        bp = (TextView) findViewById(R.id.bplus);
+        bm = (TextView) findViewById(R.id.bminus);
+        abp = (TextView) findViewById(R.id.abplus);
+        abm = (TextView) findViewById(R.id.abminus);
+
     }
 
     @Override
@@ -207,6 +227,15 @@ public class blood_demand_statistics extends DemoBase implements OnChartValueSel
                 mChart.highlightValues(null);
 
                 mChart.invalidate();
+
+                op.setText(String.valueOf(O));
+                om.setText(String.valueOf(nO));
+                ap.setText(String.valueOf(A));
+                am.setText(String.valueOf(nA));
+                bp.setText(String.valueOf(B));
+                bm.setText(String.valueOf(nB));
+                abp.setText(String.valueOf(AB));
+                abm.setText(String.valueOf(nAB));
             }
 
             @Override

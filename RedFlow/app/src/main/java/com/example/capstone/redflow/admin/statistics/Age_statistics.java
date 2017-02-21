@@ -11,6 +11,7 @@ import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.notimportant.DemoBase;
@@ -53,6 +54,15 @@ public class Age_statistics extends DemoBase implements
     private int kage;   //46-51
     private int sclass; //52-60
     private int root;  //60+
+
+    private TextView Vgenin;
+    private TextView Vchuunin;
+    private TextView Vjounin;
+    private TextView Vanbu;
+    private TextView Vchubu;
+    private TextView Vkage;
+    private TextView Vsclass;
+    private TextView Vroot;
 
     ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
@@ -113,6 +123,15 @@ public class Age_statistics extends DemoBase implements
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setEnabled(false);
+
+        Vgenin = (TextView) findViewById(R.id.genin);
+        Vchuunin = (TextView) findViewById(R.id.chuunin);
+        Vjounin = (TextView) findViewById(R.id.jounin);
+        Vanbu = (TextView) findViewById(R.id.anbu);
+        Vchubu = (TextView) findViewById(R.id.chubu);
+        Vkage = (TextView) findViewById(R.id.kage);
+        Vsclass = (TextView) findViewById(R.id.sclass);
+        Vroot = (TextView) findViewById(R.id.root);
     }
 
     /*@Override
@@ -257,6 +276,15 @@ public class Age_statistics extends DemoBase implements
 
                     default:    root++;
                 }
+
+                Vgenin.setText(String.valueOf(genin));
+                Vchuunin.setText(String.valueOf(chuunin));
+                Vjounin.setText(String.valueOf(jounin));
+                Vanbu.setText(String.valueOf(anbu));
+                Vchubu.setText(String.valueOf(chubu));
+                Vkage.setText(String.valueOf(kage));
+                Vsclass.setText(String.valueOf(sclass));
+                Vroot.setText(String.valueOf(root));
             }
 
             @Override
