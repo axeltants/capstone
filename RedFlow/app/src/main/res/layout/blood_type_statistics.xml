@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Blood Type"
+                android:text="Blood Supply"
                 android:gravity="center"
                 android:textSize="32sp"
                 android:fontFamily="sans-serif-smallcaps"
@@ -45,7 +45,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="O+ demmand: "
+                    android:text="O+: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -68,7 +68,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="O- demand: "
+                    android:text="O-: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -91,7 +91,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="A+ demand: "
+                    android:text="A+: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -114,7 +114,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="A- demand: "
+                    android:text="A-: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -137,7 +137,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="B+ demand: "
+                    android:text="B+: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -160,7 +160,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="B- demand: "
+                    android:text="B-: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -183,7 +183,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="AB+ demand: "
+                    android:text="AB+: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -207,7 +207,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="AB- demand: "
+                    android:text="AB-: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
