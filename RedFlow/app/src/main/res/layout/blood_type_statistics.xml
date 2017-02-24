@@ -40,12 +40,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginTop="100dp">
+                android:layout_marginTop="100dp"
+                android:id="@+id/o1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="O+: "
+                    android:text="O+ demmand: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -63,12 +64,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:id="@+id/o2">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="O-: "
+                    android:text="O- demand: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -86,12 +88,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:id="@+id/a1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="A+: "
+                    android:text="A+ demand: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -109,12 +112,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:id="@+id/a2">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="A-: "
+                    android:text="A- demand: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -132,12 +136,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:id="@+id/bb1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="B+: "
+                    android:text="B+ demand: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -155,12 +160,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:id="@+id/bb2">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="B-: "
+                    android:text="B- demand: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -178,12 +184,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:id="@+id/ab1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="AB+: "
+                    android:text="AB+ demand: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView
@@ -202,12 +209,13 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp">
+                android:layout_marginBottom="15dp"
+                android:id="@+id/ab2">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="AB-: "
+                    android:text="AB- demand: "
                     android:textSize="16sp"
                     android:layout_marginRight="8dp"/>
                 <TextView

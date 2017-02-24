@@ -10,7 +10,9 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.capstone.redflow.R;
@@ -152,7 +154,57 @@ public class location_statistics extends DemoBase implements
     private TextView zambales;
     private TextView zamboanga;
 
-
+    private LinearLayout l1;
+    private LinearLayout l2;
+    private LinearLayout l3;
+    private LinearLayout l4;
+    private LinearLayout l5;
+    private LinearLayout l6;
+    private LinearLayout l7;
+    private LinearLayout l8;
+    private LinearLayout l9;
+    private LinearLayout l0;
+    private LinearLayout la;
+    private LinearLayout lb;
+    private LinearLayout lc;
+    private LinearLayout ld;
+    private LinearLayout le;;
+    private LinearLayout lf;
+    private LinearLayout lg;
+    private LinearLayout lh;
+    private LinearLayout li;
+    private LinearLayout lj;
+    private LinearLayout lk;
+    private LinearLayout ll;
+    private LinearLayout lm;
+    private LinearLayout ln;
+    private LinearLayout lo;
+    private LinearLayout lp;
+    private LinearLayout lq;
+    private LinearLayout lr;
+    private LinearLayout ls;
+    private LinearLayout lt;
+    private LinearLayout lu;
+    private LinearLayout lv;
+    private LinearLayout lw;
+    private LinearLayout lx;
+    private LinearLayout ly;
+    private LinearLayout lz;
+    private LinearLayout la1;
+    private LinearLayout la2;
+    private LinearLayout la3;
+    private LinearLayout la4;
+    private LinearLayout la5;
+    private LinearLayout la6;
+    private LinearLayout la7;
+    private LinearLayout la8;
+    private LinearLayout la9;
+    private LinearLayout la0;
+    private LinearLayout lb1;
+    private LinearLayout lb2;
+    private LinearLayout lb3;
+    private LinearLayout lb4;
+    private LinearLayout lb5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -263,6 +315,58 @@ public class location_statistics extends DemoBase implements
         valenzuela = (TextView) findViewById(R.id.valenzuela);
         zambales = (TextView) findViewById(R.id.zambales);
         zamboanga = (TextView) findViewById(R.id.zamboanga);
+
+        l1 = (LinearLayout) findViewById(R.id.l1);
+        l2 = (LinearLayout) findViewById(R.id.l2);
+        l3 = (LinearLayout) findViewById(R.id.l3);
+        l4 = (LinearLayout) findViewById(R.id.l4);
+        l5 = (LinearLayout) findViewById(R.id.l5);
+        l6 = (LinearLayout) findViewById(R.id.l6);
+        l7 = (LinearLayout) findViewById(R.id.l7);
+        l8 = (LinearLayout) findViewById(R.id.l8);
+        l9 = (LinearLayout) findViewById(R.id.l9);
+        l0 = (LinearLayout) findViewById(R.id.l0);
+        la = (LinearLayout) findViewById(R.id.la);
+        lb = (LinearLayout) findViewById(R.id.lb);
+        lc = (LinearLayout) findViewById(R.id.lc);
+        ld = (LinearLayout) findViewById(R.id.ld);
+        le = (LinearLayout) findViewById(R.id.le);
+        lf = (LinearLayout) findViewById(R.id.lf);
+        lg = (LinearLayout) findViewById(R.id.lg);
+        lh = (LinearLayout) findViewById(R.id.lh);
+        li = (LinearLayout) findViewById(R.id.li);
+        lj = (LinearLayout) findViewById(R.id.lj);
+        lk = (LinearLayout) findViewById(R.id.lk);
+        ll = (LinearLayout) findViewById(R.id.ll);
+        lm = (LinearLayout) findViewById(R.id.lm);
+        ln = (LinearLayout) findViewById(R.id.ln);
+        lo = (LinearLayout) findViewById(R.id.lo);
+        lp = (LinearLayout) findViewById(R.id.lp);
+        lq = (LinearLayout) findViewById(R.id.lq);
+        lr = (LinearLayout) findViewById(R.id.lr);
+        ls = (LinearLayout) findViewById(R.id.ls);
+        lt = (LinearLayout) findViewById(R.id.lt);
+        lu = (LinearLayout) findViewById(R.id.lu);
+        lv = (LinearLayout) findViewById(R.id.lv);
+        lw = (LinearLayout) findViewById(R.id.lw);
+        lx = (LinearLayout) findViewById(R.id.lx);
+        ly = (LinearLayout) findViewById(R.id.ly);
+        lz = (LinearLayout) findViewById(R.id.lz);
+        la1 = (LinearLayout) findViewById(R.id.la1);
+        la2 = (LinearLayout) findViewById(R.id.la2);
+        la3 = (LinearLayout) findViewById(R.id.la3);
+        la4 = (LinearLayout) findViewById(R.id.la4);
+        la5 = (LinearLayout) findViewById(R.id.la5);
+        la6 = (LinearLayout) findViewById(R.id.la6);
+        la7 = (LinearLayout) findViewById(R.id.la7);
+        la8 = (LinearLayout) findViewById(R.id.la8);
+        la9 = (LinearLayout) findViewById(R.id.la9);
+        la0 = (LinearLayout) findViewById(R.id.la0);
+        lb1 = (LinearLayout) findViewById(R.id.lb1);
+        lb2 = (LinearLayout) findViewById(R.id.lb2);
+        lb3 = (LinearLayout) findViewById(R.id.lb3);
+        lb4 = (LinearLayout) findViewById(R.id.lb4);
+        lb5 = (LinearLayout) findViewById(R.id.lb5);
     }
 
     @Override
@@ -628,156 +732,258 @@ public class location_statistics extends DemoBase implements
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(AGUSAN > 0) {
                     entries.add(new PieEntry(AGUSAN, "AGUSAN"));
+                }else{
+                    l1.setVisibility(View.GONE);
                 }
                 if(AKLAN > 0) {
                     entries.add(new PieEntry(AKLAN, "AKLAN"));
+                }else{
+                    l2.setVisibility(View.GONE);
                 }
                 if(ANTIQUE > 0) {
                     entries.add(new PieEntry(ANTIQUE, "ANTIQUE"));
+                }else{
+                    l3.setVisibility(View.GONE);
                 }
                 if(BATANGAS > 0) {
                     entries.add(new PieEntry(BATANGAS, "BATANGAS"));
+                }else{
+                    l4.setVisibility(View.GONE);
                 }
                 if(BENGUET > 0) {
                     entries.add(new PieEntry(BENGUET, "BENGUET"));
+                }else{
+                    l5.setVisibility(View.GONE);
                 }
                 if(BOHOL > 0) {
                     entries.add(new PieEntry(BOHOL, "BOHOL"));
+                }else{
+                    l6.setVisibility(View.GONE);
                 }
                 if(BUKIDNON > 0) {
                     entries.add(new PieEntry(BUKIDNON, "BUKIDNON"));
+                }else{
+                    l7.setVisibility(View.GONE);
                 }
                 if(BULACAN > 0) {
                     entries.add(new PieEntry(BULACAN, "BULACAN"));
+                }else{
+                    l8.setVisibility(View.GONE);
                 }
                 if(BAGUIO > 0) {
                     entries.add(new PieEntry(BAGUIO, "BAGUIO"));
+                }else{
+                    l9.setVisibility(View.GONE);
                 }
                 if(CALOOCAN > 0) {
                     entries.add(new PieEntry(CALOOCAN, "CALOOCAN"));
+                }else{
+                    l0.setVisibility(View.GONE);
                 }
                 if(CAMARINES > 0) {
                     entries.add(new PieEntry(CAMARINES, "CAMARINES"));
+                }else{
+                    la.setVisibility(View.GONE);
                 }
                 if(CAPIZ > 0) {
                     entries.add(new PieEntry(CAPIZ, "CAPIZ"));
+                }else{
+                    lb.setVisibility(View.GONE);
                 }
                 if(CATANDUANES > 0) {
                     entries.add(new PieEntry(CATANDUANES, "CATANDUANES"));
+                }else{
+                    lc.setVisibility(View.GONE);
                 }
                 if(CAVITE > 0) {
                     entries.add(new PieEntry(CAVITE, "CAVITE"));
+                }else{
+                    ld.setVisibility(View.GONE);
                 }
                 if(COTABATO > 0) {
                     entries.add(new PieEntry(COTABATO, "COTABATO"));
+                }else{
+                    le.setVisibility(View.GONE);
                 }
                 if(CAGAYAN > 0) {
                     entries.add(new PieEntry(CAGAYAN, "CAGAYAN"));
+                }else{
+                    lf.setVisibility(View.GONE);
                 }
                 if(CEBU > 0) {
                     entries.add(new PieEntry(CEBU, "Cebu"));
+                }else{
+                    lg.setVisibility(View.GONE);
                 }
                 if(DAVAO > 0) {
                     entries.add(new PieEntry(DAVAO, "DAVAO"));
+                }else{
+                    lh.setVisibility(View.GONE);
                 }
                 if(GENERAL_SANTOS > 0) {
                     entries.add(new PieEntry(GENERAL_SANTOS, "GENERAL SANTOS"));
+                }else{
+                    li.setVisibility(View.GONE);
                 }
                 if(GINGOOG > 0) {
                     entries.add(new PieEntry(GINGOOG, "GINGOOG"));
+                }else{
+                    lj.setVisibility(View.GONE);
                 }
                 if(GUIMARAS > 0) {
                     entries.add(new PieEntry(GUIMARAS, "GUIMARAS"));
+                }else{
+                    lk.setVisibility(View.GONE);
                 }
                 if(ILIGAN > 0) {
                     entries.add(new PieEntry(ILIGAN, "ILIGAN"));
+                }else{
+                    ll.setVisibility(View.GONE);
                 }
                 if(ILOCOS > 0) {
                     entries.add(new PieEntry(ILOCOS, "ILOCOS"));
+                }else{
+                    lm.setVisibility(View.GONE);
                 }
                 if(ISABELA > 0) {
                     entries.add(new PieEntry(ISABELA, "ISABELA"));
+                }else{
+                    ln.setVisibility(View.GONE);
                 }
                 if(ILOILO > 0) {
                     entries.add(new PieEntry(ILOILO, "ILOILO"));
+                }else{
+                    lo.setVisibility(View.GONE);
                 }
                 if(LA_UNION > 0) {
                     entries.add(new PieEntry(LA_UNION, "LA UNION"));
+                }else{
+                    lp.setVisibility(View.GONE);
                 }
                 if(LAGUNA > 0) {
                     entries.add(new PieEntry(LAGUNA, "LAGUNA"));
+                }else{
+                    lq.setVisibility(View.GONE);
                 }
                 if(LEYTE > 0) {
                     entries.add(new PieEntry(LEYTE, "LEYTE"));
+                }else{
+                    lr.setVisibility(View.GONE);
                 }
                 if(MASBATE > 0) {
                     entries.add(new PieEntry(MASBATE, "MASBATE"));
+                }else{
+                    ls.setVisibility(View.GONE);
                 }
                 if(MANDALUYONG > 0) {
                     entries.add(new PieEntry(MANDALUYONG, "MANDALUYONG"));
+                }else{
+                    lt.setVisibility(View.GONE);
                 }
                 if(MANILA > 0) {
                     entries.add(new PieEntry(MANILA, "MANILA"));
+                }else{
+                    lu.setVisibility(View.GONE);
                 }
                 if(NEGROS > 0) {
                     entries.add(new PieEntry(NEGROS, "NEGROS"));
+                }else{
+                    lv.setVisibility(View.GONE);
                 }
                 if(NUEVA_ECIJA > 0) {
                     entries.add(new PieEntry(NUEVA_ECIJA, "NUEVA ECIJA"));
+                }else{
+                    lw.setVisibility(View.GONE);
                 }
                 if(NUEVA_VIZCAYA > 0) {
                     entries.add(new PieEntry(NUEVA_VIZCAYA, "NUEVA VIZCAYA"));
+                }else{
+                    lx.setVisibility(View.GONE);
                 }
                 if(OLONGAPO > 0) {
                     entries.add(new PieEntry(OLONGAPO, "OLONGAPO"));
+                }else{
+                    ly.setVisibility(View.GONE);
                 }
                 if(ORMOC > 0) {
                     entries.add(new PieEntry(ORMOC, "ORMOC"));
+                }else{
+                    lz.setVisibility(View.GONE);
                 }
                 if(PALAWAN > 0) {
                     entries.add(new PieEntry(PALAWAN, "PALAWAN"));
+                }else{
+                    la1.setVisibility(View.GONE);
                 }
                 if(PAMPANGA > 0) {
                     entries.add(new PieEntry(PAMPANGA, "PAMPANGA"));
+                }else{
+                    la2.setVisibility(View.GONE);
                 }
                 if(PANGASINAN > 0) {
                     entries.add(new PieEntry(PANGASINAN, "PANGASINAN"));
+                }else{
+                    la3.setVisibility(View.GONE);
                 }
                 if(PASAY > 0) {
                     entries.add(new PieEntry(PASAY, "PASAY"));
+                }else{
+                    la4.setVisibility(View.GONE);
                 }
                 if(QUEZON > 0) {
                     entries.add(new PieEntry(QUEZON, "QUEZON"));
+                }else{
+                    la5.setVisibility(View.GONE);
                 }
                 if(QUIRINO > 0) {
                     entries.add(new PieEntry(QUIRINO, "QUIRINO"));
+                }else{
+                    la6.setVisibility(View.GONE);
                 }
                 if(RIZAL > 0) {
                     entries.add(new PieEntry(RIZAL, "RIZAL"));
+                }else{
+                    la7.setVisibility(View.GONE);
                 }
                 if(SAN_PABLO > 0) {
                     entries.add(new PieEntry(SAN_PABLO, "SAN_PABLO"));
+                }else{
+                    la8.setVisibility(View.GONE);
                 }
                 if(SULU > 0) {
                     entries.add(new PieEntry(SULU, "SULU"));
+                }else{
+                    la9.setVisibility(View.GONE);
                 }
                 if(SURIGAO > 0) {
                     entries.add(new PieEntry(SURIGAO, "SURIGAO"));
+                }else{
+                    la0.setVisibility(View.GONE);
                 }
                 if(TANGUB > 0) {
                     entries.add(new PieEntry(TANGUB, "TANGUB"));
+                }else{
+                    lb1.setVisibility(View.GONE);
                 }
                 if(TARLAC > 0) {
                     entries.add(new PieEntry(TARLAC, "TARLAC"));
+                }else{
+                    lb2.setVisibility(View.GONE);
                 }
                 if(VALENZUELA > 0) {
                     entries.add(new PieEntry(VALENZUELA, "VALENZUELA"));
+                }else{
+                    lb3.setVisibility(View.GONE);
                 }
                 if(ZAMBALES > 0) {
                     entries.add(new PieEntry(ZAMBALES, "ZAMBALES"));
+                }else{
+                    lb4.setVisibility(View.GONE);
                 }
                 if(ZAMBOANGA > 0) {
                     entries.add(new PieEntry(ZAMBOANGA, "ZAMBOANGA"));
+                }else{
+                    lb5.setVisibility(View.GONE);
                 }
 
                 PieDataSet dataSet = new PieDataSet(entries, "Location");

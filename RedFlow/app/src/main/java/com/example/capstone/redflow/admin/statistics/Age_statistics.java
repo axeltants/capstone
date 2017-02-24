@@ -10,7 +10,9 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.capstone.redflow.R;
@@ -63,6 +65,15 @@ public class Age_statistics extends DemoBase implements
     private TextView Vkage;
     private TextView Vsclass;
     private TextView Vroot;
+
+    private LinearLayout Lgenin;
+    private LinearLayout Lchuunin;
+    private LinearLayout Ljounin;
+    private LinearLayout Lanbu;
+    private LinearLayout Lchubu;
+    private LinearLayout Lkage;
+    private LinearLayout Lsclass;
+    private LinearLayout Lroot;
 
     ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
@@ -132,6 +143,15 @@ public class Age_statistics extends DemoBase implements
         Vkage = (TextView) findViewById(R.id.kage);
         Vsclass = (TextView) findViewById(R.id.sclass);
         Vroot = (TextView) findViewById(R.id.root);
+
+        Lgenin = (LinearLayout) findViewById(R.id.gnin);
+        Lchuunin = (LinearLayout) findViewById(R.id.chnin);
+        Ljounin = (LinearLayout) findViewById(R.id.jnin);
+        Lanbu = (LinearLayout) findViewById(R.id.nbu);
+        Lchubu = (LinearLayout) findViewById(R.id.chbu);
+        Lkage = (LinearLayout) findViewById(R.id.kge);
+        Lsclass = (LinearLayout) findViewById(R.id.sclss);
+        Lroot = (LinearLayout) findViewById(R.id.rt);
     }
 
     /*@Override
@@ -333,6 +353,31 @@ public class Age_statistics extends DemoBase implements
                 }
                 if(root > 0) {
                     entries.add(new PieEntry(root, "Ages 60+"));
+                }
+
+                if(genin == 0){
+                    Lgenin.setVisibility(View.GONE);
+                }
+                if(chuunin == 0){
+                    Lchuunin.setVisibility(View.GONE);
+                }
+                if(jounin == 0){
+                    Ljounin.setVisibility(View.GONE);
+                }
+                if(anbu == 0){
+                    Lanbu.setVisibility(View.GONE);
+                }
+                if(chubu == 0){
+                    Lchubu.setVisibility(View.GONE);
+                }
+                if(kage == 0){
+                    Lkage.setVisibility(View.GONE);
+                }
+                if(sclass == 0){
+                    Lsclass.setVisibility(View.GONE);
+                }
+                if(root == 0){
+                    Lroot.setVisibility(View.GONE);
                 }
 
                 PieDataSet dataSet = new PieDataSet(entries, "Age");
