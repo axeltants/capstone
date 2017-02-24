@@ -10,7 +10,10 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.notimportant.DemoBase;
@@ -53,6 +56,24 @@ public class Age_statistics extends DemoBase implements
     private int kage;   //46-51
     private int sclass; //52-60
     private int root;  //60+
+
+    private TextView Vgenin;
+    private TextView Vchuunin;
+    private TextView Vjounin;
+    private TextView Vanbu;
+    private TextView Vchubu;
+    private TextView Vkage;
+    private TextView Vsclass;
+    private TextView Vroot;
+
+    private LinearLayout Lgenin;
+    private LinearLayout Lchuunin;
+    private LinearLayout Ljounin;
+    private LinearLayout Lanbu;
+    private LinearLayout Lchubu;
+    private LinearLayout Lkage;
+    private LinearLayout Lsclass;
+    private LinearLayout Lroot;
 
     ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
@@ -113,6 +134,24 @@ public class Age_statistics extends DemoBase implements
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setEnabled(false);
+
+        Vgenin = (TextView) findViewById(R.id.genin);
+        Vchuunin = (TextView) findViewById(R.id.chuunin);
+        Vjounin = (TextView) findViewById(R.id.jounin);
+        Vanbu = (TextView) findViewById(R.id.anbu);
+        Vchubu = (TextView) findViewById(R.id.chubu);
+        Vkage = (TextView) findViewById(R.id.kage);
+        Vsclass = (TextView) findViewById(R.id.sclass);
+        Vroot = (TextView) findViewById(R.id.root);
+
+        Lgenin = (LinearLayout) findViewById(R.id.gnin);
+        Lchuunin = (LinearLayout) findViewById(R.id.chnin);
+        Ljounin = (LinearLayout) findViewById(R.id.jnin);
+        Lanbu = (LinearLayout) findViewById(R.id.nbu);
+        Lchubu = (LinearLayout) findViewById(R.id.chbu);
+        Lkage = (LinearLayout) findViewById(R.id.kge);
+        Lsclass = (LinearLayout) findViewById(R.id.sclss);
+        Lroot = (LinearLayout) findViewById(R.id.rt);
     }
 
     /*@Override
@@ -257,6 +296,15 @@ public class Age_statistics extends DemoBase implements
 
                     default:    root++;
                 }
+
+                Vgenin.setText(String.valueOf(genin));
+                Vchuunin.setText(String.valueOf(chuunin));
+                Vjounin.setText(String.valueOf(jounin));
+                Vanbu.setText(String.valueOf(anbu));
+                Vchubu.setText(String.valueOf(chubu));
+                Vkage.setText(String.valueOf(kage));
+                Vsclass.setText(String.valueOf(sclass));
+                Vroot.setText(String.valueOf(root));
             }
 
             @Override
@@ -305,6 +353,31 @@ public class Age_statistics extends DemoBase implements
                 }
                 if(root > 0) {
                     entries.add(new PieEntry(root, "Ages 60+"));
+                }
+
+                if(genin == 0){
+                    Lgenin.setVisibility(View.GONE);
+                }
+                if(chuunin == 0){
+                    Lchuunin.setVisibility(View.GONE);
+                }
+                if(jounin == 0){
+                    Ljounin.setVisibility(View.GONE);
+                }
+                if(anbu == 0){
+                    Lanbu.setVisibility(View.GONE);
+                }
+                if(chubu == 0){
+                    Lchubu.setVisibility(View.GONE);
+                }
+                if(kage == 0){
+                    Lkage.setVisibility(View.GONE);
+                }
+                if(sclass == 0){
+                    Lsclass.setVisibility(View.GONE);
+                }
+                if(root == 0){
+                    Lroot.setVisibility(View.GONE);
                 }
 
                 PieDataSet dataSet = new PieDataSet(entries, "Age");

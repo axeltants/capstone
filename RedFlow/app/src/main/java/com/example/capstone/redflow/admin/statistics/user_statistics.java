@@ -11,6 +11,7 @@ import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.notimportant.DemoBase;
@@ -46,6 +47,9 @@ public class user_statistics extends DemoBase implements OnChartValueSelectedLis
     private ChildEventListener listener;
 
     private int verified, unverified, unknown;
+
+    private TextView Vverified;
+    private TextView Vunverified;
 
     ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
@@ -106,6 +110,9 @@ public class user_statistics extends DemoBase implements OnChartValueSelectedLis
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setEnabled(false);
+
+        Vverified = (TextView) findViewById(R.id.ver);
+        Vunverified = (TextView) findViewById(R.id.unver);
     }
 
     @Override
@@ -137,6 +144,9 @@ public class user_statistics extends DemoBase implements OnChartValueSelectedLis
 
                     default:    unknown++;
                 }
+
+                Vverified.setText(String.valueOf(verified));
+                Vunverified.setText(String.valueOf(unverified));
             }
 
             @Override

@@ -10,7 +10,10 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.notimportant.DemoBase;
@@ -53,6 +56,24 @@ public class bloodType_statistics extends DemoBase implements
     private int nB;
     private int nO;
     private int nAB;
+
+    private TextView ap;
+    private TextView am;
+    private TextView op;
+    private TextView om;
+    private TextView bp;
+    private TextView bm;
+    private TextView abp;
+    private TextView abm;
+
+    private LinearLayout Lap;
+    private LinearLayout Lam;
+    private LinearLayout Lop;
+    private LinearLayout Lom;
+    private LinearLayout Lbp;
+    private LinearLayout Lbm;
+    private LinearLayout Labp;
+    private LinearLayout Labm;
 
     ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
@@ -113,6 +134,24 @@ public class bloodType_statistics extends DemoBase implements
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setEnabled(false);
+
+        op = (TextView) findViewById(R.id.oplus);
+        om = (TextView) findViewById(R.id.ominus);
+        ap = (TextView) findViewById(R.id.aplus);
+        am = (TextView) findViewById(R.id.aminus);
+        bp = (TextView) findViewById(R.id.bplus);
+        bm = (TextView) findViewById(R.id.bminus);
+        abp = (TextView) findViewById(R.id.abplus);
+        abm = (TextView) findViewById(R.id.abminus);
+
+        Lop = (LinearLayout) findViewById(R.id.o1);
+        Lom = (LinearLayout) findViewById(R.id.o2);
+        Lap = (LinearLayout) findViewById(R.id.a1);
+        Lam = (LinearLayout) findViewById(R.id.a2);
+        Lbp = (LinearLayout) findViewById(R.id.bb1);
+        Lbm = (LinearLayout) findViewById(R.id.bb2);
+        Labp = (LinearLayout) findViewById(R.id.ab1);
+        Labm = (LinearLayout) findViewById(R.id.ab2);
     }
 
     @Override
@@ -250,29 +289,46 @@ public class bloodType_statistics extends DemoBase implements
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 if(A > 0) {
                     entries.add(new PieEntry(A, "Type A+"));
+                }else{
+                    Lap.setVisibility(View.GONE);
                 }
                 if(B > 0) {
                     entries.add(new PieEntry(B, "Type B+"));
+                }else{
+                    Lbp.setVisibility(View.GONE);
                 }
                 if(O > 0) {
                     entries.add(new PieEntry(O, "Type O+"));
+                }else{
+                    Lop.setVisibility(View.GONE);
                 }
                 if(AB > 0) {
                     entries.add(new PieEntry(AB, "Type AB+"));
+                }else{
+                    Labp.setVisibility(View.GONE);
                 }
                 if(nA > 0) {
                     entries.add(new PieEntry(nA, "Type A-"));
+                }else{
+                    Lam.setVisibility(View.GONE);
                 }
                 if(nB > 0) {
                     entries.add(new PieEntry(nB, "Type B-"));
+                }else{
+                    Lbm.setVisibility(View.GONE);
                 }
                 if(nO > 0) {
                     entries.add(new PieEntry(nO, "Type O-"));
+                }else{
+                    Lom.setVisibility(View.GONE);
                 }
                 if(nAB > 0) {
                     entries.add(new PieEntry(nAB, "Type AB-"));
+                }else{
+                    Labm.setVisibility(View.GONE);
                 }
 
 
@@ -312,6 +368,15 @@ public class bloodType_statistics extends DemoBase implements
 
 
                 query.removeEventListener(listener);
+
+                op.setText(String.valueOf(O));
+                om.setText(String.valueOf(nO));
+                ap.setText(String.valueOf(A));
+                am.setText(String.valueOf(nA));
+                bp.setText(String.valueOf(B));
+                bm.setText(String.valueOf(nB));
+                abp.setText(String.valueOf(AB));
+                abm.setText(String.valueOf(nAB));
             }
 
             @Override

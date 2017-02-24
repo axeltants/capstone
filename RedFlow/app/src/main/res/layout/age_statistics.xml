@@ -11,22 +11,227 @@
     tools:context=".admin.statistics.Age_statistics"
     android:orientation="vertical">
 
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Age"
-            android:gravity="center"
-            android:textSize="32sp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:layout_marginTop="80dp"/>
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/chart1"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="100dp"/>
+            android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Age"
+                    android:gravity="center"
+                    android:textSize="32sp"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:layout_marginTop="80dp"/>
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/chart1"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="100dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="100dp"
+                    android:id="@+id/gnin">
+
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Ages 16-21: "
+                          android:textSize="16sp"
+                          android:layout_marginRight="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="count"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:id="@+id/genin"
+                            android:textColor="@color/colorAccent2"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/chnin">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ages 22-27: "
+                            android:textSize="16sp"
+                            android:layout_marginRight="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="count"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:id="@+id/chuunin"
+                            android:textColor="@color/colorAccent2"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/jnin">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ages 28-33: "
+                            android:textSize="16sp"
+                            android:layout_marginRight="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="count"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:id="@+id/jounin"
+                            android:textColor="@color/colorAccent2" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/nbu">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ages 34-39: "
+                            android:textSize="16sp"
+                            android:layout_marginRight="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="count"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:id="@+id/anbu"
+                            android:textColor="@color/colorAccent2"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/chbu">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ages 40-45: "
+                            android:textSize="16sp"
+                            android:layout_marginRight="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="count"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:id="@+id/chubu"
+                            android:textColor="@color/colorAccent2"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/kge">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ages 46-51: "
+                            android:textSize="16sp"
+                            android:layout_marginRight="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="count"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:id="@+id/kage"
+                            android:textColor="@color/colorAccent2"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/sclss">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ages 52-60: "
+                            android:textSize="16sp"
+                            android:layout_marginRight="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="count"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:id="@+id/sclass"
+                            android:textColor="@color/colorAccent2"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:id="@+id/rt">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ages 60+: "
+                            android:textSize="16sp"
+                            android:layout_marginRight="8dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="count"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:id="@+id/root"
+                            android:textColor="@color/colorAccent2"/>
+
+                </LinearLayout>
+
+
+        </LinearLayout>
+
+</ScrollView>
 
 </LinearLayout>

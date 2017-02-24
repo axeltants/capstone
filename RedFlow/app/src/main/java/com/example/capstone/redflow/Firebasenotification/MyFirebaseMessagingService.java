@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import java.util.Calendar;
 
 /**
- * Created by Belal on 03/11/16.
+ * Created by axel on 01/11/17.
  */
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
