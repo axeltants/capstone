@@ -95,7 +95,7 @@ public class home extends AppCompatActivity {
                 if(status.equals("off")) {
 
                     notifbttn.setImageResource(R.drawable.exclamation);
-                    
+
                 }else{
                     notifbttn.setImageResource(R.drawable.newnotif);
                 }

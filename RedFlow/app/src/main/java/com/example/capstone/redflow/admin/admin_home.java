@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
@@ -35,6 +36,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Map;
 
 public class admin_home extends AppCompatActivity {
@@ -46,9 +48,12 @@ public class admin_home extends AppCompatActivity {
     private ChildEventListener listener;
 
     private int date;
+    private int day;
 
     private String user;
     private String turf;
+
+    private Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,7 @@ public class admin_home extends AppCompatActivity {
         turf = getIntent().getStringExtra("turf");
 
         tools = new ToolBox();
+
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
         offsmsRef = mRootRef.child("OffSMS");
 
@@ -103,6 +109,14 @@ public class admin_home extends AppCompatActivity {
         };
 
         query.addChildEventListener(listener);
+
+        calendar = Calendar.getInstance();
+        day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        if(day == 1) {
+            mRootRef.child("Supply").child(turf).child("A+");
+            //to be continued...
+        }
 
     }
 
