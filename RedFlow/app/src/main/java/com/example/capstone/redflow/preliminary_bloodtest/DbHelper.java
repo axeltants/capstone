@@ -44,15 +44,15 @@ public class DbHelper extends SQLiteOpenHelper {
         this.addQuestion(q2);
         QuestionGetSet q3 = new QuestionGetSet("In the past 3 to 4 hours did you smoke?",  "Yes", "No","(3 / 20)","No");
         this.addQuestion(q3);
-        QuestionGetSet q4 = new QuestionGetSet("Int the past 4 hours did you eat your Breakfast/Dinner/Lunch?",  "Yes", "No","(4 / 20)","Yes");
+        QuestionGetSet q4 = new QuestionGetSet("In the past 4 hours did you eat your Breakfast/Dinner/Lunch?",  "Yes", "No","(4 / 20)","Yes");
         this.addQuestion(q4);
         QuestionGetSet q5 = new QuestionGetSet("Are you feeling well and healthy today?",  "Yes", "No","(5 / 20)","Yes");
         this.addQuestion(q5);
-        QuestionGetSet q6 = new QuestionGetSet("Have you ever been injected by a vaccine?",  "Yes", "No","(6 / 20)","No");
+        QuestionGetSet q6 = new QuestionGetSet("In the pas3 3-4 months have you ever been injected by a vaccine?",  "Yes", "No","(6 / 20)","No");
         this.addQuestion(q6);
-        QuestionGetSet q7 = new QuestionGetSet("Have you been taken an aspirin or other drugs that contains aspirin?",  "Yes", "No","(7 / 20)","No");
+        QuestionGetSet q7 = new QuestionGetSet("Have you been taking an aspirin or other drugs that contains aspirin?",  "Yes", "No","(7 / 20)","No");
         this.addQuestion(q7);
-        QuestionGetSet q8 = new QuestionGetSet("Did you recieve a blood transfusion?",  "Yes", "No","(8 / 20)","No");
+        QuestionGetSet q8 = new QuestionGetSet("Have you ever had blood transfusion last 3-4months?",  "Yes", "No","(8 / 20)","No");
         this.addQuestion(q8);
         QuestionGetSet q9 = new QuestionGetSet("Have you ever had a surgery or removal of tooth?",  "Yes", "No","(9 / 20)","No");
         this.addQuestion(q9);
@@ -64,7 +64,7 @@ public class DbHelper extends SQLiteOpenHelper {
         this.addQuestion(q12);
         QuestionGetSet q13 = new QuestionGetSet("Have you ever used a needle to inject a drugs/ steroids or other drugs that is not advised by your doctor?",  "Yes", "No","(13 / 20)","No");
         this.addQuestion(q13);
-        QuestionGetSet q14 = new QuestionGetSet("Have you ever had an HIV/AIDS, Hepatitis, Syphilis or malaria test, is it positive?",  "Yes", "No","(14 / 20)","No");
+        QuestionGetSet q14 = new QuestionGetSet("Do you have lung or heart problem?",  "Yes", "No","(14 / 20)","No");
         this.addQuestion(q14);
         QuestionGetSet q15 = new QuestionGetSet("Have you ever been infected by a hepatitis?",  "Yes", "No","(15 / 20)","No");
         this.addQuestion(q15);
