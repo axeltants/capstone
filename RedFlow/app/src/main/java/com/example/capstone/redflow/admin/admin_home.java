@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -20,6 +21,14 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.capstone.redflow.Firebasenotification.EndPoints;
+import com.example.capstone.redflow.Firebasenotification.MyVolley;
+import com.example.capstone.redflow.Firebasenotification.Send_Push_Notification;
 import com.example.capstone.redflow.common_activities.LoginActivity;
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.ToolBox;
@@ -37,6 +46,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 
 public class admin_home extends AppCompatActivity {
@@ -52,6 +62,8 @@ public class admin_home extends AppCompatActivity {
     private int date;
     private int day;
     private int i;
+
+    private String btype;
 
     private String user;
     private String turf;
@@ -145,6 +157,7 @@ public class admin_home extends AppCompatActivity {
     public void supplyChecker(String blood) {
 
         final String bloodtype = blood;
+        btype = bloodtype;
 
         supplyquery = mRootRef.child("Supply").child(turf).child(bloodtype);
         supplylistener = new ValueEventListener() {
@@ -157,6 +170,7 @@ public class admin_home extends AppCompatActivity {
                 if(map.get("count") < 5) {
                     //Toast.makeText(admin_home.this, bloodtype + " is out of stock.", Toast.LENGTH_SHORT).show();
                     //DRI IBUTANG ANG PUSH NOTIF NGA FUNCTION CALL.
+                    sendMultiplePush();
                 }
 
             }
@@ -208,6 +222,41 @@ public class admin_home extends AppCompatActivity {
         intent.putExtra("turf", turf);
         startActivity(intent);
     }
+
+
+    private void sendMultiplePush() {
+        final String title = "RedFlow: Good Day!";
+        final String message = "Red Cross is in need of your Donation, Take time to Donate in any RedCross branches Thank you. ";
+        final String image = null;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_MULTIPLE_PUSH,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Toast.makeText(Send_Push_Notification.this, response, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        sendMultiplePush();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("title", title);
+                params.put("message", message);
+
+                if (!TextUtils.isEmpty(image))
+                    params.put("image", image);
+                return params;
+            }
+        };
+
+        MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
 
     @Override
     public void onBackPressed() {
