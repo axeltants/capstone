@@ -251,7 +251,7 @@ public class request extends AppCompatActivity {
                                 message = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nHelp us save this person's life.\n\nDon't reply.\n\n";
 
 
-                                if (bloodcount > bagqty) {
+                                if (bloodcount > bagqty) {  // if(bloodcount > 5 || bloodcount > bagqty) Condition for adding minimum supply level. In this case minimum supply level is 5.
 
                                     sQuery.removeEventListener(supplyListenerVE);
                                     userquery.removeEventListener(userListenerVE);

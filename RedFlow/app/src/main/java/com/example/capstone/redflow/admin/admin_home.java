@@ -45,15 +45,20 @@ public class admin_home extends AppCompatActivity {
     private Firebase mRootRef;
     private Firebase offsmsRef;
     private Query query;
+    private Query supplyquery;
+    private ValueEventListener supplylistener;
     private ChildEventListener listener;
 
     private int date;
     private int day;
+    private int i;
 
     private String user;
     private String turf;
 
     private Calendar calendar;
+
+    private ArrayList<String> bloodlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,11 +118,66 @@ public class admin_home extends AppCompatActivity {
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_WEEK);
 
+        //Toast.makeText(this, "Day is " + day, Toast.LENGTH_SHORT).show();
+
+        bloodlist = new ArrayList<>();
+
+        bloodlist.add("A+");
+        bloodlist.add("B+");
+        bloodlist.add("O+");
+        bloodlist.add("AB+");
+        bloodlist.add("A-");
+        bloodlist.add("B-");
+        bloodlist.add("O-");
+        bloodlist.add("AB-");
+
         if(day == 1) {
-            mRootRef.child("Supply").child(turf).child("A+");
-            //to be continued...
+            for(i = 0; i < bloodlist.size(); i++) {
+                //Toast.makeText(admin_home.this, ""+i, Toast.LENGTH_SHORT).show();
+                supplyChecker(bloodlist.get(i));
+
+            }
+
         }
 
+    }
+
+    public void supplyChecker(String blood) {
+
+        final String bloodtype = blood;
+
+        supplyquery = mRootRef.child("Supply").child(turf).child(bloodtype);
+        supplylistener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Integer> map = dataSnapshot.getValue(Map.class);
+
+                //Toast.makeText(admin_home.this, bloodtype + ": " + map.get("count"), Toast.LENGTH_SHORT).show();
+
+                if(map.get("count") < 5) {
+                    //Toast.makeText(admin_home.this, bloodtype + " is out of stock.", Toast.LENGTH_SHORT).show();
+                    //DRI IBUTANG ANG PUSH NOTIF NGA FUNCTION CALL.
+                }
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        };
+        supplyquery.addValueEventListener(supplylistener);
+        supplyquery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                supplyquery.removeEventListener(supplylistener);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     @Override
