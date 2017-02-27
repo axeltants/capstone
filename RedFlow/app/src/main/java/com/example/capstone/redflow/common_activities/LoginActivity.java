@@ -159,6 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     Intent i = new Intent(LoginActivity.this, admin_home.class);
                                                     i.putExtra("userID", userID);
                                                     i.putExtra("turf", map.get("province"));
+                                                    i.putExtra("mail",sEmail);
                                                     query.removeEventListener(this);
                                                     startActivity(i);
                                                 }

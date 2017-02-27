@@ -70,6 +70,8 @@ public class admin_home extends AppCompatActivity {
 
     private Calendar calendar;
 
+    private String email;
+
     private ArrayList<String> bloodlist;
 
     @Override
@@ -79,6 +81,7 @@ public class admin_home extends AppCompatActivity {
         setContentView(R.layout.admin_home);
 
         turf = getIntent().getStringExtra("turf");
+        email = getIntent().getStringExtra("mail");
 
         tools = new ToolBox();
 
@@ -170,7 +173,7 @@ public class admin_home extends AppCompatActivity {
                 if(map.get("count") < 5) {
                     //Toast.makeText(admin_home.this, bloodtype + " is out of stock.", Toast.LENGTH_SHORT).show();
                     //DRI IBUTANG ANG PUSH NOTIF NGA FUNCTION CALL.
-                    sendMultiplePush();
+                    sendFilteredPush();
                 }
 
             }
@@ -224,22 +227,22 @@ public class admin_home extends AppCompatActivity {
     }
 
 
-    private void sendMultiplePush() {
+    private void sendFilteredPush() {
         final String title = "RedFlow: Good Day!";
-        final String message = "Red Cross is in need of your Donation, Take time to Donate in any RedCross branches Thank you. ";
+        final String message =  "Red Cross is in need of blood type "+btype+"";
         final String image = null;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_MULTIPLE_PUSH,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_FILTERED_PUSH,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //Toast.makeText(Send_Push_Notification.this, response, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(zero_supply_request.this, response, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        sendMultiplePush();
+                        sendFilteredPush();
                     }
                 }) {
             @Override
@@ -247,6 +250,9 @@ public class admin_home extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("title", title);
                 params.put("message", message);
+                params.put("bloodType", btype);
+                params.put("email", email);
+                params.put("location", turf);
 
                 if (!TextUtils.isEmpty(image))
                     params.put("image", image);
@@ -256,7 +262,6 @@ public class admin_home extends AppCompatActivity {
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
-
 
     @Override
     public void onBackPressed() {
