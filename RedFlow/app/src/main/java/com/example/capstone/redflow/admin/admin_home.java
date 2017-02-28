@@ -61,7 +61,7 @@ public class admin_home extends AppCompatActivity {
 
     private int date;
     private int day;
-    private int i;
+    int i;
 
     private String btype;
 
@@ -73,6 +73,7 @@ public class admin_home extends AppCompatActivity {
     private String email;
 
     private ArrayList<String> bloodlist;
+    private int ctr = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,11 +147,11 @@ public class admin_home extends AppCompatActivity {
         bloodlist.add("O-");
         bloodlist.add("AB-");
 
-        if(day == 1) {
+        Toast.makeText(admin_home.this, String.valueOf(day), Toast.LENGTH_SHORT).show();
+        if(day == 3) {
             for(i = 0; i < bloodlist.size(); i++) {
-                //Toast.makeText(admin_home.this, ""+i, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(admin_home.this, btype, Toast.LENGTH_SHORT).show();
                 supplyChecker(bloodlist.get(i));
-
             }
 
         }
@@ -160,7 +161,6 @@ public class admin_home extends AppCompatActivity {
     public void supplyChecker(String blood) {
 
         final String bloodtype = blood;
-        btype = bloodtype;
 
         supplyquery = mRootRef.child("Supply").child(turf).child(bloodtype);
         supplylistener = new ValueEventListener() {
@@ -173,7 +173,46 @@ public class admin_home extends AppCompatActivity {
                 if(map.get("count") < 5) {
                     //Toast.makeText(admin_home.this, bloodtype + " is out of stock.", Toast.LENGTH_SHORT).show();
                     //DRI IBUTANG ANG PUSH NOTIF NGA FUNCTION CALL.
-                    sendFilteredPush();
+                    //sendFilteredPush();
+
+                    final String title = "RedFlow: Good Day!";
+                    final String message = "Red Cross is in need of blood type"+bloodtype+". We are hoping for your donation. Thank you.";
+                    final String image = null;
+                    final String loc = turf;
+                    final String type = bloodtype;
+                    //Toast.makeText(admin_home.this, String.valueOf(i), Toast.LENGTH_SHORT).show();
+
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_CHECK_PUSH,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    //Toast.makeText(admin_home.this, response, Toast.LENGTH_LONG).show();
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    sendFilteredPush();
+                                }
+                            }) {
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<>();
+                            params.put("title", title);
+                            params.put("message", message);
+                            params.put("bloodType", type);
+                            params.put("email", "admin@redcross.ph");
+                            params.put("loc", loc);
+
+                            if (!TextUtils.isEmpty(image))
+                                params.put("image", image);
+                            return params;
+                        }
+                    };
+
+                    MyVolley.getInstance(admin_home.this).addToRequestQueue(stringRequest);
+
+
                 }
 
             }
@@ -227,40 +266,9 @@ public class admin_home extends AppCompatActivity {
     }
 
 
+
     private void sendFilteredPush() {
-        final String title = "RedFlow: Good Day!";
-        final String message =  "Red Cross is in need of blood type "+btype+"";
-        final String image = null;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, EndPoints.URL_SEND_FILTERED_PUSH,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //Toast.makeText(zero_supply_request.this, response, Toast.LENGTH_LONG).show();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        sendFilteredPush();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("title", title);
-                params.put("message", message);
-                params.put("bloodType", btype);
-                params.put("email", email);
-                params.put("location", turf);
-
-                if (!TextUtils.isEmpty(image))
-                    params.put("image", image);
-                return params;
-            }
-        };
-
-        MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
     @Override
