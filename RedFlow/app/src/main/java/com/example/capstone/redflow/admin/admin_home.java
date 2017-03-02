@@ -176,7 +176,7 @@ public class admin_home extends AppCompatActivity {
                     //sendFilteredPush();
 
                     final String title = "RedFlow: Good Day!";
-                    final String message = "Red Cross is in need of blood type"+bloodtype+". We are hoping for your donation. Thank you.";
+                    final String message = "Red Cross is in need of blood type "+bloodtype+". We are hoping for your donation. Thank you.";
                     final String image = null;
                     final String loc = turf;
                     final String type = bloodtype;
