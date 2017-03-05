@@ -231,7 +231,7 @@ public class request extends AppCompatActivity {
                                 historyRef.child("time").setValue(time);
                                 historyRef.child("datetime").setValue(datetime);
 
-                                demandQuery = mRootRef.child("Demand").child(bloodtype);
+                                demandQuery = mRootRef.child("Demand").child(location).child(bloodtype);
                                 demandQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {

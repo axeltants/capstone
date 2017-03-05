@@ -230,7 +230,7 @@ public class blood_demand_statistics extends DemoBase implements OnChartValueSel
                     Labm.setVisibility(View.GONE);
                 }
 
-                PieDataSet dataSet = new PieDataSet(entries, "Gender");
+                PieDataSet dataSet = new PieDataSet(entries, "Demand");
                 dataSet.setSliceSpace(3f);
                 dataSet.setSelectionShift(5f);
 

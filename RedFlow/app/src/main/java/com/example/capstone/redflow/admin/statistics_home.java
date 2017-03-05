@@ -36,10 +36,14 @@ import java.net.URL;
 
 public class statistics_home extends AppCompatActivity {
 
+    private String turf;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.statistics_home);
+
+        turf = getIntent().getStringExtra("turf");
     }
 
     @Override
@@ -192,6 +196,7 @@ public class statistics_home extends AppCompatActivity {
 
     public void supply_demmand(View view) {
         Intent intent = new Intent(this,  supply_demmand_menu.class);
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 

@@ -147,8 +147,8 @@ public class admin_home extends AppCompatActivity {
         bloodlist.add("O-");
         bloodlist.add("AB-");
 
-        Toast.makeText(admin_home.this, String.valueOf(day), Toast.LENGTH_SHORT).show();
-        if(day == 3) {
+        //Toast.makeText(admin_home.this, String.valueOf(day), Toast.LENGTH_SHORT).show();
+        if(day == 1) {
             for(i = 0; i < bloodlist.size(); i++) {
                 //Toast.makeText(admin_home.this, btype, Toast.LENGTH_SHORT).show();
                 supplyChecker(bloodlist.get(i));
@@ -244,6 +244,7 @@ public class admin_home extends AppCompatActivity {
 
     public void statistics(View view) {
         Intent intent = new Intent(this,  statistics_home.class);
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 

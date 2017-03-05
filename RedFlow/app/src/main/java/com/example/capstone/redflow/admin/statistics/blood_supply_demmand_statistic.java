@@ -13,9 +13,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.notimportant.DemoBase;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -30,6 +37,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class blood_supply_demmand_statistic extends DemoBase implements OnChartValueSelectedListener {
 
@@ -39,10 +47,31 @@ public class blood_supply_demmand_statistic extends DemoBase implements OnChartV
 
     private Typeface tf;
 
+    private String bloodtype;
+    private String turf;
+
+    private Firebase mRootRef;
+    private Query supplyquery;
+    private Query demandquery;
+    private ValueEventListener supplylistener;
+    private ValueEventListener demandlistener;
+
+    private int supply;
+    private int demand;
+
+    ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.blood_supply_demmand_statistic);
+
+        bloodtype = getIntent().getStringExtra("bloodtype");
+        turf = getIntent().getStringExtra("turf");
+
+        //Toast.makeText(this, bloodtype, Toast.LENGTH_SHORT).show();
+
+        mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
 
         mChart = (PieChart) findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
@@ -163,26 +192,39 @@ public class blood_supply_demmand_statistic extends DemoBase implements OnChartV
 
         float mult = range;
 
-        ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-        /*for (int i = 0; i < count; i++) {
-            entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, mParties[i % mParties.length]));
-        }*/
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Supply"));
-        entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, "Demand"));
+        supplyquery = mRootRef.child("Supply").child(turf).child(bloodtype).child("count");
 
-        PieDataSet dataSet = new PieDataSet(entries, "Blood Supply Demand and statistics");
-        dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(5f);
+        supplyquery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                supply = dataSnapshot.getValue(Integer.class);
+                //Toast.makeText(blood_supply_demmand_statistic.this, bloodtype + " = " + supply, Toast.LENGTH_SHORT).show();
+                if(supply > 0) {
+                    entries.add(new PieEntry(supply, "Supply"));
+                }
 
-        // add a lot of colors
+                demandquery = mRootRef.child("Demand").child(bloodtype);
 
-        ArrayList<Integer> colors = new ArrayList<Integer>();
+                demandquery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        demand = dataSnapshot.getValue(Integer.class);
 
-        for (int c : ColorTemplate.MATERIAL_COLORS)
-            colors.add(c);
+                        if(demand > 0) {
+                            entries.add(new PieEntry(demand, "Demand"));
+                        }
+
+                        PieDataSet dataSet = new PieDataSet(entries, "Blood Supply Demand and statistics");
+                        dataSet.setSliceSpace(3f);
+                        dataSet.setSelectionShift(5f);
+
+                        // add a lot of colors
+
+                        ArrayList<Integer> colors = new ArrayList<Integer>();
+
+                        for (int c : ColorTemplate.MATERIAL_COLORS)
+                            colors.add(c);
 
         /*
         for (int c : ColorTemplate.VORDIPLOM_COLORS)
@@ -200,29 +242,49 @@ public class blood_supply_demmand_statistic extends DemoBase implements OnChartV
         for (int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);*/
 
-        colors.add(ColorTemplate.getHoloBlue());
+                        colors.add(ColorTemplate.getHoloBlue());
 
-        dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
+                        dataSet.setColors(colors);
+                        //dataSet.setSelectionShift(0f);
 
 
-        dataSet.setValueLinePart1OffsetPercentage(80.f);
-        dataSet.setValueLinePart1Length(0.2f);
-        dataSet.setValueLinePart2Length(0.4f);
-        //dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                        dataSet.setValueLinePart1OffsetPercentage(80.f);
+                        dataSet.setValueLinePart1Length(0.2f);
+                        dataSet.setValueLinePart2Length(0.4f);
+                        //dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+                        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
 
-        PieData data = new PieData(dataSet);
-        data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.BLACK);
-        data.setValueTypeface(tf);
-        mChart.setData(data);
+                        PieData data = new PieData(dataSet);
+                        data.setValueFormatter(new PercentFormatter());
+                        data.setValueTextSize(11f);
+                        data.setValueTextColor(Color.BLACK);
+                        data.setValueTypeface(tf);
+                        mChart.setData(data);
 
-        // undo all highlights
-        mChart.highlightValues(null);
+                        // undo all highlights
+                        mChart.highlightValues(null);
 
-        mChart.invalidate();
+                        mChart.invalidate();
+
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+
+
+
     }
 
     private SpannableString generateCenterSpannableText() {
