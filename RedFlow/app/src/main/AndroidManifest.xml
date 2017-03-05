@@ -112,7 +112,9 @@
         <activity android:name=".notification_viewer.Blood_Type_Compat" />
         <activity android:name=".admin.statistics.blood_demand_statistics" />
         <activity android:name=".admin.statistics.user_statistics" />
-        <activity android:name=".user_activities.EditProfile"></activity>
+        <activity android:name=".user_activities.EditProfile" />
+        <activity android:name=".admin.supply_demmand_menu" />
+        <activity android:name=".admin.statistics.blood_supply_demmand_statistic"></activity>
     </application>
 
 </manifest>
