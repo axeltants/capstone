@@ -1,108 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/statistics_home"
+    android:id="@+id/activity_supply_demmand_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".admin.statistics_home"
+    tools:context=".admin.supply_demmand_menu"
     android:background="@drawable/bg">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/f1"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="180dp"
-                    android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/age"
-                    android:onClick="age_stat"/>
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="180dp"
-                    android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/bloodtypee"
-                    android:onClick="bloodtype_stat"/>
-
-            </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/f2"
-                android:layout_below="@+id/f1"
-                android:orientation="horizontal">
-
+                android:orientation="horizontal"
+                android:weightSum="2">
                 <ImageButton
                     android:layout_width="0dp"
-                    android:layout_height="180dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/dmmand"
-                    android:onClick="demmand"/>
+                    android:src="@drawable/oplus"
+                    android:onClick="oplus"/>
                 <ImageButton
                     android:layout_width="0dp"
-                    android:layout_height="180dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/province"
-                    android:onClick="province_stat"/>
-
+                    android:src="@drawable/ominus"
+                    android:onClick="ominus"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/f3"
-                android:layout_below="@+id/f2"
-                android:orientation="horizontal">
-
+                android:orientation="horizontal"
+                android:weightSum="2">
                 <ImageButton
                     android:layout_width="0dp"
-                    android:layout_height="180dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/gender"
-                    android:onClick="gender_stat"/>
+                    android:src="@drawable/aplus"
+                    android:onClick="aplus"/>
                 <ImageButton
                     android:layout_width="0dp"
-                    android:layout_height="180dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ustatus"
-                    android:onClick="user_stat"/>
-
+                    android:src="@drawable/aminus"
+                    android:onClick="aminus"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/f4"
-                android:layout_below="@+id/f3"
-                android:orientation="horizontal">
-
+                android:orientation="horizontal"
+                android:weightSum="2">
                 <ImageButton
                     android:layout_width="0dp"
-                    android:layout_height="180dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/supply_demmand"
-                    android:onClick="supply_demmand"/>
-
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bplus"
+                    android:onClick="bplus"/>
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/bminus"
+                    android:onClick="bminus"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/abplus"
+                    android:onClick="abplus"/>
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/abminus"
+                    android:onClick="abminus"/>
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>

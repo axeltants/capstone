@@ -190,5 +190,10 @@ public class statistics_home extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void supply_demmand(View view) {
+        Intent intent = new Intent(this,  supply_demmand_menu.class);
+        startActivity(intent);
+    }
+
 /////////////////////////////////////////////////////
 }
