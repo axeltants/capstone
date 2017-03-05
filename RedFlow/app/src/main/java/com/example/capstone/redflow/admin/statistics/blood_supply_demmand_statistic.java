@@ -59,6 +59,9 @@ public class blood_supply_demmand_statistic extends DemoBase implements OnChartV
     private int supply;
     private int demand;
 
+    private TextView Vsupply;
+    private TextView Vdemand;
+
     ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
     @Override
@@ -120,6 +123,9 @@ public class blood_supply_demmand_statistic extends DemoBase implements OnChartV
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
         l.setEnabled(false);
+
+        Vsupply = (TextView) findViewById(R.id.supply);
+        Vdemand = (TextView) findViewById(R.id.demand);
     }
 
     @Override
@@ -214,6 +220,10 @@ public class blood_supply_demmand_statistic extends DemoBase implements OnChartV
                         if(demand > 0) {
                             entries.add(new PieEntry(demand, "Demand"));
                         }
+
+                        Vdemand.setText(String.valueOf(demand));
+                        Vsupply.setText(String.valueOf(supply));
+
 
                         PieDataSet dataSet = new PieDataSet(entries, "Blood Supply Demand and statistics");
                         dataSet.setSliceSpace(3f);

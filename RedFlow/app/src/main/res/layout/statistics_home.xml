@@ -97,8 +97,18 @@
                     android:layout_width="0dp"
                     android:layout_height="180dp"
                     android:layout_weight="1"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/supply_demmand"
                     android:onClick="supply_demmand"/>
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ustatus"
+                    android:onClick="user_stat"
+                    android:visibility="invisible"/>
+
 
             </LinearLayout>
 

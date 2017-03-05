@@ -53,7 +53,7 @@
                     android:text="count"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:id="@+id/male"
+                    android:id="@+id/supply"
                     android:textColor="@color/colorAccent2"/>
 
             </LinearLayout>
@@ -77,7 +77,7 @@
                     android:text="count"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:id="@+id/female"
+                    android:id="@+id/demand"
                     android:textColor="@color/colorAccent2"/>
 
             </LinearLayout>
