@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.ToolBox;
 import com.example.capstone.redflow.notimportant.DemoBase;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -35,6 +36,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Map;
 
 public class blood_demand_statistics extends DemoBase implements OnChartValueSelectedListener {
@@ -55,6 +57,10 @@ public class blood_demand_statistics extends DemoBase implements OnChartValueSel
     private int nB;
     private int nO;
     private int nAB;
+    private int month;
+    private int year;
+
+    private String turf;
 
     private TextView ap;
     private TextView am;
@@ -64,6 +70,7 @@ public class blood_demand_statistics extends DemoBase implements OnChartValueSel
     private TextView bm;
     private TextView abp;
     private TextView abm;
+    private TextView datetext;
 
     private LinearLayout Lap;
     private LinearLayout Lam;
@@ -73,6 +80,10 @@ public class blood_demand_statistics extends DemoBase implements OnChartValueSel
     private LinearLayout Lbm;
     private LinearLayout Labp;
     private LinearLayout Labm;
+
+    private Calendar calendar;
+
+    private ToolBox tools;
 
     ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
@@ -84,6 +95,17 @@ public class blood_demand_statistics extends DemoBase implements OnChartValueSel
         setContentView(R.layout.blood_demmand_statistics);
 
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+
+        tools = new ToolBox();
+
+        turf = getIntent().getStringExtra("turf");
+
+        calendar = Calendar.getInstance();
+        month = calendar.get(Calendar.MONTH) + 1;
+        year = calendar.get(Calendar.YEAR);
+
+        datetext = (TextView) findViewById(R.id.date);
+        datetext.setText(tools.int2Month(month) + ", " + year);
 
         mChart = (PieChart) findViewById(R.id.chart1);
         mChart.setUsePercentValues(true);
@@ -174,7 +196,7 @@ public class blood_demand_statistics extends DemoBase implements OnChartValueSel
         nO = 0;
         nAB = 0;
 
-        query = mRootRef.child("Demand");
+        query = mRootRef.child("Request").child(turf).child(String.valueOf(month));
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

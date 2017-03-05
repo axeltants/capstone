@@ -28,6 +28,14 @@
                 android:textSize="32sp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:layout_marginTop="80dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Month"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:id="@+id/date"
+                android:layout_marginTop="20dp"/>
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/chart1"
                 android:layout_width="match_parent"

@@ -78,6 +78,7 @@ public class request extends AppCompatActivity {
     private Query quser;
     private Query userquery;
     private Query demandQuery;
+    private Query requestQuery;
 
     private ProgressDialog progressDialog;
 
@@ -108,6 +109,7 @@ public class request extends AppCompatActivity {
     private List<String> devices;
 
     private int date;
+    private int month;
 
     private double time;
     private double datetime;
@@ -201,6 +203,9 @@ public class request extends AppCompatActivity {
                         }
                     });
 
+                    final Calendar c = Calendar.getInstance();
+
+                    month = c.get(Calendar.MONTH) + 1;
 
                     bloodtype = vBloodtype.getSelectedItem().toString();
                     location = vLocation.getSelectedItem().toString();
@@ -231,7 +236,7 @@ public class request extends AppCompatActivity {
                                 historyRef.child("time").setValue(time);
                                 historyRef.child("datetime").setValue(datetime);
 
-                                demandQuery = mRootRef.child("Demand").child(location).child(bloodtype);
+                                demandQuery = mRootRef.child("Demand").child(bloodtype);
                                 demandQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -245,6 +250,21 @@ public class request extends AppCompatActivity {
 
                                     }
                                 });
+
+                                requestQuery = mRootRef.child("Request").child(location).child(String.valueOf(month)).child(bloodtype);
+                                requestQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                        mRootRef.child("Request").child(location).child(String.valueOf(month)).child(bloodtype).setValue(dataSnapshot.getValue(Long.class) + bagqty);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(FirebaseError firebaseError) {
+
+                                    }
+                                });
+
 
 
                                 messageDB = "Someone is in need of " + bagqty + " bag(s) of blood type " + bloodtype + ".\nHelp us save this person's life.";

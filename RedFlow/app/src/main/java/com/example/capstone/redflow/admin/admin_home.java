@@ -86,7 +86,27 @@ public class admin_home extends AppCompatActivity {
 
         tools = new ToolBox();
 
+        calendar = Calendar.getInstance();
+
         mRootRef = new Firebase("https://redflow-22917.firebaseio.com/");
+
+        //Toast.makeText(this, "" + tools.getCurrentDate() % 1000, Toast.LENGTH_SHORT).show();
+
+        if((tools.getCurrentDate() % 1000) == 101) {
+            for(int z=1; z <= 12; z++) {
+                mRootRef.child("Request").child(turf).child(String.valueOf(z)).child("A+").setValue(0);
+                mRootRef.child("Request").child(turf).child(String.valueOf(z)).child("B+").setValue(0);
+                mRootRef.child("Request").child(turf).child(String.valueOf(z)).child("O+").setValue(0);
+                mRootRef.child("Request").child(turf).child(String.valueOf(z)).child("AB+").setValue(0);
+                mRootRef.child("Request").child(turf).child(String.valueOf(z)).child("A-").setValue(0);
+                mRootRef.child("Request").child(turf).child(String.valueOf(z)).child("B-").setValue(0);
+                mRootRef.child("Request").child(turf).child(String.valueOf(z)).child("O-").setValue(0);
+                mRootRef.child("Request").child(turf).child(String.valueOf(z)).child("AB-").setValue(0);
+            }
+            mRootRef.child("Request").child("year").setValue(calendar.get(Calendar.YEAR));
+        }
+
+
         offsmsRef = mRootRef.child("OffSMS");
 
         date = tools.getCurrentDate();
@@ -131,7 +151,6 @@ public class admin_home extends AppCompatActivity {
 
         query.addChildEventListener(listener);
 
-        calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_WEEK);
 
         //Toast.makeText(this, "Day is " + day, Toast.LENGTH_SHORT).show();

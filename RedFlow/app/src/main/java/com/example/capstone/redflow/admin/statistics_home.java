@@ -74,6 +74,7 @@ public class statistics_home extends AppCompatActivity {
 
     public void demmand(View view) {
         Intent intent = new Intent(this, blood_demand_statistics.class);
+        intent.putExtra("turf", turf);
         startActivity(intent);
     }
 
