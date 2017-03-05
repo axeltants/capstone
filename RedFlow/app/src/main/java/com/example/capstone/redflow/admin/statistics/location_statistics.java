@@ -652,7 +652,7 @@ public class location_statistics extends DemoBase implements
                     default: CEBU++;
                 }
 
-                agusan.setText(String.valueOf(AGUSAN));
+                agusan.setText(String.valueOf(AGUSAN)+" user(s)");
                 aklan.setText(String.valueOf(AKLAN));
                 antique.setText(String.valueOf(ANTIQUE));
                 agusan.setText(String.valueOf(AGUSAN));
@@ -669,7 +669,7 @@ public class location_statistics extends DemoBase implements
                 catanduanes.setText(String.valueOf(CATANDUANES));
                 cavite.setText(String.valueOf(CAVITE));
                 cotabato.setText(String.valueOf(COTABATO));
-                cebu.setText(String.valueOf(CEBU));
+                cebu.setText(String.valueOf(CEBU)+" user(s)");
                 davao.setText(String.valueOf(DAVAO));
                 generalsantos.setText(String.valueOf(GENERAL_SANTOS));
                 gingoog.setText(String.valueOf(GINGOOG));

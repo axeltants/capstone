@@ -145,8 +145,8 @@ public class user_statistics extends DemoBase implements OnChartValueSelectedLis
                     default:    unknown++;
                 }
 
-                Vverified.setText(String.valueOf(verified));
-                Vunverified.setText(String.valueOf(unverified));
+                Vverified.setText(String.valueOf(verified)+" user(s)");
+                Vunverified.setText(String.valueOf(unverified)+" user(s)");
             }
 
             @Override

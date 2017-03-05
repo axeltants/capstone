@@ -221,8 +221,8 @@ public class blood_supply_demmand_statistic extends DemoBase implements OnChartV
                             entries.add(new PieEntry(demand, "Demand"));
                         }
 
-                        Vdemand.setText(String.valueOf(demand));
-                        Vsupply.setText(String.valueOf(supply));
+                        Vdemand.setText(String.valueOf(demand)+" bag(s)");
+                        Vsupply.setText(String.valueOf(supply)+" bag(s)");
 
 
                         PieDataSet dataSet = new PieDataSet(entries, "Blood Supply Demand and statistics");

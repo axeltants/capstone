@@ -297,14 +297,14 @@ public class Age_statistics extends DemoBase implements
                     default:    root++;
                 }
 
-                Vgenin.setText(String.valueOf(genin));
-                Vchuunin.setText(String.valueOf(chuunin));
-                Vjounin.setText(String.valueOf(jounin));
-                Vanbu.setText(String.valueOf(anbu));
-                Vchubu.setText(String.valueOf(chubu));
-                Vkage.setText(String.valueOf(kage));
-                Vsclass.setText(String.valueOf(sclass));
-                Vroot.setText(String.valueOf(root));
+                Vgenin.setText(String.valueOf(genin)+" user(s)");
+                Vchuunin.setText(String.valueOf(chuunin)+" user(s)");
+                Vjounin.setText(String.valueOf(jounin)+" user(s)");
+                Vanbu.setText(String.valueOf(anbu)+" user(s)");
+                Vchubu.setText(String.valueOf(chubu)+" user(s)");
+                Vkage.setText(String.valueOf(kage)+" user(s)");
+                Vsclass.setText(String.valueOf(sclass)+" user(s)");
+                Vroot.setText(String.valueOf(root)+" user(s)");
             }
 
             @Override

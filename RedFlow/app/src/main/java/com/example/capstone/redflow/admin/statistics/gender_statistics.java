@@ -210,8 +210,8 @@ public class gender_statistics extends DemoBase implements
                     female++;
                 }
 
-                Vmale.setText(String.valueOf(male));
-                Vfemale.setText(String.valueOf(female));
+                Vmale.setText(String.valueOf(male)+" user(s)");
+                Vfemale.setText(String.valueOf(female)+" user(s)");
             }
 
             @Override

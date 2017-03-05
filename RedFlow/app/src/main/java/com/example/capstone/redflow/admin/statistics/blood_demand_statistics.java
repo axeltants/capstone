@@ -286,14 +286,14 @@ public class blood_demand_statistics extends DemoBase implements OnChartValueSel
 
                 mChart.invalidate();
 
-                op.setText(String.valueOf(O));
-                om.setText(String.valueOf(nO));
-                ap.setText(String.valueOf(A));
-                am.setText(String.valueOf(nA));
-                bp.setText(String.valueOf(B));
-                bm.setText(String.valueOf(nB));
-                abp.setText(String.valueOf(AB));
-                abm.setText(String.valueOf(nAB));
+                op.setText(String.valueOf(O)+" bag(s)");
+                om.setText(String.valueOf(nO)+" bag(s)");
+                ap.setText(String.valueOf(A)+" bag(s)");
+                am.setText(String.valueOf(nA)+" bag(s)");
+                bp.setText(String.valueOf(B)+" bag(s)");
+                bm.setText(String.valueOf(nB)+" bag(s)");
+                abp.setText(String.valueOf(AB)+" bag(s)");
+                abm.setText(String.valueOf(nAB)+" bag(s)");
             }
 
             @Override
