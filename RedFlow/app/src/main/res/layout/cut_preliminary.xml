@@ -43,7 +43,7 @@
                     android:id="@+id/textResult"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="If you are infected by Hepatitis, Malaria virus or HIV you are unhealthy to donate a blood to others. but if you wish to verify the result you can still proceed to Red Cross and take the actual preliminary test."
+                    android:text="If you are infected by Hepatitis, Malaria virus, HIV or any chronic disease that could also harm others via blood you are unhealthy to donate a blood to others. but if you wish to verify the result you can still proceed to Red Cross and take the actual preliminary test."
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:layout_marginTop="35dp"
                     android:layout_marginLeft="15dp"
