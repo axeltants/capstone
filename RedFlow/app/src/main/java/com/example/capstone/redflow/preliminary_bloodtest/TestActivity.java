@@ -13,6 +13,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.capstone.redflow.R;
+import com.example.capstone.redflow.admin.admin_home;
+import com.example.capstone.redflow.common_activities.about;
+import com.example.capstone.redflow.user_activities.cut_preliminary;
 
 import java.util.List;
 
@@ -50,6 +53,10 @@ public class TestActivity extends AppCompatActivity {
                 if(TestActivity.this.currentQ.getANSWER().equals(answer.getText())) {
                     ++TestActivity.this.score;
                     Log.d("score", "Your score" + TestActivity.this.score);
+                }else if((qid == 14 || qid == 15 || qid == 16 || qid == 17) && !TestActivity.this.currentQ.getANSWER().equals(answer.getText())){
+                    Intent intent = new Intent(TestActivity.this, cut_preliminary.class);
+                    startActivity(intent);
+                    finish();
                 }
 
                 if(TestActivity.this.qid < 20) {

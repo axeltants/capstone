@@ -54,7 +54,7 @@ public class DbHelper extends SQLiteOpenHelper {
         this.addQuestion(q7);
         QuestionGetSet q8 = new QuestionGetSet("Have you ever had blood transfusion last 3-4months?",  "Yes", "No","(8 / 20)","No");
         this.addQuestion(q8);
-        QuestionGetSet q9 = new QuestionGetSet("Have you ever had a surgery or removal of tooth?",  "Yes", "No","(9 / 20)","No");
+        QuestionGetSet q9 = new QuestionGetSet("Have you ever had a surgery or removal of tooth last 2 to 3 weeks??",  "Yes", "No","(9 / 20)","No");
         this.addQuestion(q9);
         QuestionGetSet q10 = new QuestionGetSet("Do you have Tatoo, piercing, or tried accupuncture?",  "Yes", "No","(10 / 20)","No");
         this.addQuestion(q10);
@@ -70,7 +70,7 @@ public class DbHelper extends SQLiteOpenHelper {
         this.addQuestion(q15);
         QuestionGetSet q16 = new QuestionGetSet("Have you ever been infected by malaria virus?",  "Yes", "No","(16 / 20)","No");
         this.addQuestion(q16);
-        QuestionGetSet q17 = new QuestionGetSet("Do you want to donate blood to test if you are Hepatitis or HIV positive?",  "Yes", "No","(17 / 20)","No");
+        QuestionGetSet q17 = new QuestionGetSet("Have you ever been infected by HIV?",  "Yes", "No","(17 / 20)","No");
         this.addQuestion(q17);
         QuestionGetSet q18 = new QuestionGetSet("Have you ever tried having unplanned or sex without your consent?",  "Yes", "No","(18 / 20)","No");
         this.addQuestion(q18);

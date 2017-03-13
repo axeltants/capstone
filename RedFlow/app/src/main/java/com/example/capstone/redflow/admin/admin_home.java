@@ -167,7 +167,7 @@ public class admin_home extends AppCompatActivity {
         bloodlist.add("AB-");
 
         //Toast.makeText(admin_home.this, String.valueOf(day), Toast.LENGTH_SHORT).show();
-        if(day == 1) {
+        if(day == 2) {
             for(i = 0; i < bloodlist.size(); i++) {
                 //Toast.makeText(admin_home.this, btype, Toast.LENGTH_SHORT).show();
                 supplyChecker(bloodlist.get(i));

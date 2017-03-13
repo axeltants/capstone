@@ -114,7 +114,8 @@
         <activity android:name=".admin.statistics.user_statistics" />
         <activity android:name=".user_activities.EditProfile" />
         <activity android:name=".admin.supply_demmand_menu" />
-        <activity android:name=".admin.statistics.blood_supply_demmand_statistic"></activity>
+        <activity android:name=".admin.statistics.blood_supply_demmand_statistic" />
+        <activity android:name=".user_activities.cut_preliminary"></activity>
     </application>
 
 </manifest>
