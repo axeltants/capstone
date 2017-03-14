@@ -48,7 +48,7 @@ public class DbHelper extends SQLiteOpenHelper {
         this.addQuestion(q4);
         QuestionGetSet q5 = new QuestionGetSet("Are you feeling well and healthy today?",  "Yes", "No","(5 / 20)","Yes");
         this.addQuestion(q5);
-        QuestionGetSet q6 = new QuestionGetSet("In the pas3 3-4 months have you ever been injected by a vaccine?",  "Yes", "No","(6 / 20)","No");
+        QuestionGetSet q6 = new QuestionGetSet("In the past 3-4 months have you ever been injected by a vaccine?",  "Yes", "No","(6 / 20)","No");
         this.addQuestion(q6);
         QuestionGetSet q7 = new QuestionGetSet("Have you been taking an aspirin or other drugs that contains aspirin?",  "Yes", "No","(7 / 20)","No");
         this.addQuestion(q7);
@@ -56,9 +56,9 @@ public class DbHelper extends SQLiteOpenHelper {
         this.addQuestion(q8);
         QuestionGetSet q9 = new QuestionGetSet("Have you ever had a surgery or removal of tooth last 2 to 3 weeks??",  "Yes", "No","(9 / 20)","No");
         this.addQuestion(q9);
-        QuestionGetSet q10 = new QuestionGetSet("Do you have Tatoo, piercing, or tried accupuncture?",  "Yes", "No","(10 / 20)","No");
+        QuestionGetSet q10 = new QuestionGetSet("Do you have Tattoo, piercing, or tried accupuncture?",  "Yes", "No","(10 / 20)","No");
         this.addQuestion(q10);
-        QuestionGetSet q11 = new QuestionGetSet("Have you ever had sex for money",  "Yes", "No","(11 / 20)","No");
+        QuestionGetSet q11 = new QuestionGetSet("Do you have colds today?",  "Yes", "No","(11 / 20)","No");
         this.addQuestion(q11);
         QuestionGetSet q12 = new QuestionGetSet("Do you have someone close to you that is infected by a chronic hepatitis?",  "Yes", "No","(12 / 20)","No");
         this.addQuestion(q12);
@@ -72,9 +72,9 @@ public class DbHelper extends SQLiteOpenHelper {
         this.addQuestion(q16);
         QuestionGetSet q17 = new QuestionGetSet("Have you ever been infected by HIV?",  "Yes", "No","(17 / 20)","No");
         this.addQuestion(q17);
-        QuestionGetSet q18 = new QuestionGetSet("Have you ever tried having unplanned or sex without your consent?",  "Yes", "No","(18 / 20)","No");
+        QuestionGetSet q18 = new QuestionGetSet("Do you have cough today?",  "Yes", "No","(18 / 20)","No");
         this.addQuestion(q18);
-        QuestionGetSet q19 = new QuestionGetSet("Have you ever tried donating blood?",  "Yes", "No","(19 / 20)","Yes");
+        QuestionGetSet q19 = new QuestionGetSet("Have you tried being imprisoned?",  "Yes", "No","(19 / 20)","No");
         this.addQuestion(q19);
         QuestionGetSet q20 = new QuestionGetSet("If Red Cross needs a donor for blood, do you want to donate?",  "Yes", "No","(20 / 20)","Yes");
         this.addQuestion(q20);

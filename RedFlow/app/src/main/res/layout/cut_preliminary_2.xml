@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cut_preliminary"
+    android:id="@+id/cut_preliminary_2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user_activities.cut_preliminary"
-    android:background="@drawable/bg">
+    android:background="@drawable/bg"
+    tools:context=".user_activities.cut_preliminary_2">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     android:id="@+id/textResult"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="If you are infected by Hepatitis, Malaria virus, HIV or any chronic disease that could also harm others via blood you are unhealthy to donate a blood to others. but if you wish to verify the result you can still proceed to Red Cross and take the actual preliminary test."
+                    android:text="You can only donate if you are not infected with cough and colds. And also if you have tooth surgery of removal just before 2-3 weeks you are not allowd to donate blood"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:layout_marginTop="35dp"
                     android:layout_marginLeft="15dp"

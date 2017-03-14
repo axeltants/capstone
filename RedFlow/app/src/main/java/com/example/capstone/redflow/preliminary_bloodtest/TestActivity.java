@@ -16,6 +16,7 @@ import com.example.capstone.redflow.R;
 import com.example.capstone.redflow.admin.admin_home;
 import com.example.capstone.redflow.common_activities.about;
 import com.example.capstone.redflow.user_activities.cut_preliminary;
+import com.example.capstone.redflow.user_activities.cut_preliminary_2;
 
 import java.util.List;
 
@@ -55,6 +56,10 @@ public class TestActivity extends AppCompatActivity {
                     Log.d("score", "Your score" + TestActivity.this.score);
                 }else if((qid == 14 || qid == 15 || qid == 16 || qid == 17) && !TestActivity.this.currentQ.getANSWER().equals(answer.getText())){
                     Intent intent = new Intent(TestActivity.this, cut_preliminary.class);
+                    startActivity(intent);
+                    finish();
+                }else if((qid == 9 || qid == 18 || qid == 11) && !TestActivity.this.currentQ.getANSWER().equals(answer.getText())){
+                    Intent intent = new Intent(TestActivity.this, cut_preliminary_2.class);
                     startActivity(intent);
                     finish();
                 }
